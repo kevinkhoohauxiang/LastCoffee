@@ -1,3 +1,4 @@
+
 ---
 output:
   pdf_document: default
@@ -5,6 +6,7 @@ output:
 ---
 
 ![Last Coffee Logo](./LastCoffeeLogo.png)
+
 
 # Motivation:
 Our motivation behind this project stems from our comprehensive experience as students. Currently, there are no mobile applications or online platforms that completely integrate both the aspects of individual and communal learning. For instance, Luminus currently has assignment and quiz datelines available on its portal, however, to view their schedule, students have to access another website, NUSMods, to view their timetable. As students ourselves, we know the difficulty of sourcing for a student planner that can function as both a tracker and a scheduler. 
