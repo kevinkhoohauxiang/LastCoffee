@@ -1,9 +1,4 @@
 
----
-output:
-  pdf_document: default
-  html_document: default
----
 
 ![Last Coffee Logo](./LastCoffeeLogo.png)
 
