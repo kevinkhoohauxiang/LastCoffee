@@ -77,13 +77,7 @@ function ToDoList(props) {
 					</h5>
 					
 				</Section>
-				<Layout>
-					{<Left />
-					}
-					<Main />
-					{//<Right/>
-					}
-				</Layout>
+
 			</Content>
 		</Container>
 	);

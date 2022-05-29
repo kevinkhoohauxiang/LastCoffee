@@ -78,11 +78,9 @@ function FindStudyBuddy(props) {
 				
 				</Section>
 				<Layout>
-					{<Left />
-					}
+					
 					<Main />
-					{//<Right/>
-					}
+					
 				</Layout>
 			</Content>
 		</Container>

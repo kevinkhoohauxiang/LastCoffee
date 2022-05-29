@@ -79,9 +79,7 @@ function MyProfile(props) {
 				<Layout>
 					{<Left />
 					}
-					<Main />
-					{//<Right/>
-					}
+					
 				</Layout>
 			</Content>
 		</Container>
