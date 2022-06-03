@@ -79,9 +79,8 @@ function MyHistory(props) {
 				</Section>
 				<Layout>
 					
-					<Main />
-					{//<Right/>
-					}
+					
+					
 				</Layout>
 			</Content>
 		</Container>

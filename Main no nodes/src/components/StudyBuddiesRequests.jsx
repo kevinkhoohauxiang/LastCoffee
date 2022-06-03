@@ -4,15 +4,12 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Left from "./Left";
 import Main from "./Main";
+
 import Header from "./Header";
 
 const Container = styled.div`
 	max-width: 100%;
 `;
-
-const MainProfile = styled.div`
-`;
-
 
 const Content = styled.div`
 	max-width: 1128px;
@@ -66,7 +63,7 @@ const Layout = styled.div`
 `;
 
 //home page upon signing in
-function MyProfile(props) {
+function StudyBuddiesRequests(props) {
 	return (
 
 		<Container>
@@ -76,16 +73,13 @@ function MyProfile(props) {
 			<Content>
 				<Section>
 					<h5>
-						<a>THIS IS MY PROFILE</a>
+						<a>THIS IS STUDY BUDDIES REQUESTS</a>
 					</h5>
 					
 				</Section>
-				<Layout>
-					
-					<Left />
-					
-					
-				</Layout>
+				{
+					// Need to have the notifications pop up here, copy facebook friend requests
+				}
 			</Content>
 		</Container>
 	);
@@ -97,4 +91,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(MyProfile);
+export default connect(mapStateToProps)(StudyBuddiesRequests);

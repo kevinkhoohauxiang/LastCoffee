@@ -6,6 +6,10 @@ const Container = styled.div`
 	grid-area: left;
 `;
 
+const MainName = styled.div`
+	
+`;
+
 const ArtCard = styled.div`
 	text-align: center;
 	overflow: hidden;
@@ -138,7 +142,9 @@ const CommunityCard = styled(ArtCard)`
 `;
 
 function Left(props) {
+	// use the photo from google sign in, if not use the default photo
 	let photoUrl = props.user.photoURL ? props.user.photoURL : "/images/photo.svg";
+	
 	return (
 		<Container>
 			<ArtCard>
@@ -146,45 +152,14 @@ function Left(props) {
 					<CardBackground />
 					<a>
 						<Photo photoUrl={photoUrl} />
-						<Link>Welcome, {props.user ? props.user.displayName : "there"}!</Link>
+						<Link>Welcome to <br></br>The Last Coffee, <br></br> {props.user ? props.user.displayName : ""}!</Link>
 					</a>
 					<a>
 						<AddPhotoText>Add a photo</AddPhotoText>
 					</a>
 				</UserInfo>
-				<Widget>
-					<a>
-						<div>
-							<span>Connections</span>
-							<span>Grow Your Network</span>
-						</div>
-						<img src="/images/widget-icon.svg" alt="" />
-					</a>
-				</Widget>
-				<Item>
-					<span>
-						<img src="/images/item-icon.svg" alt="" />
-						My Items
-					</span>
-				</Item>
 			</ArtCard>
-			<CommunityCard>
-				<a>
-					<span>Groups</span>
-				</a>
-				<a>
-					<span>
-						Events
-						<img src="/images/plus-icon.svg" alt="" />
-					</span>
-				</a>
-				<a>
-					<span>Follow Hashtags</span>
-				</a>
-				<a>
-					<span>Discover More</span>
-				</a>
-			</CommunityCard>
+			
 		</Container>
 	);
 }
@@ -194,5 +169,14 @@ const mapStateToProps = (state) => {
 		user: state.userState.user,
 	};
 };
+
+// function to allow for the adding of photo into the database
+//const addaPhoto = 
+
+//function to allow for the adding of their new(updated) name into the database
+
+//function to allow for the adding of their 
+
+//function to allow for the viewing of information
 
 export default connect(mapStateToProps)(Left);

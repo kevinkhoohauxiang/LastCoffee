@@ -77,12 +77,20 @@ function StudyBuddies(props) {
 					</Link>
 				</button>
 				<button>
+					<Link to="/studybuddyrequests">
+						<a href="/studybuddyrequests">
+						<span>Requests</span>
+						</a>
+					</Link>
+				</button>
+				<button>
 					<Link to="/studybuddynotifications">
 						<a href="/studybuddynotifications">
 						<span>Notifications</span>
 						</a>
 					</Link>
 				</button>
+				
 			</HomePage>
 		</Container>
 	);
