@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Left from "./Left";
 import Main from "./Main";
 import Header from "./Header";
+import { storage } from "../firebase";
 
 const Container = styled.div`
 	max-width: 100%;
@@ -65,6 +66,102 @@ const Layout = styled.div`
 	}
 `;
 
+// for uploading new profile picture
+const ReactFirebaseImageUpload = () => {
+	const[image, setImage] = useState(null);
+	const [url, setUrl] = useState("");
+
+	const handleChange = e => {
+		if (e.target.files[0]) {
+			setImage(e.target.files[0]);
+		}
+	};
+
+	const handleUpload = () => {
+		const uploadTask = storage.ref(`images/${image.name}`).put(image);
+		uploadTask.on(
+			"state_changed",
+			snapshot => {},
+			error => {
+				console.log(error);
+			},
+			() => {
+				storage
+					.ref("images")
+					.child(image.name)
+					.getDownloadURL()
+					.then(url => {
+						setUrl(url)
+					});
+			}
+		);
+	};
+
+	console.log("image", image)
+
+	return (
+		<div>
+			<br/>
+			<input type="file" onChange = {handleChange} />
+			<button onClick={handleUpload}>Upload Picture</button>
+			<br />
+			
+		</div>
+
+	);
+}
+
+//for changing your name
+const ReactFirebaseNameUpload = () => {
+	const[image, setImage] = useState(null);
+
+	const handleChange = e => {
+		if (e.target.files[0]) {
+			setImage(e.target.files[0]);
+		}
+	};
+
+	const handleUpload = () => {
+
+	};
+
+	return (
+		<div>
+			<br/>
+			<input type="file" onChange = {handleChange} />
+			<button onClick={handleUpload}>Upload Picture</button>
+		</div>
+
+	);
+}
+
+//for changing contact info
+
+const ReactFirebaseContactUpload = () => {
+	const[image, setImage] = useState(null);
+
+	const handleChange = e => {
+		if (e.target.files[0]) {
+			setImage(e.target.files[0]);
+		}
+	};
+
+	const handleUpload = () => {
+
+	};
+
+	return (
+		<div>
+			<br/>
+			<input type="file" onChange = {handleChange} />
+			<button onClick={handleUpload}>Upload Picture</button>
+		</div>
+
+	);
+}
+
+
+
 //home page upon signing in
 function MyProfile(props) {
 	return (
@@ -80,12 +177,18 @@ function MyProfile(props) {
 					</h5>
 					
 				</Section>
+				
 				<Layout>
 					
 					<Left />
 					
 					
 				</Layout>
+				Add a new photo
+				<ReactFirebaseImageUpload />
+				Change name <br />
+
+				Change contact info
 			</Content>
 		</Container>
 	);
