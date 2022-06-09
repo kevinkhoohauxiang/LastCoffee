@@ -70,50 +70,7 @@ function getUID(props) {
 }
 
 // for uploading new profile picture
-const ReactFirebaseImageUpload = () => {
-	const[image, setImage] = useState(null);
-	const [url, setUrl] = useState("");
-	
 
-	const handleChange = e => {
-		if (e.target.files[0]) {
-			setImage(e.target.files[0]);
-		}
-	};
-
-	const handleUpload = () => {
-		const uploadTask = storage.ref(`images/${image.name}`).put(image);
-		uploadTask.on(
-			"state_changed",
-			snapshot => {},
-			error => {
-				console.log(error);
-			},
-			() => {
-				storage
-					.ref("images")
-					.child(image.name)
-					.getDownloadURL()
-					.then(url => {
-						setUrl(url)
-					});
-			}
-		);
-	};
-
-	console.log("image", image)
-
-	return (
-		<div>
-			<br/>
-			<input type="file" onChange = {handleChange} />
-			<button onClick={handleUpload}>Upload Picture</button>
-			<br />
-			
-		</div>
-
-	);
-}
 
 //for changing your name
 
@@ -124,6 +81,52 @@ const ReactFirebaseImageUpload = () => {
 
 //home page upon signing in
 function MyProfile(props) {
+	console.log(props.user.uid);
+	const userUID = props.user.uid;
+	const ReactFirebaseImageUpload = () => {
+		const[image, setImage] = useState(null);
+		const [url, setUrl] = useState("");
+		
+	
+		const handleChange = e => {
+			if (e.target.files[0]) {
+				setImage(e.target.files[0]);
+			}
+		};
+	
+		const handleUpload = () => {
+			const uploadTask = storage.ref(`${userUID}/images/${image.name}`).put(image);
+			uploadTask.on(
+				"state_changed",
+				snapshot => {},
+				error => {
+					console.log(error);
+				},
+				() => {
+					storage
+						.ref("images")
+						.child(image.name)
+						.getDownloadURL()
+						.then(url => {
+							setUrl(url)
+						});
+				}
+			);
+		};
+	
+		//console.log("image", image)
+	
+		return (
+			<div>
+				<br/>
+				<input type="file" onChange = {handleChange} />
+				<button onClick={handleUpload}>Upload Picture</button>
+				<br />
+				
+			</div>
+	
+		);
+	}
 	return (
 
 		<Container>
