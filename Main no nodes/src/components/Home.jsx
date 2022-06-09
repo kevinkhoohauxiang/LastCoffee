@@ -72,6 +72,11 @@ const Homepage = styled.div`
 
 //home page upon signing in
 function Home(props) {
+	console.log(props.user)
+	//console.log(props.user.photoURL)
+	console.log(props.user.uid)
+	//console.log(props.user.l)
+	
 	return (
 
 		<Container>
@@ -99,7 +104,9 @@ function Home(props) {
 		
 			</Content>
 		</Container>
+		
 	);
+	
 }
 
 const mapStateToProps = (state) => {

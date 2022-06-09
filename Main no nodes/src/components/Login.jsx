@@ -147,9 +147,13 @@ const Google = styled.button`
 `;
 
 function Login(props) {
+	console.log(props.user);
+	//console.log(props.bc.displayName)
 	return (
+		
 		<Container>
 			{props.user && <Redirect to="/home" />}
+			
 			<Nav>
 				<a href="/">
 					<img src="/images/lastcoffeelogo.svg" alt="" />

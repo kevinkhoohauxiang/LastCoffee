@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Left from "./Left";
-import Main from "./Main";
 import Header from "./Header";
 import { storage } from "../firebase";
 
@@ -66,10 +65,15 @@ const Layout = styled.div`
 	}
 `;
 
+function getUID(props) {
+	return props.user.uid;
+}
+
 // for uploading new profile picture
 const ReactFirebaseImageUpload = () => {
 	const[image, setImage] = useState(null);
 	const [url, setUrl] = useState("");
+	
 
 	const handleChange = e => {
 		if (e.target.files[0]) {
@@ -112,53 +116,9 @@ const ReactFirebaseImageUpload = () => {
 }
 
 //for changing your name
-const ReactFirebaseNameUpload = () => {
-	const[image, setImage] = useState(null);
 
-	const handleChange = e => {
-		if (e.target.files[0]) {
-			setImage(e.target.files[0]);
-		}
-	};
-
-	const handleUpload = () => {
-
-	};
-
-	return (
-		<div>
-			<br/>
-			<input type="file" onChange = {handleChange} />
-			<button onClick={handleUpload}>Upload Picture</button>
-		</div>
-
-	);
-}
 
 //for changing contact info
-
-const ReactFirebaseContactUpload = () => {
-	const[image, setImage] = useState(null);
-
-	const handleChange = e => {
-		if (e.target.files[0]) {
-			setImage(e.target.files[0]);
-		}
-	};
-
-	const handleUpload = () => {
-
-	};
-
-	return (
-		<div>
-			<br/>
-			<input type="file" onChange = {handleChange} />
-			<button onClick={handleUpload}>Upload Picture</button>
-		</div>
-
-	);
-}
 
 
 
@@ -181,7 +141,6 @@ function MyProfile(props) {
 				<Layout>
 					
 					<Left />
-					
 					
 				</Layout>
 				Add a new photo
