@@ -148,7 +148,7 @@ const Google = styled.button`
 
 function Login(props) {
 	console.log(props.user);
-	//console.log(props.bc.displayName)
+	
 	return (
 		
 		<Container>
