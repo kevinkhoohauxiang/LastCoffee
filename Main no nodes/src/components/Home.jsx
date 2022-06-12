@@ -76,7 +76,7 @@ const Homepage = styled.div`
 function Home(props) {
 	//console.log(props.user)
 	//console.log(props.user.photoURL)
-	const UID = props.user.uid;
+	//const UID = props.user.uid;
 	//console.log(props.user.uid)
 	
 	// When the user first successfully logs in, we check if there is already an entry in the Users collection.

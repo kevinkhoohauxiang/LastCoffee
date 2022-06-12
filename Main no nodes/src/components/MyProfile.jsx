@@ -79,7 +79,7 @@ const Layout = styled.div`
 //home page upon signing in
 function MyProfile(props) {
 	//console.log(props.user.uid);
-	const userUID = props.user.uid;
+	//const userUID = props.user.uid;
 
 
 	const ReactFirebaseImageUpload = () => {
@@ -93,7 +93,7 @@ function MyProfile(props) {
 		};
 	
 		const handleUpload = () => {
-			const uploadTask = storage.ref(`${userUID}/images/${image.name}`).put(image);
+			const uploadTask = storage.ref(`${props.user.uid}/images/${image.name}`).put(image);
 			uploadTask.on(
 				"state_changed",
 				snapshot => {},
