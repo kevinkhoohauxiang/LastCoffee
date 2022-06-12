@@ -65,9 +65,6 @@ const Layout = styled.div`
 	}
 `;
 
-function getUID(props) {
-	return props.user.uid;
-}
 
 // for uploading new profile picture
 
@@ -81,7 +78,7 @@ function getUID(props) {
 
 //home page upon signing in
 function MyProfile(props) {
-	console.log(props.user.uid);
+	//console.log(props.user.uid);
 	const userUID = props.user.uid;
 
 
