@@ -83,11 +83,12 @@ function getUID(props) {
 function MyProfile(props) {
 	console.log(props.user.uid);
 	const userUID = props.user.uid;
+
+
 	const ReactFirebaseImageUpload = () => {
 		const[image, setImage] = useState(null);
 		const [url, setUrl] = useState("");
 		
-	
 		const handleChange = e => {
 			if (e.target.files[0]) {
 				setImage(e.target.files[0]);

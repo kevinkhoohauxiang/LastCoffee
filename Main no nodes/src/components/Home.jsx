@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
+import db from "../firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 const Container = styled.div`
 	max-width: 100%;
@@ -72,20 +74,54 @@ const Homepage = styled.div`
 
 //home page upon signing in
 function Home(props) {
-	console.log(props.user)
+	//console.log(props.user)
 	//console.log(props.user.photoURL)
-	console.log(props.user.uid)
-	//console.log(props.user.l)
+	const UID = props.user.uid;
+	//console.log(props.user.uid)
+	
+	// When the user first successfully logs in, we check if there is already an entry in the Users collection.
+	// If there is an entry already, we do nothing. else, we follow the steps below
+
+	// In the DB, we first have a main collection of users.
+	// Upon logging in, we need to first create a document with the UID in the Users collection.
+	// we then add the 5 subcollections, DPDB, TDLDB, CLDDB, SBDB, HSDB into the document with the UID
+	
+	const CreateAllDB = () => {
+	
+		// doesnt work for now
+		const createDB = () => {
+			console.log("create db works")
+			
+		};
+
+
+		return (
+			<div>
+				<br/>
+				<button onClick={createDB}>Create new DBs test</button>
+				<br />
+				
+			</div>
+	
+		);
+	}
+	
+	
 	
 	return (
-
+	
 		<Container>
 			
 			<Header />
 			{!props.user && <Redirect to="/" />}
 			<Content>
+			
+			{// button used for testing if the backend works, uncomment to use it
+			//<CreateAllDB />
+			}
 				
 				<Homepage>
+					
 					<h1>
 						The Ultimate <br></br>All-in-One <br></br>Student Website <br></br>
 					</h1>
@@ -103,7 +139,9 @@ function Home(props) {
 				</Homepage>
 		
 			</Content>
+			
 		</Container>
+
 		
 	);
 	

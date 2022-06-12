@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Left from "./Left";
 import Main from "./Main";
 
 import Header from "./Header";
