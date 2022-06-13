@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Main from "./Main";
-
 import Header from "./Header";
+
 
 const Container = styled.div`
 	max-width: 100%;
@@ -60,6 +60,31 @@ const Layout = styled.div`
 		padding: 0 5px;
 	}
 `;
+
+class StudyBuddiesThing {
+
+	constructor(modules, description, gender, info, location, num_buddies, study_timing, title) {
+		this.modules = modules; // array of strings
+		this.gender = gender; // string -- male, female, no preference
+		this.info = info ; // String
+		this.location = location; // string
+		this.title = title; // string
+		this.description = description; // string
+		this.numBuddies = num_buddies; // number
+		this.studyTiming = study_timing; // string
+	}
+
+	toString() {
+        return this.title + ', ' 
+			+ this.description + ', '
+			+ this.modules + ', ' 
+			+ this.gender + ', ' 
+			+ this.info + ', ' 
+			+ this.location + ', ' 
+			+ this.numBuddies + ', ' 
+			+ this.studyTiming;
+    }
+}
 
 //home page upon signing in
 function FindStudyBuddy(props) {

@@ -60,6 +60,20 @@ const Layout = styled.div`
 	}
 `;
 
+class CalendarThings {
+
+	constructor(description, end_date, start_date, title) {
+		this.startDate = start_date; // date
+		this.endDate = end_date ; // date
+		this.description = description; // string
+		this.title = title; // string
+	}
+
+	toString() {
+        return this.startDate + ', ' + this.endDate + ', ' + this.description + ', ' + this.title;
+    }
+}
+
 //home page upon signing in
 function MyCalendar(props) {
 	return (

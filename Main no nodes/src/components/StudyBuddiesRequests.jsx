@@ -62,6 +62,18 @@ const Layout = styled.div`
 	}
 `;
 
+class CalendarThings {
+
+	constructor(accepted, uid) {
+		this.accepted = accepted; // string -- accepted, pending, rejected
+		this.uid = uid; // string
+	}
+
+	toString() {
+        return this.accepted+ ', ' + this.uid;
+    }
+}
+
 //home page upon signing in
 function StudyBuddiesRequests(props) {
 	return (

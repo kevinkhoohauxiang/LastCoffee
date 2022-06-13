@@ -76,6 +76,16 @@ const Layout = styled.div`
 
 
 
+class Info {
+    constructor (contact_info, display_name) {
+		this.contact = contact_info; // string
+        this.name = display_name; // string
+    }
+    toString() {
+        return this.contact + ', ' + this.name;
+    }
+}
+
 //home page upon signing in
 function MyProfile(props) {
 	//console.log(props.user.uid);

@@ -62,6 +62,20 @@ const Layout = styled.div`
 	}
 `;
 
+class HistoryThings {
+
+	constructor(description, position, completed_time, title) {
+		this.position = position; // string
+		this.completedTime = completed_time; // date
+		this.description = description; // string
+		this.title = title; // string
+	}
+
+	toString() {
+        return this.position + ', ' + this.completedTime + ', ' + this.description + ', ' + this.title;
+    }
+}
+
 //home page upon signing in
 function MyHistory(props) {
 	return (
