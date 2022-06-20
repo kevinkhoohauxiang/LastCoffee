@@ -3,13 +3,6 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
-import Filter from "./todo src/components/ui/Filter";
-import KeyStrokeHandler from "./todo src/components/wrappers/KeyStrokeHandler";
-import StateProvider from "./todo src/components/wrappers/StateProvider";
-import TodoItem from "./todo src/components/ui/TodoItem";
-import Footer from "./todo src/components/ui/Footer";
-import SearchBox from "./todo src/components/ui/SearchBox";
-import KeyCode from 'keycode-js';
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
 
