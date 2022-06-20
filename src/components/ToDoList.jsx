@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
+
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
 
@@ -77,6 +78,7 @@ class Todothings {
 
 //home page upon signing in
 function ToDoList(props) {
+
 	return (
 
 		<Container>

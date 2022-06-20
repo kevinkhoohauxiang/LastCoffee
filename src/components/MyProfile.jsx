@@ -5,7 +5,8 @@ import styled from "styled-components";
 import Left from "./Left";
 import Header from "./Header";
 import { storage } from "../firebase";
-
+import db from "../firebase";
+import { collection, addDoc } from "firebase/firestore"; 
 const Container = styled.div`
 	max-width: 100%;
 `;
@@ -88,8 +89,30 @@ class Info {
 
 //home page upon signing in
 function MyProfile(props) {
-	//console.log(props.user.uid);
-	//const userUID = props.user.uid;
+	console.log(props)
+	console.log(props.user)
+	console.log(props.user.uid);
+	const userUID = props.user.uid;
+
+	/*const DPupload = () => 
+	const DPupload = 
+		db.collection("TEST").doc(userUID)
+		.collection('CLDDB').add({
+			name: 'ZEN'
+		});
+	*/
+	const DPupload = 
+        db.collection("TEST").doc(userUID).set({
+                   
+            CLDDB: {Display_name: "zen",
+						contact: "zen_bxy"},
+            DPDB: {},
+            HSDB: {},
+            SBDB: {},
+            TDLDB: {}
+        }
+    );
+
 
 
 	const ReactFirebaseImageUpload = () => {
@@ -103,7 +126,7 @@ function MyProfile(props) {
 		};
 	
 		const handleUpload = () => {
-			const uploadTask = storage.ref(`${props.user.uid}/images/${image.name}`).put(image);
+			const uploadTask = storage.ref(`${userUID}/images/${image.name}`).put(image);
 			uploadTask.on(
 				"state_changed",
 				snapshot => {},
@@ -156,6 +179,7 @@ function MyProfile(props) {
 				</Layout>
 				Add a new photo
 				<ReactFirebaseImageUpload />
+				<button onClick={DPupload}>DISPLAY INFO UPLOAD</button>
 				Change name <br />
 
 				Change contact info
