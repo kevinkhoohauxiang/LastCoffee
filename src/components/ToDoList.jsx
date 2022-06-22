@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
+import NewMeetupForm from "./todolistform/NewMeetupForm"
 
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
@@ -88,6 +90,8 @@ function ToDoList(props) {
 	const HSDB= user.get("HSDB")
 	const SBDB = user.get("SBDB")
 	const TDLDB = user.get("TDLDB")
+	
+	
 
 	const EventUpload = () => {
 
@@ -126,6 +130,8 @@ function ToDoList(props) {
 					
 				</Section>
 
+				
+			<NewMeetupForm />
 			</Content>
 			<EventUpload />
 
