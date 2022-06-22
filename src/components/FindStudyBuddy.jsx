@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Main from "./Main";
 import Header from "./Header";
+import {BrowserRouter as Router} from "react-router-dom";
+import db from "../firebase";
 
 
 const Container = styled.div`
@@ -86,8 +88,66 @@ class StudyBuddiesThing {
     }
 }
 
+const initState = {
+	name: "",
+	type: "Volunteer",
+	email: "",
+	startDate: new Date(),
+	timeDay: "",
+	age: "",
+	listingTitle: "",
+	description: "",
+  };
+
 //home page upon signing in
 function FindStudyBuddy(props) {
+	const userUID = props.user.uid;
+	
+	const DPupload = (props) => {
+
+		const [loading, setLoading] = useState(false);
+		const [jobDetails, setJobDetails] = useState(initState);
+		const [startDate, setStartDate] = useState(new Date());
+
+		const handleChange = (e) => {
+			setJobDetails((oldState) => ({
+			...oldState,
+			[e.target.name]: e.target.value,
+			}));
+		};
+
+		const handleDateChange = (date) => {
+			setStartDate(date);
+			setJobDetails((oldState) => ({
+			...oldState,
+			startDate: startDate,
+			}));
+		};
+
+		const handleSubmit = async () => {
+			setLoading(true);
+			await props.PostJob(jobDetails);
+			closeModal();
+			Router.reload(window.location.pathname);
+		};
+
+		const closeModal = () => {
+			setJobDetails(initState);
+			setLoading(false);
+			props.closeJobModal();
+		};
+
+		
+        db.collection("TEST").doc(userUID).set({      
+            CLDDB: {},
+            DPDB: {},
+            HSDB: {},
+            SBDB: {},
+            TDLDB: {}
+        }
+    );
+	}
+
 	return (
 
 		<Container>

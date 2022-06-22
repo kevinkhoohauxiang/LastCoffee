@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
-//import App from '../calendar-app-master/src/App'
+import db from "../firebase";
 
 const Container = styled.div`
 	max-width: 100%;
@@ -76,6 +76,38 @@ class CalendarThings {
 
 //home page upon signing in
 function MyCalendar(props) {
+
+	const [editorText, setEditorText] = useState("");
+	const userUID = props.user.uid;
+	const user = db.collection("TEST").doc(userUID);
+	const CLDDB = user.get("CLDDB")
+	const DPDB = user.get("DPDB")
+	const HSDB= user.get("HSDB")
+	const SBDB = user.get("SBDB")
+	const TDLDB = user.get("TDLDB")
+
+	const EventUpload = () => {
+
+		//need to link front end to backend, upload the new name to the db and query it
+		const handleEventUpload = () => {
+			db.collection("TEST").doc(userUID).add({
+				
+			});
+		}
+
+		// events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
+		return (
+			<div>
+				<br/>
+				<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="Upload a calendar event!" autoFocus={true} />
+				<button onClick = {handleEventUpload}>Upload Event</button>
+				<br/>
+			</div>
+		);
+	}
+
+
+
 	return (
 		
 
@@ -89,7 +121,7 @@ function MyCalendar(props) {
 					
 			</Section>
 
-
+			<EventUpload />
 
 
 		</Container>

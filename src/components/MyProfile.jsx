@@ -6,7 +6,10 @@ import Left from "./Left";
 import Header from "./Header";
 import { storage } from "../firebase";
 import db from "../firebase";
+import { doc, setDoc, updateDoc } from "firebase/firestore"; 
 import { collection, addDoc } from "firebase/firestore"; 
+import {BrowserRouter as Router} from "react-router-dom";
+
 const Container = styled.div`
 	max-width: 100%;
 `;
@@ -89,10 +92,16 @@ class Info {
 
 //home page upon signing in
 function MyProfile(props) {
-	console.log(props)
-	console.log(props.user)
-	console.log(props.user.uid);
+	//console.log(props);
+	//console.log(props.user);
+	//console.log(props.user.uid);
 	const userUID = props.user.uid;
+	const user = db.collection("TEST").doc(userUID);
+	const CLDDB = user.get("CLDDB")
+	const DPDB = user.get("DPDB")
+	const HSDB= user.get("HSDB")
+	const SBDB = user.get("SBDB")
+	const TDLDB = user.get("TDLDB")
 
 	/*const DPupload = () => 
 	const DPupload = 
@@ -100,20 +109,8 @@ function MyProfile(props) {
 		.collection('CLDDB').add({
 			name: 'ZEN'
 		});
-	*/
-	const DPupload = 
-        db.collection("TEST").doc(userUID).set({
-                   
-            CLDDB: {Display_name: "zen",
-						contact: "zen_bxy"},
-            DPDB: {},
-            HSDB: {},
-            SBDB: {},
-            TDLDB: {}
-        }
-    );
 
-
+		*/
 
 	const ReactFirebaseImageUpload = () => {
 		const[image, setImage] = useState(null);
@@ -158,6 +155,28 @@ function MyProfile(props) {
 	
 		);
 	}
+
+	
+
+	const NameUpload = () => {
+
+		//need to link front end to backend, upload the new name to the db and query it
+		const handleNameUpload = () => {
+			db.collection("TEST").doc(userUID).update({
+				"DPDB.display_name" : "testing"
+			});
+		}
+
+		return (
+			<div>
+				<br/>
+				<input id = 'text' />
+				<button onClick = {handleNameUpload}>Change Name</button>
+				<br/>
+			</div>
+		);
+	}
+
 	return (
 
 		<Container>
@@ -179,9 +198,14 @@ function MyProfile(props) {
 				</Layout>
 				Add a new photo
 				<ReactFirebaseImageUpload />
-				<button onClick={DPupload}>DISPLAY INFO UPLOAD</button>
+				{//<button onClick={DPupload}>DISPLAY INFO UPLOAD</button>
+}
 				Change name <br />
+				{console.log()}
+				<NameUpload />
+				
 
+				<br />
 				Change contact info
 			</Content>
 		</Container>

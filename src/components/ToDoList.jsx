@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
+import db from "../firebase";
 
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
@@ -79,6 +80,38 @@ class Todothings {
 //home page upon signing in
 function ToDoList(props) {
 
+	const [editorText, setEditorText] = useState("");
+	const userUID = props.user.uid;
+	const user = db.collection("TEST").doc(userUID);
+	const CLDDB = user.get("CLDDB")
+	const DPDB = user.get("DPDB")
+	const HSDB= user.get("HSDB")
+	const SBDB = user.get("SBDB")
+	const TDLDB = user.get("TDLDB")
+
+	const EventUpload = () => {
+
+		//need to link front end to backend, upload the new event to the db and query it
+		const handleEventUpload = () => {
+			db.collection("TEST").doc(userUID).add({
+				
+			});
+		}
+
+		// events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
+		// learn how to create a form and upload the form onto firebase in the form of an array
+		return (
+			<div>
+				<br/>
+				<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="To do List event" autoFocus={true} />
+				<button onClick = {handleEventUpload}>Upload Event</button>
+				<br/>
+			</div>
+		);
+	}
+
+	// need to create a new function to toggle the state of the "completed" so as to query the type of event
+
 	return (
 
 		<Container>
@@ -94,6 +127,7 @@ function ToDoList(props) {
 				</Section>
 
 			</Content>
+			<EventUpload />
 
 		</Container>
 	);

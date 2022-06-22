@@ -76,8 +76,10 @@ const Homepage = styled.div`
 function Home(props) {
 	//console.log(props.user)
 	//console.log(props.user.photoURL)
-	//const UID = props.user.uid;
-	//console.log(props.user.uid)
+	const userUID = props.user.uid;
+	const displayName = props.user.displayName;
+	const contactInfo = props.user.email;
+	//console.log(props.user.email)
 	
 	// When the user first successfully logs in, we check if there is already an entry in the Users collection.
 	// If there is an entry already, we do nothing. else, we follow the steps below
@@ -86,25 +88,25 @@ function Home(props) {
 	// Upon logging in, we need to first create a document with the UID in the Users collection.
 	// we then add the 5 subcollections, DPDB, TDLDB, CLDDB, SBDB, HSDB into the document with the UID
 	
-	const CreateAllDB = () => {
-	
-		// doesnt work for now
-		const createDB = () => {
-			console.log("create db works")
-			
-		};
-
-
-		return (
-			<div>
-				<br/>
-				<button onClick={createDB}>Create new DBs test</button>
-				<br />
-				
-			</div>
-	
-		);
+	// "get started" button used for creating all the DBs if the user is new.
+	function createnewDB() {
+		console.log('yes')
+		return (dispatch) => {
+			if (!db.collection("TEST").doc(userUID)) {
+				<CreateAllDB />;
+			}
+		}
 	}
+
+	const CreateAllDB = 
+        db.collection("TEST").doc(userUID).set({        
+            CLDDB: {},
+            DPDB: {display_name : displayName, contact_info : contactInfo },
+            HSDB: {},
+            SBDB: {},
+            TDLDB: {}
+        }
+    );
 	
 	
 	
@@ -116,10 +118,6 @@ function Home(props) {
 			{!props.user && <Redirect to="/" />}
 			<Content>
 			
-			{// button used for testing if the backend works, uncomment to use it
-			//<CreateAllDB />
-			}
-				
 				<Homepage>
 					
 					<h1>
@@ -131,7 +129,7 @@ function Home(props) {
 						like-minded peers.
 					</h2>
 
-					<button><span>Get Started</span></button>
+					<button onClick={createnewDB}><span>Get Started</span></button>
 					
 					<img src="/images/books.png" alt="Bookshelf"/>
 
