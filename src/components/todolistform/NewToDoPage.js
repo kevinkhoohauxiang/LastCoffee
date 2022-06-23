@@ -1,13 +1,13 @@
 import { useHistory } from 'react-router-dom';
-import NewMeetupForm from './NewMeetupForm';
 import db from '../../firebase';
 import { getUID } from '../../action';
+import NewToDoForm from './NewToDoForm';
 
-function NewMeetupPage() {
+function NewToDoPage() {
   //const history = useHistory();
   //const userUID = getUID(props);
 
-  function addMeetupHandler(meetupData) {
+  function addMeetupHandler(Data) {
     //add data to db
     /*
     db.collection("TEST").add({ 
@@ -22,10 +22,10 @@ function NewMeetupPage() {
 
   return (
     <section>
-      <h1>Add New Meetup</h1>
-      <NewMeetupForm onAddMeetup={addMeetupHandler} />
+      <h1>Add New To Do Event</h1>
+      <NewToDoForm onAddMeetup={addMeetupHandler} />
     </section>
   );
 }
 
-export default NewMeetupPage;
+export default NewToDoPage;

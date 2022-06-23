@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import Card from './Card';
-import classes from './NewMeetupForm.module.css';
+import classes from './NewToDoForm.module.css';
 
-function NewMeetupForm(props) {
+function NewToDoForm(props) {
     const titleInputRef = useRef();
     const deadlineInputRef = useRef();
     const descriptionInputRef = useRef();
@@ -53,5 +53,5 @@ function NewMeetupForm(props) {
     );
   }
   
-  export default NewMeetupForm;
+  export default NewToDoForm;
 

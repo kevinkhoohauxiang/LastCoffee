@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import { useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
-import { Link } from "react-router-dom";
-
-
-// import { compose, withState, withHandlers } from 'recompose';
-// need to npm install recompose
+import NewCalendarPage from "./calendarform/NewCalendarPage";
 
 const Container = styled.div`
 	max-width: 100%;
@@ -66,22 +61,22 @@ const Layout = styled.div`
 	}
 `;
 
-class Todothings {
+class CalendarThings {
 
-	constructor(completed, deadline, description, title) {
-		this.completed = completed; //boolean
-		this.deadline = deadline; // date
+	constructor(description, end_date, start_date, title) {
+		this.startDate = start_date; // date
+		this.endDate = end_date ; // date
 		this.description = description; // string
 		this.title = title; // string
 	}
 
 	toString() {
-        return this.completed + ', ' + this.deadline + ', ' + this.description + ', ' + this.title;
+        return this.startDate + ', ' + this.endDate + ', ' + this.description + ', ' + this.title;
     }
 }
 
 //home page upon signing in
-function ToDoListDone(props) {
+function MyCalendar(props) {
 
 	const [editorText, setEditorText] = useState("");
 	const userUID = props.user.uid;
@@ -91,12 +86,10 @@ function ToDoListDone(props) {
 	const HSDB= user.get("HSDB")
 	const SBDB = user.get("SBDB")
 	const TDLDB = user.get("TDLDB")
-	
-	
-	/*
+
 	const EventUpload = () => {
 
-		//need to link front end to backend, upload the new event to the db and query it
+		//need to link front end to backend, upload the new name to the db and query it
 		const handleEventUpload = () => {
 			db.collection("TEST").doc(userUID).add({
 				
@@ -104,52 +97,34 @@ function ToDoListDone(props) {
 		}
 
 		// events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
-		// learn how to create a form and upload the form onto firebase in the form of an array
 		return (
 			<div>
 				<br/>
-				<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="To do List event" autoFocus={true} />
+				<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="Upload a calendar event!" autoFocus={true} />
 				<button onClick = {handleEventUpload}>Upload Event</button>
 				<br/>
 			</div>
 		);
 	}
-	*/
 
-	// need to create a new function to toggle the state of the "completed" so as to query the type of event
+
 
 	return (
+		
 
 		<Container>
-			
-			<Header />
 			{!props.user && <Redirect to="/" />}
-			<Content>
-				<Section>
-					<h5>
-						<a>THIS IS TO DO LIST DONE</a>
-					</h5>
-					<button>
-						<Link to="/createnewtodo">
-							<a href="/createnewtodo">
-							<span>Add new To Do Event</span>
-							</a>
-						</Link>
-					</button>
-					<button>
-						<Link to="/todolist">
-							<a href="/todolist">
-							<span>Undone todolist events</span>
-							</a>
-						</Link>
-					</button>
+			<Header />
+			<Section>
+				<h5>
+					<a>THIS IS MY CALENDAR</a>
+				</h5>
 					
-				</Section>
+			</Section>
 
-				
-			
-			</Content>
-			
+			<NewCalendarPage />
+	
+
 
 		</Container>
 	);
@@ -161,4 +136,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(ToDoListDone);
+export default connect(mapStateToProps)(MyCalendar);

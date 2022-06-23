@@ -240,7 +240,7 @@ function Main(props) {
 		} else if (userIndex === -1) {
 			currentLikes++;
 			whoLiked.push(user);
-		}
+		} 
 
 		const payload = {
 			update: {

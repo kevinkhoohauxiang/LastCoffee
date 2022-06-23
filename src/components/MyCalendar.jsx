@@ -4,6 +4,7 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
 	max-width: 100%;
@@ -121,7 +122,13 @@ function MyCalendar(props) {
 					
 			</Section>
 
-			<EventUpload />
+			<button>
+				<Link to="/createnewcalendar">
+					<a href="/createnewcalendar">
+					<span>Add new Calendar Event</span>
+					</a>
+				</Link>
+			</button>
 
 
 		</Container>

@@ -5,7 +5,7 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
-import NewMeetupForm from "./todolistform/NewMeetupForm"
+import NewToDoPage from "./todolistform/NewToDoPage";
 import { Link } from "react-router-dom";
 
 // import { compose, withState, withHandlers } from 'recompose';
@@ -129,12 +129,12 @@ function NewToDoEvent(props) {
 					<h5>
 						<a>THIS IS TO DO LIST</a>
 					</h5>
-					<button></button>
+					
 					
 				</Section>
 
 				
-			<NewMeetupForm />
+			<NewToDoPage />
 
 			<button>
 				<Link to="/todolist">

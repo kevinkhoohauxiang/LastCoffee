@@ -5,8 +5,9 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
-import NewMeetupForm from "./todolistform/NewMeetupForm"
+import NewMeetupForm from "./todolistform/NewToDoForm"
 import { Link } from "react-router-dom";
+import Home from "./Home";
 
 
 // import { compose, withState, withHandlers } from 'recompose';
@@ -67,6 +68,46 @@ const Layout = styled.div`
 	}
 `;
 
+const HomePage = styled.div`
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: space-evenly;
+	background-color: white;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	
+	button {
+		border: 0.0625rem solid rgb(17, 109, 255);
+		background-color: rgb(17, 109, 255);
+		border-radius: 1.875rem;
+		font-family: var(--main-text-font);
+		width: 20rem;
+		height: 3.5rem;
+		cursor: pointer;
+		color: #ffffff;
+		font-size: 1.5rem;
+		font-weight: 300;
+		margin-top: 2rem;
+		align-items: center;
+		a:link { text-decoration: none; }
+
+		a:visited { text-decoration: none; }
+
+		a:hover { text-decoration: none; }
+
+		a:active { text-decoration: none; }
+
+		span {
+			color: white;
+			text-decoration: none; 
+  		 	background-color: none;
+		}
+	}
+	  
+`
+
 class Todothings {
 
 	constructor(completed, deadline, description, title) {
@@ -126,10 +167,13 @@ function ToDoList(props) {
 			<Header />
 			{!props.user && <Redirect to="/" />}
 			<Content>
+				
 				<Section>
 					<h5>
 						<a>THIS IS TO DO LIST</a>
 					</h5>
+
+					<HomePage>
 					<button>
 						<Link to="/createnewtodo">
 							<a href="/createnewtodo">
@@ -137,6 +181,7 @@ function ToDoList(props) {
 							</a>
 						</Link>
 					</button>
+					<br></br>
 					<button>
 						<Link to="/todolistdone">
 							<a href="/todolistdone">
@@ -144,6 +189,7 @@ function ToDoList(props) {
 							</a>
 						</Link>
 					</button>
+					</HomePage>
 					
 				</Section>
 

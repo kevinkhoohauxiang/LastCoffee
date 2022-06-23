@@ -15,6 +15,7 @@ import ToDoListDone from "./ToDoListDone";
 import { useEffect } from "react";
 import { getUserAuth } from "../action";
 import { connect } from "react-redux";
+import NewMyCalendar from "./NewMyCalendar";
 
 
 function App(props) {
@@ -65,6 +66,10 @@ function App(props) {
 					<Route path="/todolistdone">
 						<ToDoListDone />
 					</Route>
+					<Route path="/createnewcalendar">
+						<NewMyCalendar />
+					</Route>
+
 
 				</Switch>
 			</Router>
