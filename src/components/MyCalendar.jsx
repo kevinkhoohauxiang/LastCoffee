@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
 import { Link } from "react-router-dom";
+import Calendar from "react-calendar/dist/umd/Calendar";
 
 const Container = styled.div`
 	max-width: 100%;
@@ -129,6 +130,8 @@ function MyCalendar(props) {
 					</a>
 				</Link>
 			</button>
+
+			<Calendar />
 
 
 		</Container>
