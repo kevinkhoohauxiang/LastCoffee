@@ -72,6 +72,8 @@ const Homepage = styled.div`
 	  
 `
 
+
+
 //home page upon signing in
 function Home(props) {
 	//console.log(props.user)

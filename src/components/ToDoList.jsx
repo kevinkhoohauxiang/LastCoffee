@@ -92,7 +92,7 @@ function ToDoList(props) {
 	const TDLDB = user.get("TDLDB")
 	
 	
-
+	/*
 	const EventUpload = () => {
 
 		//need to link front end to backend, upload the new event to the db and query it
@@ -113,6 +113,7 @@ function ToDoList(props) {
 			</div>
 		);
 	}
+	*/
 
 	// need to create a new function to toggle the state of the "completed" so as to query the type of event
 
@@ -133,7 +134,7 @@ function ToDoList(props) {
 				
 			<NewMeetupForm />
 			</Content>
-			<EventUpload />
+			
 
 		</Container>
 	);

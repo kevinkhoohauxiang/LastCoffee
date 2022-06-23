@@ -219,3 +219,7 @@ export function postDP(payload) {
 		}
 	};
 }
+
+export function getUID(props) {
+	return props.user.uid;
+}

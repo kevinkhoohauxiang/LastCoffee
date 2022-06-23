@@ -10,6 +10,7 @@ import MyStudyBuddies from "./MyStudyBuddies";
 import StudyBuddyNotifications from "./StudyBuddyNotifications";
 import MyHistory from "./MyHistory";
 import StudyBuddiesRequests from "./StudyBuddiesRequests";
+import NewMeetupPage from "./todolistform/NewMeetup";
 import { useEffect } from "react";
 import { getUserAuth } from "../action";
 import { connect } from "react-redux";
@@ -56,6 +57,9 @@ function App(props) {
 					</Route>
 					<Route path="/studybuddyrequests">
 						<StudyBuddiesRequests />
+					</Route>
+					<Route path="/createnewtodo">
+						<NewMeetupPage />
 					</Route>
 
 				</Switch>
