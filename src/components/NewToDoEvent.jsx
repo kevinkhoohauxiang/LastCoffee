@@ -8,7 +8,6 @@ import db from "../firebase";
 import NewMeetupForm from "./todolistform/NewMeetupForm"
 import { Link } from "react-router-dom";
 
-
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
 
@@ -82,7 +81,7 @@ class Todothings {
 }
 
 //home page upon signing in
-function ToDoList(props) {
+function NewToDoEvent(props) {
 
 	const [editorText, setEditorText] = useState("");
 	const userUID = props.user.uid;
@@ -130,25 +129,21 @@ function ToDoList(props) {
 					<h5>
 						<a>THIS IS TO DO LIST</a>
 					</h5>
-					<button>
-						<Link to="/createnewtodo">
-							<a href="/createnewtodo">
-							<span>Add new To Do Event</span>
-							</a>
-						</Link>
-					</button>
-					<button>
-						<Link to="/todolistdone">
-							<a href="/todolistdone">
-							<span>Completed todolist events</span>
-							</a>
-						</Link>
-					</button>
+					<button></button>
 					
 				</Section>
 
 				
-			
+			<NewMeetupForm />
+
+			<button>
+				<Link to="/todolist">
+					<a href="/todolist">
+					<span>Back</span>
+					</a>
+				</Link>
+			</button>
+
 			</Content>
 			
 
@@ -162,4 +157,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(ToDoList);
+export default connect(mapStateToProps)(NewToDoEvent);

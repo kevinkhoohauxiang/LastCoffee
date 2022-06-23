@@ -82,7 +82,7 @@ class Todothings {
 }
 
 //home page upon signing in
-function ToDoList(props) {
+function ToDoListDone(props) {
 
 	const [editorText, setEditorText] = useState("");
 	const userUID = props.user.uid;
@@ -128,7 +128,7 @@ function ToDoList(props) {
 			<Content>
 				<Section>
 					<h5>
-						<a>THIS IS TO DO LIST</a>
+						<a>THIS IS TO DO LIST DONE</a>
 					</h5>
 					<button>
 						<Link to="/createnewtodo">
@@ -138,9 +138,9 @@ function ToDoList(props) {
 						</Link>
 					</button>
 					<button>
-						<Link to="/todolistdone">
-							<a href="/todolistdone">
-							<span>Completed todolist events</span>
+						<Link to="/todolist">
+							<a href="/todolist">
+							<span>Undone todolist events</span>
 							</a>
 						</Link>
 					</button>
@@ -162,4 +162,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(ToDoList);
+export default connect(mapStateToProps)(ToDoListDone);
