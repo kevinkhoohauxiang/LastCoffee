@@ -22,7 +22,7 @@ function NewCalendarForm(props) {
       };
   
       console.log(meetupData)
-      //props.onAddMeetup(meetupData);
+      props.onAddMeetup(meetupData);
     }
   
     return (

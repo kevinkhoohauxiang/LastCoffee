@@ -5,10 +5,10 @@ import NewCalendarForm from './NewCalendarForm';
 
 
 function NewCalendarPage() {
-  //const history = useHistory();
+  const history = useHistory();
   //const userUID = getUID(props);
 
-  function addMeetupHandler(meetupData) {
+  function addCalendarHandler(meetupData) {
     //add data to db
     /*
     db.collection("TEST").add({ 
@@ -17,14 +17,27 @@ function NewCalendarPage() {
     */
 
     console.log("sheesh")
+    fetch(
+      'https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/calendar.json',
+      {
+        method: 'POST',
+        body: JSON.stringify(meetupData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    ).then(() => {
+      history.replace('/');
+    });
+  }
     
    
-  }
+  
 
   return (
     <section>
       <h1>Add New Calendar Event</h1>
-      <NewCalendarForm onAddMeetup={addMeetupHandler} />
+      <NewCalendarForm onAddMeetup={addCalendarHandler} />
     </section>
   );
 }

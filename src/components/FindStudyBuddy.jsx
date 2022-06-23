@@ -122,7 +122,7 @@ function FindStudyBuddy(props) {
 			...oldState,
 			startDate: startDate,
 			}));
-		};
+		}; 
 
 		const handleSubmit = async () => {
 			setLoading(true);

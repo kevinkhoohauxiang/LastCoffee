@@ -6,6 +6,8 @@ function NewToDoForm(props) {
     const titleInputRef = useRef();
     const deadlineInputRef = useRef();
     const descriptionInputRef = useRef();
+    //const id = props.user.uid;
+    
   
     function submitHandler(event) {
       event.preventDefault();
@@ -21,8 +23,8 @@ function NewToDoForm(props) {
         description: enteredDescription,
       };
   
-      console.log(meetupData)
-      //props.onAddMeetup(meetupData);
+      //console.log(meetupData)
+      props.onAddMeetup(meetupData); 
     }
   
     return (

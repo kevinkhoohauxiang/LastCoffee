@@ -1,24 +1,34 @@
 import { useHistory } from 'react-router-dom';
 import db from '../../firebase';
-import { getUID } from '../../action';
+//import { getUID } from '../../action';
 import NewToDoForm from './NewToDoForm';
 
-function NewToDoPage() {
-  //const history = useHistory();
-  //const userUID = getUID(props);
+function NewToDoPage(props) {
+  const history = useHistory();
+  //const userUID = props.user.UID;
 
-  function addMeetupHandler(Data) {
+  function addMeetupHandler(meetupData) {
+    console.log("sheesh")
     //add data to db
     /*
-    db.collection("TEST").add({ 
-      TDLDB: meetupData
+    return db.collection("TEST").doc(userUID).add({        
+      TDLDB: {meetupData}
     });
     */
-
-    console.log("sheesh")
-    
-   
+    fetch(
+      'https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/todolist.json',
+      {
+        method: 'POST',
+        body: JSON.stringify(meetupData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    ).then(() => {
+      history.replace('/');
+    });
   }
+
 
   return (
     <section>
@@ -27,5 +37,6 @@ function NewToDoPage() {
     </section>
   );
 }
+
 
 export default NewToDoPage;

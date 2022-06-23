@@ -118,7 +118,7 @@ const NavList = styled.li`
 		justify-content: center;
 		line-height: 1.5;
 		min-height: 52px;
-		min-width: 100px;
+		min-width: 120px;
 		position: relative;
 		text-decoration: none;
 		span {
@@ -249,6 +249,7 @@ function Header(props) {
 								</a>
 							</Link>	
 						</NavList>
+						{/*
 						<NavList>
 							<Link to="/myhistory">
 								<a href="/myhistory">
@@ -257,6 +258,8 @@ function Header(props) {
 								</a>
 							</Link>
 						</NavList>
+						*/
+						}		
 						<User>
 							<a>
 								{props.user && props.user.photoURL ? <img src="/images/LogOut.svg" alt="" /> : <img src="/images/user.svg" alt="" />}
