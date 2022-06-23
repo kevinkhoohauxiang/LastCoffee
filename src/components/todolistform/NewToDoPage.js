@@ -7,7 +7,7 @@ function NewToDoPage(props) {
   const history = useHistory();
   //const userUID = props.user.UID;
 
-  function addMeetupHandler(meetupData) {
+  function addToDoHandler(meetupData) {
     console.log("sheesh")
     //add data to db
     /*
@@ -25,7 +25,7 @@ function NewToDoPage(props) {
         },
       }
     ).then(() => {
-      history.replace('/');
+      history.replace('/todolist');
     });
   }
 
@@ -33,7 +33,7 @@ function NewToDoPage(props) {
   return (
     <section>
       <h1>Add New To Do Event</h1>
-      <NewToDoForm onAddMeetup={addMeetupHandler} />
+      <NewToDoForm onAddMeetup={addToDoHandler} />
     </section>
   );
 }

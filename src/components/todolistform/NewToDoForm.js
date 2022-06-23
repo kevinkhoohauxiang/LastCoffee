@@ -6,7 +6,7 @@ function NewToDoForm(props) {
     const titleInputRef = useRef();
     const deadlineInputRef = useRef();
     const descriptionInputRef = useRef();
-    //const id = props.user.uid;
+    //console.log(props.user.uid)
     
   
     function submitHandler(event) {

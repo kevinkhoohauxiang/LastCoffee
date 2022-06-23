@@ -27,7 +27,7 @@ function NewCalendarPage() {
         },
       }
     ).then(() => {
-      history.replace('/');
+      history.replace('/mycalendar');
     });
   }
     
