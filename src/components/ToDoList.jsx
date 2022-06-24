@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
-import NewMeetupForm from "./todolistform/NewToDoForm"
 import { Link } from "react-router-dom";
 import Home from "./Home";
+//import ToDoList from "./todolistform/ToDoList";
 
 
 // import { compose, withState, withHandlers } from 'recompose';
@@ -125,15 +125,44 @@ class Todothings {
 //home page upon signing in
 function ToDoList(props) {
 
-	const [editorText, setEditorText] = useState("");
-	const userUID = props.user.uid;
-	const user = db.collection("TEST").doc(userUID);
-	const CLDDB = user.get("CLDDB")
-	const DPDB = user.get("DPDB")
-	const HSDB= user.get("HSDB")
-	const SBDB = user.get("SBDB")
-	const TDLDB = user.get("TDLDB")
-	
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedtodolist, setLoadedMeetups] = useState([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(
+      'https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/todolist.json'
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const todos = [];
+
+        for (const key in data) {
+          const todo = {
+            id: key,
+            ...data[key]
+          };
+
+          todos.push(todo);
+        }
+
+        setIsLoading(false);
+        setLoadedMeetups(todos);
+      });
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Loading...</p>
+      </section>
+    );
+  }
+
+	//const [editorText, setEditorText] = useState("");
+	//const userUID = props.user.uid;
 	
 	/*
 	const EventUpload = () => {
@@ -189,6 +218,10 @@ function ToDoList(props) {
 							</a>
 						</Link>
 					</button>
+
+					{//<todoList todos={loadedtodolist} />
+					}
+
 					</HomePage>
 					
 				</Section>

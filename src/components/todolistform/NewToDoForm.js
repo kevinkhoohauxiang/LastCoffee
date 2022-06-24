@@ -16,15 +16,15 @@ function NewToDoForm(props) {
       const enteredDeadline = deadlineInputRef.current.value;
       const enteredDescription = descriptionInputRef.current.value;
   
-      const meetupData = {
+      const todoData = {
         title: enteredTitle,
         deadline: enteredDeadline,
         completed: false,
         description: enteredDescription,
       };
   
-      //console.log(meetupData)
-      props.onAddMeetup(meetupData); 
+      //console.log(todoData)
+      props.onAddtodo(todoData); 
     }
   
     return (
