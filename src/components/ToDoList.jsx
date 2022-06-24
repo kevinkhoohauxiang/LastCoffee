@@ -9,7 +9,13 @@ import { Link } from "react-router-dom";
 import Home from "./Home";
 import ToDoListList from "./todolistform/ToDoListList";
 
-
+const DUMMY_DATA = [
+	{
+		title: "orbital",
+		date: "22/06/22",
+		description: "milestone 2 deadline"
+	}
+]
 
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
@@ -220,6 +226,7 @@ function ToDoList(props) {
 					</button>
 
 					</HomePage>
+					<ToDoListList events={DUMMY_DATA} />
 					
 				</Section>
 
