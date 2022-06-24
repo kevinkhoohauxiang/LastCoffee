@@ -147,7 +147,7 @@ function Left(props) {
 	
 	return (
 		<Container>
-			<ArtCard>
+			<ArtCard> 
 				<UserInfo>
 					<CardBackground />
 					<a>

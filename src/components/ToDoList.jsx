@@ -7,7 +7,8 @@ import Header from "./Header";
 import db from "../firebase";
 import { Link } from "react-router-dom";
 import Home from "./Home";
-//import ToDoList from "./todolistform/ToDoList";
+import ToDoListList from "./todolistform/ToDoListList";
+
 
 
 // import { compose, withState, withHandlers } from 'recompose';
@@ -187,7 +188,6 @@ function ToDoList(props) {
 	}
 	*/
 
-	// need to create a new function to toggle the state of the "completed" so as to query the type of event
 
 	return (
 
@@ -218,9 +218,6 @@ function ToDoList(props) {
 							</a>
 						</Link>
 					</button>
-
-					{//<todoList todos={loadedtodolist} />
-					}
 
 					</HomePage>
 					
