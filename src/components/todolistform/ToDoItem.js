@@ -2,24 +2,28 @@
 import Card from './Card';
 import classes from './ToDoItem.module.css';
 
-
 function ToDoItem(props) {
+
+  function changeState(props) {
+    console.log("changed")
+    props.completed = true;
+    console.log(props.completed)
+  }
   
 
   return (
     <li className={classes.item}>
       <Card>
-        <div className={classes.image}>
-          <img src={props.image} alt={props.title} />
-        </div>
+        
         <div className={classes.content}>
           <h3>{props.title}</h3>
-          <address>{props.address}</address>
-          <p>{props.description}</p>
+          {props.deadline}
+          <br/>
+          {props.completed}
+          {props.description}
         </div>
-        <div className={classes.actions}>
-          
-        </div>
+        <button onClick={changeState}>Done</button>
+        
       </Card>
     </li>
   );

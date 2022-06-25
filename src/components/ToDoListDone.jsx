@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
-import db from "../firebase";
 import { Link } from "react-router-dom";
+import ToDoListList from "./todolistform/ToDoListList";
 
-
-// import { compose, withState, withHandlers } from 'recompose';
-// need to npm install recompose
 
 const Container = styled.div`
 	max-width: 100%;
@@ -66,6 +63,46 @@ const Layout = styled.div`
 	}
 `;
 
+const HomePage = styled.div`
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: space-evenly;
+	background-color: white;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	
+	button {
+		border: 0.0625rem solid rgb(17, 109, 255);
+		background-color: rgb(17, 109, 255);
+		border-radius: 1.875rem;
+		font-family: var(--main-text-font);
+		width: 20rem;
+		height: 3.5rem;
+		cursor: pointer;
+		color: #ffffff;
+		font-size: 1.5rem;
+		font-weight: 300;
+		margin-top: 2rem;
+		align-items: center;
+		a:link { text-decoration: none; }
+
+		a:visited { text-decoration: none; }
+
+		a:hover { text-decoration: none; }
+
+		a:active { text-decoration: none; }
+
+		span {
+			color: white;
+			text-decoration: none; 
+  		 	background-color: none;
+		}
+	}
+	  
+`
+
 class Todothings {
 
 	constructor(completed, deadline, description, title) {
@@ -83,40 +120,38 @@ class Todothings {
 //home page upon signing in
 function ToDoListDone(props) {
 
-	const [editorText, setEditorText] = useState("");
-	const userUID = props.user.uid;
-	const user = db.collection("TEST").doc(userUID);
-	const CLDDB = user.get("CLDDB")
-	const DPDB = user.get("DPDB")
-	const HSDB= user.get("HSDB")
-	const SBDB = user.get("SBDB")
-	const TDLDB = user.get("TDLDB")
 	
-	 
-	/*
-	const EventUpload = () => {
+const [loadedtodolist, setLoadedEvents] = useState([]);
 
-		//need to link front end to backend, upload the new event to the db and query it
-		const handleEventUpload = () => {
-			db.collection("TEST").doc(userUID).add({
-				
-			});
-		}
+  useEffect(() => {
+    //setIsLoading(true);
+    fetch(
+      'https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/todolist.json'
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const todos = [];
 
-		// events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
-		// learn how to create a form and upload the form onto firebase in the form of an array
-		return (
-			<div>
-				<br/>
-				<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="To do List event" autoFocus={true} />
-				<button onClick = {handleEventUpload}>Upload Event</button>
-				<br/>
-			</div>
-		);
-	}
-	*/
+        for (const key in data) {
+			const tuple = data[key]
+			//console.log(tuple.completed)
+			if (tuple.completed) {
+				console.log('load')
+				const todo = {
+					id: key,
+					...tuple
+				};
+			todos.push(todo);
+			} 
+        }
 
-	// need to create a new function to toggle the state of the "completed" so as to query the type of event
+        //setIsLoading(false);
+        setLoadedEvents(todos);
+      });
+  }, []);
+
 
 	return (
 
@@ -129,24 +164,26 @@ function ToDoListDone(props) {
 					<h5>
 						<a>THIS IS TO DO LIST DONE</a>
 					</h5>
-					<button>
-						<Link to="/createnewtodo">
-							<a href="/createnewtodo">
-							<span>Add new To Do Event</span>
-							</a>
-						</Link>
-					</button>
-					<button>
-						<Link to="/todolist">
-							<a href="/todolist">
-							<span>Undone todolist events</span>
-							</a>
-						</Link>
-					</button>
+					<HomePage>
+						<button>
+							<Link to="/createnewtodo">
+								<a href="/createnewtodo">
+								<span>Add new To Do Event</span>
+								</a>
+							</Link>
+						</button>
+						<button>
+							<Link to="/todolist">
+								<a href="/todolist">
+								<span>Undone todolist events</span>
+								</a>
+							</Link>
+						</button>
+					</HomePage>
 					
 				</Section>
 
-				
+				<ToDoListList events={loadedtodolist} />			
 			
 			</Content>
 			

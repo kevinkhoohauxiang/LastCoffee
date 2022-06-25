@@ -7,10 +7,9 @@ function ToDoListList(props) {
       {props.events.map((event) => (
         <ToDoItem
           key={event.id}
-          id={event.id}
-          image={event.image}
+          deadline={event.deadline}
           title={event.title}
-          address={event.address}
+          completed={event.completed}
           description={event.description}
         />
       ))}

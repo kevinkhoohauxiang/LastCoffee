@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
-import db from "../firebase";
 import { Link } from "react-router-dom";
-import Home from "./Home";
 import ToDoListList from "./todolistform/ToDoListList";
 
 const DUMMY_DATA = [
@@ -14,7 +12,13 @@ const DUMMY_DATA = [
 		title: "orbital",
 		date: "22/06/22",
 		description: "milestone 2 deadline"
+	},
+	{
+		title: "orbital 2",
+		date: "23/07/22",
+		description: "milestone 3 deadline"
 	}
+
 ]
 
 // import { compose, withState, withHandlers } from 'recompose';
@@ -132,11 +136,11 @@ class Todothings {
 //home page upon signing in
 function ToDoList(props) {
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadedtodolist, setLoadedMeetups] = useState([]);
+  //const [isLoading, setIsLoading] = useState(true);
+  const [loadedtodolist, setLoadedEvents] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
+    //setIsLoading(true);
     fetch(
       'https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/todolist.json'
     )
@@ -146,54 +150,24 @@ function ToDoList(props) {
       .then((data) => {
         const todos = [];
 
+		// we query and show only events which are not completed, aka .completed == false
         for (const key in data) {
-          const todo = {
-            id: key,
-            ...data[key]
-          };
-
-          todos.push(todo);
+			const tuple = data[key]
+			//console.log(tuple.completed)
+			if (!tuple.completed) {
+				console.log('load')
+				const todo = {
+					id: key,
+					...tuple
+				};
+			todos.push(todo);
+			} 
         }
 
-        setIsLoading(false);
-        setLoadedMeetups(todos);
+        //setIsLoading(false);
+        setLoadedEvents(todos);
       });
   }, []);
-
-  if (isLoading) {
-    return (
-      <section>
-        <p>Loading...</p>
-      </section>
-    );
-  }
-
-	//const [editorText, setEditorText] = useState("");
-	//const userUID = props.user.uid;
-	
-	/*
-	const EventUpload = () => {
-
-		//need to link front end to backend, upload the new event to the db and query it
-		const handleEventUpload = () => {
-			db.collection("TEST").doc(userUID).add({
-				
-			});
-		}
-
-		// events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
-		// learn how to create a form and upload the form onto firebase in the form of an array
-		return (
-			<div>
-				<br/>
-				<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="To do List event" autoFocus={true} />
-				<button onClick = {handleEventUpload}>Upload Event</button>
-				<br/>
-			</div>
-		);
-	}
-	*/
-
 
 	return (
 
@@ -209,26 +183,27 @@ function ToDoList(props) {
 					</h5>
 
 					<HomePage>
-					<button>
-						<Link to="/createnewtodo">
-							<a href="/createnewtodo">
-							<span>Add new To Do Event</span>
-							</a>
-						</Link>
-					</button>
-					<br></br>
-					<button>
-						<Link to="/todolistdone">
-							<a href="/todolistdone">
-							<span>Completed todolist events</span>
-							</a>
-						</Link>
-					</button>
+						<button>
+							<Link to="/createnewtodo">
+								<a href="/createnewtodo">
+								<span>Add new To Do Event</span>
+								</a>
+							</Link>
+						</button>
+						<br></br>
+						<button>
+							<Link to="/todolistdone">
+								<a href="/todolistdone">
+								<span>Completed todolist events</span>
+								</a>
+							</Link>
+						</button>
 
-					</HomePage>
-					<ToDoListList events={DUMMY_DATA} />
+					</HomePage>		
 					
 				</Section>
+
+				<ToDoListList events={loadedtodolist} />
 
 				
 			

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
@@ -6,6 +6,19 @@ import Header from "./Header";
 import db from "../firebase";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar/dist/umd/Calendar";
+import CalendarList from "./calendar/CalendarList";
+import SelectDate from "./calendar/SelectDate";
+
+const DUMMY_DATA = [
+	{
+		title: "FOW",
+		startDate: "2022-06-28",
+		startTime: "10:00",
+		endDate: "2022-06-30",
+		endTime: "22:00",
+		description: "milestone 2 deadline"
+	}
+]
 
 const Container = styled.div`
 	max-width: 100%;
@@ -79,35 +92,43 @@ class CalendarThings {
 //home page upon signing in
 function MyCalendar(props) {
 
-	const [editorText, setEditorText] = useState("");
-	const userUID = props.user.uid;
-	const user = db.collection("TEST").doc(userUID);
-	const CLDDB = user.get("CLDDB")
-	const DPDB = user.get("DPDB")
-	const HSDB= user.get("HSDB")
-	const SBDB = user.get("SBDB")
-	const TDLDB = user.get("TDLDB")
+	const currDateInputRef = useRef();
 
-	const EventUpload = () => {
+	//const [isLoading, setIsLoading] = useState(true);
+	const [loadedcalendarlist, setLoadedEvents] = useState([]);
 
-		//need to link front end to backend, upload the new name to the db and query it
-		const handleEventUpload = () => {
-			db.collection("TEST").doc(userUID).add({
-				
-			});
-		}
+	useEffect(() => {
+	  //setIsLoading(true);
+	  fetch(
+		'https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/Calendar.json'
+	  )
+		.then((response) => {
+		  return response.json();
+		})
+		.then((data) => {
+		  const calendars = [];
+  
+		  for (const key in data) {
+			const calendar = {
+			  id: key,
+			  ...data[key]
+			};
+  
+			calendars.push(calendar);
+		  }
+  
+		  //setIsLoading(false);
+		  setLoadedEvents(calendars);
+		});
+	}, []);
 
-		// events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
-		return (
-			<div>
-				<br/>
-				<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="Upload a calendar event!" autoFocus={true} />
-				<button onClick = {handleEventUpload}>Upload Event</button>
-				<br/>
-			</div>
-		);
-	}
-
+	function submitHandler(event) {
+		
+	
+		const enteredDate = currDateInputRef.current.value;
+		
+	  }
+	
 
 
 	return (
@@ -132,6 +153,12 @@ function MyCalendar(props) {
 			</button>
 
 			<Calendar />
+
+			<SelectDate />
+
+			<CalendarList events={loadedcalendarlist} />
+
+
 
 
 		</Container>

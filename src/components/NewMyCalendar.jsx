@@ -4,7 +4,7 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
-import NewCalendarPage from "./calendarform/NewCalendarPage";
+import NewCalendarPage from "./calendar/NewCalendarPage";
 
 const Container = styled.div`
 	max-width: 100%;
