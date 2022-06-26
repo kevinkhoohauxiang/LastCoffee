@@ -146,8 +146,8 @@ function MyCalendar(props) {
   
 		  for (const key in data) { 
 			const info = data[key];
-			console.log(info.startDate)
-			console.log(currDate)
+			//console.log(info.startDate)
+			//console.log(currDate)
 			if (currDate == info.startDate) {
 				const calendar = {
 				id: key,

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Firebase from "firebase";
 import styled from "styled-components";
 import { postArticleAPI } from "../action";
+import NewToDoForm from "./todolistform/NewToDoForm";
 
 const Container = styled.div`
 	position: fixed;
@@ -170,13 +171,13 @@ function PostalModal(props) {
 	const [editorText, setEditorText] = useState("");
 	const [imageFile, setImageFile] = useState("");
 	const [videoFile, setVideoFile] = useState("");
-	const [assetArea, setAssetArea] = useState("");
+	//const [assetArea, setAssetArea] = useState("");
 
 	const reset = (event) => {
 		setEditorText("");
 		setImageFile("");
 		setVideoFile("");
-		setAssetArea("");
+		//setAssetArea("");
 		props.clickHandler(event);
 	};
 
@@ -217,9 +218,10 @@ function PostalModal(props) {
 							<Editor>
 								{
 									// change the editor to include options for study buddies:: refer to study buddies tele group
-								}
-								<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="What do you want to talk about?" autoFocus={true} />
-
+								
+								//<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="What do you want to talk about?" autoFocus={true} />
+}
+								<NewToDoForm />
 								
 							</Editor>
 						</SharedContent>
