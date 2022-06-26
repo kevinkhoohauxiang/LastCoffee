@@ -4,7 +4,7 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+// import { collection, query, where, getDocs } from "firebase/firestore";
 
 const Container = styled.div`
 	max-width: 100%;
@@ -79,6 +79,7 @@ function Home(props) {
 	//console.log(props.user)
 	//console.log(props.user.photoURL)
 	const userUID = props.user.uid;
+	//console.log(userUID)
 	const displayName = props.user.displayName;
 	const contactInfo = props.user.email;
 	//console.log(props.user.email)
@@ -91,9 +92,10 @@ function Home(props) {
 	// we then add the 5 subcollections, DPDB, TDLDB, CLDDB, SBDB, HSDB into the document with the UID
 	
 	// "get started" button used for creating all the DBs if the user is new.
+	
 	function createnewDB() {
 		console.log('yes')
-		return (dispatch) => {
+		return () => {
 			if (!db.collection("TEST").doc(userUID)) {
 				<CreateAllDB />;
 			}
@@ -154,3 +156,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Home);
+

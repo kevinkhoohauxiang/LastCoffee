@@ -7,7 +7,8 @@ import db from "../firebase";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar/dist/umd/Calendar";
 import CalendarList from "./calendar/CalendarList";
-import SelectDate from "./calendar/SelectDate";
+import Card from "./calendar/Card";
+import classes from './calendar/NewCalendarForm.module.css';
 
 const DUMMY_DATA = [
 	{
@@ -92,10 +93,45 @@ class CalendarThings {
 //home page upon signing in
 function MyCalendar(props) {
 
-	const currDateInputRef = useRef();
+	//const currDateInputRef = useRef();
+	const [currDate, setcurrDate] = useState("");
 
 	//const [isLoading, setIsLoading] = useState(true);
 	const [loadedcalendarlist, setLoadedEvents] = useState([]);
+
+	function SelectDate() {
+		const currDateInputRef = useRef();
+		//console.log(currDateInputRef)
+		console.log(currDate)
+		
+	  
+		function submitHandler(event) {
+			event.preventDefault();
+			const currDate1 = currDateInputRef.current.value;
+
+			setcurrDate(currDate1)
+
+			//console.log(currDate1)
+			//console.log(currDate)
+			//window.location.reload(false);
+		}
+
+		return (
+		  <Card>
+			<form className={classes.form} onSubmit={submitHandler}>
+			  
+			  <div className={classes.control}>
+				<label htmlFor='currDate'>Calendar Event Start Date</label>
+				<input type='date' required id='currDate' ref={currDateInputRef} />
+			  </div>
+			  
+			  <div className={classes.actions}>
+				<button>Select Date</button>
+			  </div>
+			</form>
+		  </Card>
+		);
+	}
 
 	useEffect(() => {
 	  //setIsLoading(true);
@@ -108,13 +144,17 @@ function MyCalendar(props) {
 		.then((data) => {
 		  const calendars = [];
   
-		  for (const key in data) {
-			const calendar = {
-			  id: key,
-			  ...data[key]
-			};
-  
-			calendars.push(calendar);
+		  for (const key in data) { 
+			const info = data[key];
+			console.log(info.startDate)
+			console.log(currDate)
+			if (currDate == info.startDate) {
+				const calendar = {
+				id: key,
+				...data[key]
+				};
+				calendars.push(calendar);
+				};
 		  }
   
 		  //setIsLoading(false);
@@ -122,17 +162,7 @@ function MyCalendar(props) {
 		});
 	}, []);
 
-	function submitHandler(event) {
-		
-	
-		const enteredDate = currDateInputRef.current.value;
-		
-	  }
-	
-
-
 	return (
-		
 
 		<Container>
 			{!props.user && <Redirect to="/" />}
@@ -157,9 +187,6 @@ function MyCalendar(props) {
 			<SelectDate />
 
 			<CalendarList events={loadedcalendarlist} />
-
-
-
 
 		</Container>
 	);

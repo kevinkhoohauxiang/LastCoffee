@@ -2,7 +2,14 @@
 import Card from './Card';
 import classes from './ToDoItem.module.css';
 
+
 function ToDoItem(props) {
+
+  /*
+  const mPostReference = FirebaseDatabase.getInstance().getReference()
+                        .child("quotes").child(mPostKey);
+                mPostReference.removeValue();
+  */
 
   function changeState(props) {
     console.log("changed")
