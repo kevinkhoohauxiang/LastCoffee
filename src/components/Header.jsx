@@ -249,17 +249,16 @@ function Header(props) {
 								</a>
 							</Link>	
 						</NavList>
-						{/*
+						
 						<NavList>
-							<Link to="/myhistory">
-								<a href="/myhistory">
-									<img src="/images/History.svg" alt="" />
-									<span>My History</span>
+							<Link to="/aboutus">
+								<a href="/aboutus">
+									<img src="/images/abtus.svg" alt="" />
+									<span>About Us</span>
 								</a>
 							</Link>
 						</NavList>
-						*/
-						}		
+								
 						<User>
 							<a>
 								{props.user && props.user.photoURL ? <img src="/images/LogOut.svg" alt="" /> : <img src="/images/user.svg" alt="" />}

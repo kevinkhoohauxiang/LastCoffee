@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import Firebase from "firebase";
 import styled from "styled-components";
 import { postArticleAPI } from "../action";
-import NewToDoForm from "./todolistform/NewToDoForm";
+//import NewToDoForm from "./todolistform/NewToDoForm";
+import NewSBForm from "./studybuddyform/NewSBForm";
 
 const Container = styled.div`
 	position: fixed;
@@ -145,7 +146,7 @@ const PostButton = styled.button`
 	}
 `;
 
-const Editor = styled.div`
+const Description = styled.div`
 	padding: 12px 24px;
 	textarea {
 		width: 100%;
@@ -168,15 +169,27 @@ const UploadImage = styled.div`
 `;
 
 function PostalModal(props) {
-	const [editorText, setEditorText] = useState("");
-	const [imageFile, setImageFile] = useState("");
-	const [videoFile, setVideoFile] = useState("");
+	const [descriptionText, setDescriptionText] = useState("");
+	//const [imageText, setImageText] = useState("");
+	const [genderText, setGenderText] = useState("");
+	const [infoText, setInfoText] = useState("");
+	const [locationText, setLocationText] = useState("");
+	const [numberText, setNumberText] = useState("");
+	const [titleText, setTitleText] = useState("");
+	const [timingText, setTimingText] = useState("");
+
+
 	//const [assetArea, setAssetArea] = useState("");
 
 	const reset = (event) => {
-		setEditorText("");
-		setImageFile("");
-		setVideoFile("");
+		setDescriptionText("");
+		setGenderText("");
+		setInfoText("");
+		setLocationText("");
+		setNumberText("");
+		setTimingText("");
+		setTitleText("");
+	
 		//setAssetArea("");
 		props.clickHandler(event);
 	};
@@ -188,9 +201,14 @@ function PostalModal(props) {
 		}
 
 		const payload = {
-			image: imageFile,
-			video: videoFile,
-			description: editorText,
+
+			description: descriptionText,
+			gender: genderText,
+			info: infoText,
+			location: locationText,
+			number: numberText,
+			timing: timingText,
+			title: titleText,
 			user: props.user,
 			timestamp: Firebase.firestore.Timestamp.now(),
 		};
@@ -215,19 +233,19 @@ function PostalModal(props) {
 								{props.user.photoURL ? <img src={props.user.photoURL} alt="" /> : <img src="/images/user.svg" alt="" />}
 								<span>{props.user.displayName ? props.user.displayName : "Name"}</span>
 							</UserInfo>
-							<Editor>
+							<Description>
 								{
-									// change the editor to include options for study buddies:: refer to study buddies tele group
+									// change the Description to include options for study buddies:: refer to study buddies tele group
 								
-								//<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="What do you want to talk about?" autoFocus={true} />
+								<textarea value={descriptionText} onChange={(event) => setDescriptionText(event.target.value)} placeholder="What do you want to talk about?" autoFocus={true} />
 }
-								<NewToDoForm />
+								<NewSBForm />
 								
-							</Editor>
+							</Description>
 						</SharedContent>
 						<ShareCreation>
 							
-							<PostButton disabled={!editorText ? true : false} onClick={(event) => postArticle(event)}>
+							<PostButton disabled={!descriptionText ? true : false} onClick={(event) => postArticle(event)}>
 								Post
 							</PostButton>
 						</ShareCreation>

@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Left from "./Left";
-import Main from "./Main";
-import Right from "./Right";
 import Header from "./Header";
+import { Link } from "react-router-dom";
+import NewSBPage from "./studybuddyform/NewSBPage";
+
+// import { compose, withState, withHandlers } from 'recompose';
+// need to npm install recompose
 
 const Container = styled.div`
 	max-width: 100%;
@@ -62,22 +65,9 @@ const Layout = styled.div`
 	}
 `;
 
-class HistoryThings {
-
-	constructor(description, position, completed_time, title) {
-		this.position = position; // string
-		this.completedTime = completed_time; // date
-		this.description = description; // string
-		this.title = title; // string
-	}
-
-	toString() {
-        return this.position + ', ' + this.completedTime + ', ' + this.description + ', ' + this.title;
-    }
-}
-
 //home page upon signing in
-function MyHistory(props) {
+function NewSB(props) {
+
 	return (
 
 		<Container>
@@ -87,16 +77,26 @@ function MyHistory(props) {
 			<Content>
 				<Section>
 					<h5>
-						<a>THIS IS MY HISTORY</a>
+						<a>THIS IS FIND NEW SB</a>
 					</h5>
 					
+					
 				</Section>
-				<Layout>
-					
-					
-					
-				</Layout>
+
+
+				<button>
+					<Link to="/studybuddies">
+						<a href="/studybuddies">
+						<span>Back</span>
+						</a>
+					</Link>
+				</button>
+				
+			<NewSBPage />
+
 			</Content>
+			
+
 		</Container>
 	);
 }
@@ -107,4 +107,5 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(MyHistory);
+export default connect(mapStateToProps)(NewSB);
+ 

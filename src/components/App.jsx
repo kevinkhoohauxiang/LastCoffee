@@ -8,7 +8,7 @@ import StudyBuddies from "./StudyBuddies";
 import FindStudyBuddy from "./FindStudyBuddy";
 import MyStudyBuddies from "./MyStudyBuddies";
 import StudyBuddyNotifications from "./StudyBuddyNotifications";
-import MyHistory from "./MyHistory";
+import AboutUs from "./AboutUs";
 import StudyBuddiesRequests from "./StudyBuddiesRequests";
 import NewToDoEvent from "./NewToDoEvent";
 import ToDoListDone from "./ToDoListDone";
@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { getUserAuth } from "../action";
 import { connect } from "react-redux";
 import NewMyCalendar from "./NewMyCalendar";
+import NewSB from "./NewSB";
 
 
 function App(props) {
@@ -45,8 +46,8 @@ function App(props) {
 					<Route path="/studybuddies">
 						<StudyBuddies />
 					</Route>
-					<Route path="/myhistory">
-						<MyHistory />
+					<Route path="/aboutus">
+						<AboutUs />
 					</Route>
 					<Route path="/findstudybuddy">
 						<FindStudyBuddy />
@@ -68,6 +69,9 @@ function App(props) {
 					</Route>
 					<Route path="/createnewcalendar">
 						<NewMyCalendar /> 
+					</Route>
+					<Route path="/findnewsb">
+						<NewSB /> 
 					</Route>
 
 

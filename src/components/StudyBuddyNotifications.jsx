@@ -63,7 +63,7 @@ const Layout = styled.div`
 `;
 
 //home page upon signing in
-function StudyBuddyNotifications(props) {
+function StudyBuddyNotifications(props) { 
 	return (
 
 		<Container>

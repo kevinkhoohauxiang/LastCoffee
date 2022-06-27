@@ -4,7 +4,7 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Left from "./Left";
 import Main from "./Main";
-
+import { Link } from "react-router-dom";
 import Header from "./Header";
 
 const Container = styled.div`
@@ -62,6 +62,46 @@ const Layout = styled.div`
 	}
 `;
 
+const HomePage = styled.div`
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: space-evenly;
+	background-color: white;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	
+	button {
+		border: 0.0625rem solid rgb(17, 109, 255);
+		background-color: rgb(17, 109, 255);
+		border-radius: 1.875rem;
+		font-family: var(--main-text-font);
+		width: 20rem;
+		height: 3.5rem;
+		cursor: pointer;
+		color: #ffffff;
+		font-size: 1.5rem;
+		font-weight: 300;
+		margin-top: 2rem;
+		align-items: center;
+		a:link { text-decoration: none; }
+
+		a:visited { text-decoration: none; }
+
+		a:hover { text-decoration: none; }
+
+		a:active { text-decoration: none; }
+
+		span {
+			color: white;
+			text-decoration: none; 
+  		 	background-color: none;
+		}
+	}
+	  
+`
+
 //home page upon signing in
 function MyStudyBuddies(props) {
 	return (
@@ -77,6 +117,8 @@ function MyStudyBuddies(props) {
 					</h5>
 					
 				</Section>
+				
+
 				
 			</Content>
 		</Container>

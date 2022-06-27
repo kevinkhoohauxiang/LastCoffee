@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Main from "./Main";
 import Header from "./Header";
-import {BrowserRouter as Router} from "react-router-dom";
-import db from "../firebase";
+import { Link } from "react-router-dom";
+import SBList from "./studybuddyform/SBList";
 
 
 const Container = styled.div`
@@ -63,6 +63,46 @@ const Layout = styled.div`
 	}
 `;
 
+const HomePage = styled.div`
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: space-evenly;
+	background-color: white;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	
+	button {
+		border: 0.0625rem solid rgb(17, 109, 255);
+		background-color: rgb(17, 109, 255);
+		border-radius: 1.875rem;
+		font-family: var(--main-text-font);
+		width: 20rem;
+		height: 3.5rem;
+		cursor: pointer;
+		color: #ffffff;
+		font-size: 1.5rem;
+		font-weight: 300;
+		margin-top: 2rem;
+		align-items: center;
+		a:link { text-decoration: none; }
+
+		a:visited { text-decoration: none; }
+
+		a:hover { text-decoration: none; }
+
+		a:active { text-decoration: none; }
+
+		span {
+			color: white;
+			text-decoration: none; 
+  		 	background-color: none;
+		}
+	}
+	  
+`
+
 class StudyBuddiesThing {
 
 	constructor(modules, description, gender, info, location, num_buddies, study_timing, title) {
@@ -101,53 +141,39 @@ const initState = {
 
 //home page upon signing in
 function FindStudyBuddy(props) {
-	const userUID = props.user.uid;
 	
-	const DPupload = (props) => {
+	const [loadedSBlist, setLoadedEvents] = useState([]);
 
-		const [loading, setLoading] = useState(false);
-		const [jobDetails, setJobDetails] = useState(initState);
-		const [startDate, setStartDate] = useState(new Date());
+  useEffect(() => {
+    //setIsLoading(true);
+    fetch(
+      'https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/SB.json'
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const SBs = [];
 
-		const handleChange = (e) => {
-			setJobDetails((oldState) => ({
-			...oldState,
-			[e.target.name]: e.target.value,
-			}));
-		};
-
-		const handleDateChange = (date) => {
-			setStartDate(date);
-			setJobDetails((oldState) => ({
-			...oldState,
-			startDate: startDate,
-			}));
-		}; 
-
-		const handleSubmit = async () => {
-			setLoading(true);
-			await props.PostJob(jobDetails);
-			closeModal();
-			Router.reload(window.location.pathname);
-		};
-
-		const closeModal = () => {
-			setJobDetails(initState);
-			setLoading(false);
-			props.closeJobModal();
-		};
-
-		
-        db.collection("TEST").doc(userUID).set({      
-            CLDDB: {},
-            DPDB: {},
-            HSDB: {},
-            SBDB: {},
-            TDLDB: {}
+		// we query and show only events which are not completed, aka .completed == false
+        for (const key in data) {
+			const tuple = data[key]
+			//console.log(tuple.completed)
+			if (!tuple.completed) {
+				console.log('load')
+				const SB = {
+					id: key,
+					...tuple
+				};
+			SBs.push(SB);
+			} 
         }
-    );
-	}
 
+        //setIsLoading(false);
+        setLoadedEvents(SBs);
+      });
+  }, []);
+	
 	return (
 
 		<Container>
@@ -161,12 +187,20 @@ function FindStudyBuddy(props) {
 					</h5>
 				
 				</Section>
-				<Layout>
-					
-					<Main />
-					
-				</Layout>
+				<HomePage>
+					<button>
+						<Link to="/findnewsb">
+							<a href="/findnewsb">
+							<span>Find Study Buddies!!! </span>
+							</a>
+						</Link>
+					</button>
+				</HomePage>
+				
+				<SBList events={loadedSBlist} />
+
 			</Content>
+			
 		</Container>
 	);
 }
