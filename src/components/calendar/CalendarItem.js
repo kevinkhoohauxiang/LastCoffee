@@ -2,7 +2,6 @@
 import Card from './Card';
 import classes from './CalendarItem.module.css';
 
-
 function CalendarItem(props) {
   
 

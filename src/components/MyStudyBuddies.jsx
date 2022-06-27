@@ -6,6 +6,9 @@ import Left from "./Left";
 import Main from "./Main";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import Card from "./calendar/Card";
+import classes from './calendar/CalendarItem.module.css';
+
 
 const Container = styled.div`
 	max-width: 100%;
@@ -50,8 +53,8 @@ const Section = styled.section`
 
 const Layout = styled.div`
 	display: grid;
-	grid-template-areas: "left main right";
-	grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
+	grid-template-areas: "left main";
+	grid-template-columns: minmax(0, 5fr) minmax(0, 17fr);
 	column-gap: 25px;
 	row-gap: 25px;
 	margin: 25px 0;
@@ -117,10 +120,31 @@ function MyStudyBuddies(props) {
 					</h5>
 					
 				</Section>
-				
-
-				
 			</Content>
+	
+				<Card>
+					<div className={classes.content}>
+						<h3>Name: Zen Bin</h3>
+						<br/>
+						<h3>Contact Info: @zenbin123</h3>
+						<br/>
+						<h3>Info: Y2 BZA student</h3>
+						<br/>
+					</div>
+				</Card>
+				<br/>
+
+				<Card>
+					<div className={classes.content}>
+						<h3>Name: Wayne Ng</h3>
+						<br/>
+						<h3>Contact Info: wayneng123@gmail.com</h3>
+						<br/>
+						<h3>Info: Y2 DSA student</h3>
+						<br/>
+					</div>
+				</Card>
+
 		</Container>
 	);
 }

@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Left from "./Left";
-import Main from "./Main";
+import Card from "./calendar/Card";
+import classes from './calendar/CalendarItem.module.css';
 
 import Header from "./Header";
 
@@ -79,6 +80,25 @@ function StudyBuddyNotifications(props) {
 				</Section>
 				
 			</Content>
+
+			<Card>
+				<div className={classes.content}>
+					<h3>Wayne has accepted your request to be a study buddy!</h3>
+					<br/>
+					<h4>-- 26s ago</h4>
+					
+				</div>
+			</Card>
+			<br/>
+
+			<Card>
+				<div className={classes.content}>
+					<h3>Zen Bin has accepted your request to be a study buddy!</h3>
+					<br/>
+					<h4>-- 23mins ago</h4>
+					
+				</div>
+			</Card>
 		</Container>
 	);
 }

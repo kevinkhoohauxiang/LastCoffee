@@ -6,6 +6,7 @@ import Main from "./Main";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import SBList from "./studybuddyform/SBList";
+import Left from "./Left";
 
 
 const Container = styled.div`
@@ -51,8 +52,8 @@ const Section = styled.section`
 
 const Layout = styled.div`
 	display: grid;
-	grid-template-areas: "left main right";
-	grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
+	grid-template-areas: "left main";
+	grid-template-columns: minmax(0, 5fr) minmax(0, 17fr);
 	column-gap: 25px;
 	row-gap: 25px;
 	margin: 25px 0;
@@ -196,8 +197,15 @@ function FindStudyBuddy(props) {
 						</Link>
 					</button>
 				</HomePage>
+
+				<Layout>
+					
+					<Left />
+					<SBList events={loadedSBlist} />
+					
+				</Layout>
 				
-				<SBList events={loadedSBlist} />
+			
 
 			</Content>
 			

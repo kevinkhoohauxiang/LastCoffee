@@ -74,7 +74,7 @@ function NewSBForm(props) {
             <input type='text' required id='gender' ref={genderInputRef} />
           </div>
           <div className={classes.control}>
-            <label htmlFor='subjects'>Preferred Course / Subjects</label>
+            <label htmlFor='subjects'>Preferred Course / Modules</label>
             <input type='text' required id='subjects' ref={subjectsInputRef} />
           </div>
           

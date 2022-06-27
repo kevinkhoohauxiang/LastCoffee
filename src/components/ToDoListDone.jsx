@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useRef } from 'react';
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
@@ -49,20 +48,6 @@ const Section = styled.section`
 	}
 `;
 
-const Layout = styled.div`
-	display: grid;
-	grid-template-areas: "left main right";
-	grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
-	column-gap: 25px;
-	row-gap: 25px;
-	margin: 25px 0;
-	@media (max-width: 768px) {
-		display: flex;
-		flex-direction: column;
-		padding: 0 5px;
-	}
-`;
-
 const HomePage = styled.div`
 	display: flex;
 	flex-flow: column nowrap;
@@ -72,6 +57,18 @@ const HomePage = styled.div`
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
+
+	h2 {
+		margin-top: 20px;
+		font-size: 1.25rem;
+		margin: 0;
+		font-weight: lighter;
+		line-height: 1.6em;
+		letter-spacing: 0.01em;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
 	
 	button {
 		border: 0.0625rem solid rgb(17, 109, 255);
@@ -161,9 +158,7 @@ const [loadedtodolist, setLoadedEvents] = useState([]);
 			{!props.user && <Redirect to="/" />}
 			<Content>
 				<Section>
-					<h5>
-						<a>THIS IS TO DO LIST DONE</a>
-					</h5>
+					
 					<HomePage>
 						<button>
 							<Link to="/createnewtodo">
@@ -179,6 +174,8 @@ const [loadedtodolist, setLoadedEvents] = useState([]);
 								</a>
 							</Link>
 						</button>
+
+						<h2>Well Done! You have completed the following tasks!</h2>
 					</HomePage>
 					
 				</Section>

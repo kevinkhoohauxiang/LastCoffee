@@ -178,9 +178,7 @@ function ToDoList(props) {
 			<Content>
 				
 				<Section>
-					<h5>
-						<a>THIS IS TO DO LIST</a>
-					</h5>
+					
 
 					<HomePage>
 						<button>

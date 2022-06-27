@@ -25,52 +25,9 @@ const Content = styled.div`
 `;
 
 const Logo = styled.span`
-	margin-right: 8px;
+	margin-left: -100px;
+	margin-right: 100px;
 	font-size: 0;
-`;
-
-const Search = styled.div`
-	opacity: 1;
-	flex-grow: 1;
-	position: relative;
-	@media (max-width: 768px) {
-		flex-grow: unset;
-	}
-	& > div {
-		max-width: 280px;
-		input {
-			border: none;
-			box-shadow: none;
-			background-color: #eef3f8;
-			border-radius: 2px;
-			color: rgba(0, 0, 0, 0.9);
-			width: 218px;
-			padding: 0 8px 0 40px;
-			line-height: 1.75;
-			font-weight: 400;
-			font-size: 14px;
-			height: 34px;
-			vertical-align: text-top;
-			border-color: #dce6f1;
-			@media (max-width: 768px) {
-				width: 140px;
-			}
-		}
-	}
-`;
-
-const SearchIcon = styled.div`
-	width: 40px;
-	z-index: 1;
-	position: absolute;
-	top: 10px;
-	left: 5px;
-	border-radius: 0 2px 2px 0;
-	margin: 0;
-	pointer-events: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 `;
 
 const Nav = styled.nav`
@@ -118,7 +75,7 @@ const NavList = styled.li`
 		justify-content: center;
 		line-height: 1.5;
 		min-height: 52px;
-		min-width: 120px;
+		min-width: 100px;
 		position: relative;
 		text-decoration: none;
 		span {
@@ -157,15 +114,6 @@ const SignOut = styled.div`
 	transition-duration: 167ms;
 	display: none;
 	z-index: 15;
-`;
-
-const SignOutMobile = styled.div`
-	display: none;
-	@media (max-width: 768px) {
-		display: flex;
-		padding-left: 1rem;
-		font-size: 14px;
-	}
 `;
 
 const User = styled(NavList)`
@@ -217,6 +165,14 @@ function Header(props) {
 				
 				<Nav>
 					<NavListWrap>
+						<NavList>
+							<Link to="/home">
+								<a href="/home">
+									<img src="/images/Home.svg" alt="" />
+									<span>Home</span>
+								</a>
+							</Link>	
+						</NavList>
 						<NavList>
 							<Link to="/myprofile">
 								<a href="/myprofile">

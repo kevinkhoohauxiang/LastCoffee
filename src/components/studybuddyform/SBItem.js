@@ -18,18 +18,19 @@ function SBItem(props) {
       <Card>
         
         <div className={classes.content}>
-          <h3>{props.info}</h3>
+          <h3>Info: {props.info}</h3>
           {props.description}
           <br/>
-          {props.number} 
           <br/>
-          {props.location}
+          Preferred number of study buddies: {props.number} 
           <br/>
-          {props.timing}
+          Preferred studying locations: {props.location}
           <br/>
-          {props.gender}
+          Preferred study timings: {props.timing}
           <br/>
-          {props.subjects}
+          Preferred gender: {props.gender}
+          <br/>
+          Preferred course / modules: {props.subjects}
         </div>
         <button onClick={changeState}>Send Request!!!</button>
         

@@ -4,8 +4,9 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Left from "./Left";
 import Main from "./Main";
-
 import Header from "./Header";
+import Card from "./calendar/Card";
+import classes from './calendar/CalendarItem.module.css';
 
 const Container = styled.div`
 	max-width: 100%;
@@ -62,6 +63,26 @@ const Layout = styled.div`
 	}
 `;
 
+const WLbuttons = styled.div`
+	button {
+		border: 0.0625rem solid rgb(17, 109, 255);
+		background-color: rgb(17, 109, 255);
+		border-radius: 1.875rem;
+		font-family: var(--main-text-font);
+		width: 20rem;
+		height: 3.5rem;
+		cursor: pointer;
+		color: #ffffff;
+		font-size: 1.5rem;
+		font-weight: 300;
+		margin-top: 2rem;
+		align-items: center;
+		margin-right: 20px;
+		margin-left: 20px;
+
+	}
+`;
+
 class CalendarThings {
 
 	constructor(accepted, uid) {
@@ -93,6 +114,20 @@ function StudyBuddiesRequests(props) {
 					// Need to have the notifications pop up here, copy facebook friend requests
 				}
 			</Content>
+
+				<Card>
+					<div className={classes.content}>
+						<h3>Wendy has sent you a request to be a study buddy!</h3>
+						<br/>
+						<h3>Info: Y2 CS student</h3>
+						
+						<WLbuttons>
+							<button>Accept</button>
+							<button>Reject</button>
+						</WLbuttons>
+					</div>
+				</Card>
+				
 		</Container>
 	);
 }

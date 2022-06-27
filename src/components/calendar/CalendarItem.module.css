@@ -44,3 +44,10 @@
 .actions button:active {
   background-color: #ffe2ed;
 }
+
+.content h4 {
+  text-align: right;
+  margin-right: 30px;
+  font-size: 14px;
+  color: grey;
+}

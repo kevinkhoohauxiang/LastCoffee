@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function UncompletedToDo() {
+function CompletedToDo() {
     const [loadedtodolist, setLoadedEvents] = useState([]);
 
     useEffect(() => {
@@ -33,4 +33,4 @@ function UncompletedToDo() {
     }, []);
 }
 
-export default UncompletedToDo;
+export default CompletedToDo;
