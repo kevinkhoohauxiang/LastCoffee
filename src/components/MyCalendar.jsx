@@ -8,237 +8,244 @@ import { Link } from "react-router-dom";
 import Calendar from "react-calendar/dist/umd/Calendar";
 import CalendarList from "./calendar/CalendarList";
 import Card from "./calendar/Card";
-import classes from './calendar/NewCalendarForm.module.css';
+import classes from "./calendar/NewCalendarForm.module.css";
 
 const DUMMY_DATA = [
-	{
-		title: "FOW",
-		startDate: "2022-06-28",
-		startTime: "10:00",
-		endDate: "2022-06-30",
-		endTime: "22:00",
-		description: "milestone 2 deadline"
-	}
-]
+  {
+    title: "FOW",
+    startDate: "2022-06-28",
+    startTime: "10:00",
+    endDate: "2022-06-30",
+    endTime: "22:00",
+    description: "milestone 2 deadline",
+  },
+];
 
 const Container = styled.div`
-	max-width: 100%;
+  max-width: 100%;
 `;
 
 const Content = styled.div`
-	max-width: 1128px;
-	margin: auto;
+  max-width: 1128px;
+  margin: auto;
 `;
 
 const Section = styled.section`
-	min-height: 50px;
-	margin: 16px 0 -30px;
-	box-sizing: content-box;
-	text-align: center;
-	text-decoration: underline;
-	display: flex;
-	justify-content: center;
-	h5 {
-		color: #0a66c2;
-		font-size: 14px;
-		margin-block-start: 0;
-		margin-block-end: 0;
-		a {
-			font-weight: 700;
-		}
-	}
-	p {
-		font-size: 14px;
-		color: #434649;
-		margin-block-start: 0;
-		margin-block-end: 0;
-		font-weight: 600;
-	}
+  min-height: 50px;
+  margin: 16px 0 -30px;
+  box-sizing: content-box;
+  text-align: center;
+  text-decoration: underline;
+  display: flex;
+  justify-content: center;
+  h5 {
+    color: #0a66c2;
+    font-size: 14px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    a {
+      font-weight: 700;
+    }
+  }
+  p {
+    font-size: 14px;
+    color: #434649;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-weight: 600;
+  }
 
-	@media (max-width: 768px) {
-		flex-direction: column;
-		padding: 0 5px;
-		margin: 16px 0;
-	}
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 0 5px;
+    margin: 16px 0;
+  }
 `;
 
 const Layout = styled.div`
-	display: grid;
-	grid-template-areas: "left main right";
-	grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
-	column-gap: 25px;
-	row-gap: 25px;
-	margin: 25px 0;
-	@media (max-width: 768px) {
-		display: flex;
-		flex-direction: column;
-		padding: 0 5px;
-	}
+  display: grid;
+  grid-template-areas: "left main right";
+  grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
+  column-gap: 25px;
+  row-gap: 25px;
+  margin: 25px 0;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+  }
 `;
 
 const HomePage = styled.div`
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	justify-content: space-evenly;
-	background-color: white;
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	
-	button {
-		border: 0.0625rem solid rgb(17, 109, 255);
-		background-color: rgb(17, 109, 255);
-		border-radius: 1.875rem;
-		font-family: var(--main-text-font);
-		width: 20rem;
-		height: 3.5rem;
-		cursor: pointer;
-		color: #ffffff;
-		font-size: 1.5rem;
-		font-weight: 300;
-		margin-top: 2rem;
-		align-items: center;
-		a:link { text-decoration: none; }
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: white;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 
-		a:visited { text-decoration: none; }
+  button {
+    border: 0.0625rem solid rgb(17, 109, 255);
+    background-color: rgb(17, 109, 255);
+    border-radius: 1.875rem;
+    font-family: var(--main-text-font);
+    width: 20rem;
+    height: 3.5rem;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: 2rem;
+    align-items: center;
+    a:link {
+      text-decoration: none;
+    }
 
-		a:hover { text-decoration: none; }
+    a:visited {
+      text-decoration: none;
+    }
 
-		a:active { text-decoration: none; }
+    a:hover {
+      text-decoration: none;
+    }
 
-		span {
-			color: white;
-			text-decoration: none; 
-  		 	background-color: none;
-		}
-	}
-	  
-`
+    a:active {
+      text-decoration: none;
+    }
 
+    span {
+      color: white;
+      text-decoration: none;
+      background-color: none;
+    }
+  }
+`;
 
 class CalendarThings {
+  constructor(description, end_date, start_date, title) {
+    this.startDate = start_date; // date
+    this.endDate = end_date; // date
+    this.description = description; // string
+    this.title = title; // string
+  }
 
-	constructor(description, end_date, start_date, title) {
-		this.startDate = start_date; // date
-		this.endDate = end_date ; // date
-		this.description = description; // string
-		this.title = title; // string
-	}
-
-	toString() {
-        return this.startDate + ', ' + this.endDate + ', ' + this.description + ', ' + this.title;
-    }
+  toString() {
+    return (
+      this.startDate +
+      ", " +
+      this.endDate +
+      ", " +
+      this.description +
+      ", " +
+      this.title
+    );
+  }
 }
 
 //home page upon signing in
 function MyCalendar(props) {
+  //const currDateInputRef = useRef();
+  const [currDate, setcurrDate] = useState("");
 
-	//const currDateInputRef = useRef();
-	const [currDate, setcurrDate] = useState("");
+  //const [isLoading, setIsLoading] = useState(true);
+  const [loadedcalendarlist, setLoadedEvents] = useState([]);
 
-	//const [isLoading, setIsLoading] = useState(true);
-	const [loadedcalendarlist, setLoadedEvents] = useState([]);
+  function SelectDate() {
+    const currDateInputRef = useRef();
+    //console.log(currDateInputRef)
+    console.log(currDate);
 
-	function SelectDate() {
-		const currDateInputRef = useRef();
-		//console.log(currDateInputRef)
-		console.log(currDate)
-		
-	  
-		function submitHandler(event) {
-			event.preventDefault();
-			const currDate1 = currDateInputRef.current.value;
+    function submitHandler(event) {
+      event.preventDefault();
+      const currDate1 = currDateInputRef.current.value;
 
-			setcurrDate(currDate1)
+      setcurrDate(currDate1);
 
-			//console.log(currDate1)
-			//console.log(currDate)
-			//window.location.reload(false);
-		}
+      //console.log(currDate1)
+      //console.log(currDate)
+      //window.location.reload(false);
+    }
 
-		return (
-		  <Card>
-			<form className={classes.form} onSubmit={submitHandler}>
-			  
-			  <div className={classes.control}>
-				<label htmlFor='currDate'>Calendar Event Start Date</label>
-				<input type='date' required id='currDate' ref={currDateInputRef} />
-			  </div>
-			  
-			  <div className={classes.actions}>
-				<button>Select Date</button>
-			  </div>
-			</form>
-		  </Card>
-		);
-	}
+    return (
+      <Card>
+        <form className={classes.form} onSubmit={submitHandler}>
+          <div className={classes.control}>
+            <label htmlFor="currDate">Calendar Event Start Date</label>
+            <input type="date" required id="currDate" ref={currDateInputRef} />
+          </div>
 
-	useEffect(() => {
-	  //setIsLoading(true);
-	  fetch(
-		'https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/Calendar.json'
-	  )
-		.then((response) => {
-		  return response.json();
-		})
-		.then((data) => {
-		  const calendars = [];
-  
-		  for (const key in data) { 
-			const info = data[key];
-			//console.log(info.startDate)
-			//console.log(currDate)
-			if (currDate == info.startDate) {
-				const calendar = {
-				id: key,
-				...data[key]
-				};
-				calendars.push(calendar);
-				};
-		  }
-  
-		  //setIsLoading(false);
-		  setLoadedEvents(calendars);
-		});
-	}, []);
+          <div className={classes.actions}>
+            <button>Select Date</button>
+          </div>
+        </form>
+      </Card>
+    );
+  }
 
-	return (
+  useEffect(() => {
+    //setIsLoading(true);
+    fetch(
+      "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/Calendar.json"
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const calendars = [];
 
-		<Container>
-			{!props.user && <Redirect to="/" />}
-			<Header />
-			<Section>
-				<h5>
-					<a>THIS IS MY CALENDAR</a>
-				</h5>
-					
-			</Section>
+        for (const key in data) {
+          const info = data[key];
+          //console.log(info.startDate)
+          //console.log(currDate)
+          if (currDate == info.startDate) {
+            const calendar = {
+              id: key,
+              ...data[key],
+            };
+            calendars.push(calendar);
+          }
+        }
 
-			<HomePage>
-				<button>
-					<Link to="/createnewcalendar">
-						<a href="/createnewcalendar">
-						<span>Add new Calendar Event</span>
-						</a>
-					</Link>
-				</button>
-			</HomePage>
+        //setIsLoading(false);
+        setLoadedEvents(calendars);
+      });
+  }, []);
 
-			<Calendar />
+  return (
+    <Container>
+      {!props.user && <Redirect to="/" />}
+      <Header />
+      <Section>
+        <h5>
+          <a>THIS IS MY CALENDAR</a>
+        </h5>
+      </Section>
 
-			<SelectDate />
+      <HomePage>
+        <button>
+          <Link to="/createnewcalendar">
+            <a href="/createnewcalendar">
+              <span>Add new Calendar Event</span>
+            </a>
+          </Link>
+        </button>
+      </HomePage>
 
-			<CalendarList events={loadedcalendarlist} />
+      <Calendar />
 
-		</Container>
-	);
+      <SelectDate />
+
+      <CalendarList events={loadedcalendarlist} />
+    </Container>
+  );
 }
 
 const mapStateToProps = (state) => {
-	return {
-		user: state.userState.user,
-	};
+  return {
+    user: state.userState.user,
+  };
 };
 
 export default connect(mapStateToProps)(MyCalendar);

@@ -18,75 +18,72 @@ import { connect } from "react-redux";
 import NewMyCalendar from "./NewMyCalendar";
 import NewSB from "./NewSB";
 
-
 function App(props) {
-	useEffect(() => {
-		props.getUserAuth();
-	}, []);
+  useEffect(() => {
+    props.getUserAuth();
+  }, []);
 
-	return (
-		<div className="App">
-			<Router>
-				<Switch>
-					<Route exact path="/">
-						<Login />
-					</Route>
-					<Route path="/home">
-						<Home />
-					</Route>
-					<Route path="/myprofile">
-						<MyProfile />
-					</Route>
-					<Route path="/mycalendar">
-						<MyCalendar />
-					</Route>
-					<Route path="/todolist">
-						<ToDoList />
-					</Route>
-					<Route path="/studybuddies">
-						<StudyBuddies />
-					</Route>
-					<Route path="/aboutus">
-						<AboutUs />
-					</Route>
-					<Route path="/findstudybuddy">
-						<FindStudyBuddy />
-					</Route>
-					<Route path="/mystudybuddies">
-						<MyStudyBuddies />
-					</Route>
-					<Route path="/studybuddynotifications">
-						<StudyBuddyNotifications />
-					</Route>
-					<Route path="/studybuddyrequests">
-						<StudyBuddiesRequests />
-					</Route>
-					<Route path="/createnewtodo">
-						<NewToDoEvent />
-					</Route>
-					<Route path="/todolistdone">
-						<ToDoListDone />
-					</Route>
-					<Route path="/createnewcalendar">
-						<NewMyCalendar /> 
-					</Route>
-					<Route path="/findnewsb">
-						<NewSB /> 
-					</Route>
-
-
-				</Switch>
-			</Router>
-		</div>
-	);
+  return (
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route path="/myprofile">
+            <MyProfile />
+          </Route>
+          <Route path="/mycalendar">
+            <MyCalendar />
+          </Route>
+          <Route path="/todolist">
+            <ToDoList />
+          </Route>
+          <Route path="/studybuddies">
+            <StudyBuddies />
+          </Route>
+          <Route path="/aboutus">
+            <AboutUs />
+          </Route>
+          <Route path="/findstudybuddy">
+            <FindStudyBuddy />
+          </Route>
+          <Route path="/mystudybuddies">
+            <MyStudyBuddies />
+          </Route>
+          <Route path="/studybuddynotifications">
+            <StudyBuddyNotifications />
+          </Route>
+          <Route path="/studybuddyrequests">
+            <StudyBuddiesRequests />
+          </Route>
+          <Route path="/createnewtodo">
+            <NewToDoEvent />
+          </Route>
+          <Route path="/todolistdone">
+            <ToDoListDone />
+          </Route>
+          <Route path="/createnewcalendar">
+            <NewMyCalendar />
+          </Route>
+          <Route path="/findnewsb">
+            <NewSB />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {
-	return {};
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	getUserAuth: () => dispatch(getUserAuth()),
+  getUserAuth: () => dispatch(getUserAuth()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,179 +3,181 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 const Container = styled.div`
-	grid-area: left;
+  grid-area: left;
 `;
 
-const MainName = styled.div`
-	
-`;
+const MainName = styled.div``;
 
 const ArtCard = styled.div`
-	text-align: center;
-	overflow: hidden;
-	margin-bottom: 8px;
-	border-radius: 5px;
-	background-color: #fff;
-	transition: box-shadow 83ms;
-	position: relative;
-	border: none;
-	box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: box-shadow 83ms;
+  position: relative;
+  border: none;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
 `;
 
 const UserInfo = styled.div`
-	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-	padding: 12px 12px 16px;
-	word-wrap: break-word;
-	word-break: break-word;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 12px 12px 16px;
+  word-wrap: break-word;
+  word-break: break-word;
 `;
 
 const CardBackground = styled.div`
-	background: url("/images/card-bg.svg");
-	background-position: center;
-	background-size: 462px;
-	height: 54px;
-	margin: -12px -12px 0;
+  background: url("/images/card-bg.svg");
+  background-position: center;
+  background-size: 462px;
+  height: 54px;
+  margin: -12px -12px 0;
 `;
 
 const Photo = styled.div`
-	box-shadow: none;
-	background: url(${props => props.photoUrl});
-	width: 72px;
-	height: 72px;
-	box-sizing: border-box;
-	background-clip: content-box;
-	background-color: #fff;
-	background-position: center;
-	/* background-size: 60%; */
-	background-repeat: no-repeat;
-	border: 2px solid white;
-	margin: -38px auto 12px;
-	border-radius: 50%;
+  box-shadow: none;
+  background: url(${(props) => props.photoUrl});
+  width: 72px;
+  height: 72px;
+  box-sizing: border-box;
+  background-clip: content-box;
+  background-color: #fff;
+  background-position: center;
+  /* background-size: 60%; */
+  background-repeat: no-repeat;
+  border: 2px solid white;
+  margin: -38px auto 12px;
+  border-radius: 50%;
 `;
 
 const Link = styled.div`
-	font-size: 16px;
-	line-height: 1.5;
-	color: rgba(0, 0, 0, 0.9);
-	font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 600;
 `;
 
 const AddPhotoText = styled.div`
-	color: #0a66c2;
-	margin-top: 4px;
-	font-size: 12px;
-	line-height: 1.33;
-	font-weight: 400;
+  color: #0a66c2;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.33;
+  font-weight: 400;
 `;
 
 const Widget = styled.div`
-	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-	padding: 12px 0;
-	& > a {
-		text-decoration: none;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 4px 12px;
-		&:hover {
-			background-color: rgba(0, 0, 0, 0.08);
-		}
-		div {
-			display: flex;
-			flex-direction: column;
-			text-align: left;
-			span {
-				font-size: 12px;
-				line-height: 1.333;
-				&:first-child {
-					color: rgba(0, 0, 0, 0.6);
-				}
-				&:nth-child(2) {
-					color: #000;
-				}
-			}
-		}
-	}
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 12px 0;
+  & > a {
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 12px;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      span {
+        font-size: 12px;
+        line-height: 1.333;
+        &:first-child {
+          color: rgba(0, 0, 0, 0.6);
+        }
+        &:nth-child(2) {
+          color: #000;
+        }
+      }
+    }
+  }
 `;
 
 const Item = styled.a`
-	display: block;
-	border-color: rgba(0, 0, 0, 0.6);
-	text-align: left;
-	padding: 12px;
-	font-size: 12px;
-	span {
-		display: flex;
-		align-items: center;
-	}
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.08);
-	}
+  display: block;
+  border-color: rgba(0, 0, 0, 0.6);
+  text-align: left;
+  padding: 12px;
+  font-size: 12px;
+  span {
+    display: flex;
+    align-items: center;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
 `;
 
 const CommunityCard = styled(ArtCard)`
-	padding: 8px 0 0;
-	text-align: left;
-	display: flex;
-	flex-direction: column;
-	a {
-		color: #000;
-		padding: 4px 12px;
-		font-size: 12px;
-		&:hover {
-			color: #0a66c2;
-		}
-		span {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-		}
-		&:last-child {
-			color: rgba(0, 0, 0, 0.6);
-			border-top: 1px solid #d6cec2;
-			padding: 12px;
-			&:hover {
-				background-color: rgba(0, 0, 0, 0.08);
-			}
-		}
-	}
+  padding: 8px 0 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  a {
+    color: #000;
+    padding: 4px 12px;
+    font-size: 12px;
+    &:hover {
+      color: #0a66c2;
+    }
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &:last-child {
+      color: rgba(0, 0, 0, 0.6);
+      border-top: 1px solid #d6cec2;
+      padding: 12px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
 `;
 
 function Left(props) {
-	// use the photo from google sign in, if not use the default photo
-	let photoUrl = props.user.photoURL ? props.user.photoURL : "/images/photo.svg";
-	
-	return (
-		<Container>
-			<ArtCard> 
-				<UserInfo>
-					<CardBackground />
-					<a>
-						<Photo photoUrl={photoUrl} />
-						<Link>Welcome to <br></br>The Last Coffee, <br></br> {props.user ? props.user.displayName : ""}!</Link>
-					</a>
-					<a>
-						<AddPhotoText>Add a photo</AddPhotoText>
-					</a>
-				</UserInfo>
-			</ArtCard>
-			
-		</Container>
-	);
+  // use the photo from google sign in, if not use the default photo
+  let photoUrl = props.user.photoURL
+    ? props.user.photoURL
+    : "/images/photo.svg";
+
+  return (
+    <Container>
+      <ArtCard>
+        <UserInfo>
+          <CardBackground />
+          <a>
+            <Photo photoUrl={photoUrl} />
+            <Link>
+              Welcome to <br></br>The Last Coffee, <br></br>{" "}
+              {props.user ? props.user.displayName : ""}!
+            </Link>
+          </a>
+          <a>
+            <AddPhotoText>Add a photo</AddPhotoText>
+          </a>
+        </UserInfo>
+      </ArtCard>
+    </Container>
+  );
 }
 
 const mapStateToProps = (state) => {
-	return {
-		user: state.userState.user,
-	};
+  return {
+    user: state.userState.user,
+  };
 };
 
 // function to allow for the adding of photo into the database
-//const addaPhoto = 
+//const addaPhoto =
 
 //function to allow for the adding of their new(updated) name into the database
 
-//function to allow for the adding of their 
+//function to allow for the adding of their
 
 //function to allow for the viewing of information
 

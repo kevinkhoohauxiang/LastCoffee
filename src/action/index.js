@@ -145,6 +145,12 @@ export function updateArticleAPI(payload) {
 	};
 }
 
+export function updateDisplayName(payload) {
+	return (dispatch) => {
+		db.collection("TEST").doc(payload.uid).update(payload.update);
+	}
+}
+
 // Functions to upload stuff to DP
 export function postDP(payload) {
 	return (dispatch) => {
