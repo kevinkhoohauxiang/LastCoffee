@@ -52,51 +52,10 @@ const Section = styled.section`
   }
 `;
 
-const Layout = styled.div`
-  display: grid;
-  grid-template-areas: "left main right";
-  grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
-  column-gap: 25px;
-  row-gap: 25px;
-  margin: 25px 0;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    padding: 0 5px;
-  }
-`;
-
-class Todothings {
-  constructor(completed, deadline, description, title) {
-    this.completed = completed; //boolean
-    this.deadline = deadline; // date
-    this.description = description; // string
-    this.title = title; // string
-  }
-
-  toString() {
-    return (
-      this.completed +
-      ", " +
-      this.deadline +
-      ", " +
-      this.description +
-      ", " +
-      this.title
-    );
-  }
-}
-
 //home page upon signing in
 function NewToDoEvent(props) {
   const [editorText, setEditorText] = useState("");
   const userUID = props.user.uid;
-  const user = db.collection("TEST").doc(userUID);
-  const CLDDB = user.get("CLDDB");
-  const DPDB = user.get("DPDB");
-  const HSDB = user.get("HSDB");
-  const SBDB = user.get("SBDB");
-  const TDLDB = user.get("TDLDB");
 
   /*
 	const EventUpload = () => {
@@ -134,7 +93,7 @@ function NewToDoEvent(props) {
           </h5>
         </Section>
 
-        <NewToDoPage />
+        <NewToDoPage props />
 
         <button>
           <Link to="/todolist">

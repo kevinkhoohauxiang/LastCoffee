@@ -78,6 +78,18 @@ const Portrait = styled.div`
   }
 `;
 
+const InputBox = styled.div`
+  input,
+  textarea {
+    display: block;
+    font: inherit;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 0.25rem;
+    width: 100%;
+  }
+`;
+
 // for uploading new profile picture
 
 //for changing your name
@@ -100,16 +112,8 @@ function MyProfile(props) {
   //console.log(props.user);
   //console.log(props.user.uid);
   const userUID = props.user.uid;
-  const descriptionInputRef = useRef();
-
-  /*const DPupload = () => 
-	const DPupload = 
-		db.collection("TEST").doc(userUID)
-		.collection('CLDDB').add({
-			name: 'ZEN'
-		});
-
-		*/
+  const [NewDescription, setNewDescription] = useState("");
+  const [NewContactInfo, setNewContactInfo] = useState("");
 
   const ReactFirebaseImageUpload = () => {
     const [image, setImage] = useState(null);
@@ -173,7 +177,7 @@ function MyProfile(props) {
       <div>
         <br />
         <input type="file" onChange={handleChange} />
-        <button onClick={handleUpload}>Upload Picture</button>
+        <button onClick={handleChange}>Upload Picture</button>
         <br />
       </div>
     );
@@ -181,35 +185,89 @@ function MyProfile(props) {
 
   const NameUpload = () => {
     //need to link front end to backend, upload the new name to the db and query it
+    const [NewName, setNewName] = useState(null);
+
+    function handleChange(event) {
+      setNewName(event.target.value);
+      console.log(event.target.value);
+    }
+
     const handleNameUpload = () => {
+      console.log("works");
       db.collection("TEST").doc(userUID).update({
-        "DPDB.display_name": "testing",
+        "DPDB.display_name": NewName,
       });
     };
 
     return (
       <div>
         <br />
-        <input id="text" />
-        <button onClick={handleNameUpload}>Change Name</button>
+        <InputBox>
+          <input type="text" placeholder="New Name" onChange={handleChange} />
+          <button onClick={handleNameUpload}>Change Name</button>
+        </InputBox>
         <br />
       </div>
     );
   };
 
   const ContactUpload = () => {
-    //need to link front end to backend, upload the new name to the db and query it
+    const [NewName, setNewName] = useState(null);
+
+    function handleChange(event) {
+      setNewName(event.target.value);
+      console.log(event.target.value);
+    }
+
     const handleNameUpload = () => {
+      console.log("works");
       db.collection("TEST").doc(userUID).update({
-        "DPDB.display_name": "testing",
+        "DPDB.contact_info": NewName,
       });
     };
 
     return (
       <div>
         <br />
-        <input id="text" />
+        <InputBox>
+          <input
+            type="text"
+            placeholder="New Email / Telehandle / Phone Number"
+            onChange={handleChange}
+          />
+        </InputBox>
         <button onClick={handleNameUpload}>Change Contact Info</button>
+        <br />
+      </div>
+    );
+  };
+
+  const InfoUpload = () => {
+    const [NewName, setNewName] = useState(null);
+
+    function handleChange(event) {
+      setNewName(event.target.value);
+      console.log(event.target.value);
+    }
+
+    const handleNameUpload = () => {
+      console.log("works");
+      db.collection("TEST").doc(userUID).update({
+        "DPDB.contact_info": NewName,
+      });
+    };
+
+    return (
+      <div>
+        <br />
+        <InputBox>
+          <input
+            type="text"
+            placeholder="New Self Introduction"
+            onChange={handleChange}
+          />
+        </InputBox>
+        <button onClick={handleNameUpload}>Change Display Info</button>
         <br />
       </div>
     );
@@ -242,12 +300,17 @@ function MyProfile(props) {
             //<button onClick={DPupload}>DISPLAY INFO UPLOAD</button>
           }
           <br />
-          <h3>Change name</h3>
+          <h3>Change Display Name</h3>
 
           <NameUpload />
 
           <br />
-          <h3>Change contact info</h3>
+          <h3>Change Display Info</h3>
+
+          <InfoUpload />
+
+          <br />
+          <h3>Change Contact Info</h3>
 
           <ContactUpload />
 
