@@ -155,12 +155,11 @@ function MyCalendar(props) {
   function SelectDate() {
     const currDateInputRef = useRef();
     //console.log(currDateInputRef)
-    console.log(currDate);
+    //console.log(currDate);
 
     function submitHandler(event) {
       event.preventDefault();
       const currDate1 = currDateInputRef.current.value;
-
       setcurrDate(currDate1);
 
       //console.log(currDate1)

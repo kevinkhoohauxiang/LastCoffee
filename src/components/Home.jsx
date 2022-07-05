@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
@@ -72,16 +73,33 @@ const Homepage = styled.div`
 
 //home page upon signing in
 function Home(props) {
-  //console.log(props.user)
-  //console.log(props.user.photoURL)
-  const userUID = props.user.uid;
-  //console.log(userUID)
-  const displayName = props.user.displayName;
-  const photoUrl = props.user.photoURL
-    ? props.user.photoURL
-    : "/images/photo.svg";
-  const contactInfo = props.user.email;
-  //console.log(props.user.email)
+  /*
+  const [ContactInfo, setContactInfo] = useState(null);
+  const [DisplayInfo, setDisplayInfo] = useState(null);
+  const [DisplayName, setDisplayName] = useState(null);
+  const [DisplayPicture, setDisplayPicture] = useState(null);
+
+  function renderDoc(doc) {
+    setContactInfo(doc.data().DPDB.contact_info);
+    setDisplayInfo(doc.data().DPDB.display_info);
+    setDisplayName(doc.data().DPDB.display_name);
+    setDisplayPicture(doc.data().DPDB.photo_url);
+    //console.log(DisplayPicture);
+  }
+
+  const set_values = db
+    .collection("TEST")
+    //.where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
+          renderDoc(doc);
+        }
+      )
+    );
+  */
 
   // When the user first successfully logs in, we check if there is already an entry in the Users collection.
   // If there is an entry already, we do nothing. else, we follow the steps below
@@ -92,15 +110,38 @@ function Home(props) {
 
   // "get started" button used for creating all the DBs if the user is new.
 
-  function createnewDB() {
-    console.log("yes");
-    return () => {
-      if (!db.collection("TEST").doc(userUID)) {
-        <CreateAllDB />;
-      }
-    };
-  }
+  const userUID = props.user.uid;
+  const displayName = props.user.displayName;
+  const photoUrl = props.user.photoURL
+    ? props.user.photoURL
+    : "/images/photo.svg";
+  const contactInfo = props.user.email;
+  //console.log(props.user.email)
 
+  const createnewDB = () => {
+    //console.log("yes");
+    if (!db.collection("TEST").doc(userUID)) {
+      console.log("invoked");
+      db.collection("TEST")
+        .doc(userUID)
+        .set({
+          CLDDB: {},
+          DPDB: {
+            display_name: displayName,
+            contact_info: contactInfo,
+            photo_url: photoUrl,
+            display_info: "",
+          },
+          SBDB: {},
+          TDLDB: {},
+        });
+    } else {
+      console.log(null);
+      return;
+    }
+  };
+
+  /*
   const CreateAllDB = db
     .collection("TEST")
     .doc(userUID)
@@ -109,34 +150,34 @@ function Home(props) {
       DPDB: {
         display_name: displayName,
         contact_info: contactInfo,
-        photoUrl: photoUrl,
-        info: "",
+        photo_url: photoUrl,
+        display_info: "",
       },
-      HSDB: {},
       SBDB: {},
       TDLDB: {},
     });
+	*/
 
   return (
     <Container>
       <Header />
-      {!props.user && <Redirect to="/" />}
+      {!props.user && <Redirect to="/home" />}
       <Content>
         <Homepage>
           <h1>
             The Ultimate <br></br>All-in-One <br></br>Student Website <br></br>
           </h1>
-
           <h2>
             Discover the platform that allows you to plan you schedule,{" "}
             <br></br> track your academic progress and connect with like-minded
             peers.
           </h2>
+          <h2>
+            New Users, what are you waiting for? <br></br>Click on the `Get
+            Started` button below to kickstart your journey!
+          </h2>
 
-          <button onClick={createnewDB}>
-            <span>Get Started</span>
-          </button>
-
+          {<button onClick={createnewDB}>Get Started</button>}
           <img src="/images/books.png" alt="Bookshelf" />
         </Homepage>
       </Content>

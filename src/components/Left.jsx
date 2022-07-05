@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import db from "../firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 const Container = styled.div`
   grid-area: left;
@@ -141,6 +144,37 @@ const CommunityCard = styled(ArtCard)`
 
 function Left(props) {
   // use the photo from google sign in, if not use the default photo
+  const userUID = props.user.uid;
+  const [ContactInfo, setContactInfo] = useState("NO");
+  const [DisplayInfo, setDisplayInfo] = useState("NO");
+  const [DisplayName, setDisplayName] = useState("");
+  const [DisplayPicture, setDisplayPicture] = useState("NO");
+
+  function renderDoc(doc) {
+    setContactInfo(doc.data().DPDB.contact_info);
+    setDisplayInfo(doc.data().DPDB.display_info);
+    setDisplayName(doc.data().DPDB.display_name);
+    setDisplayPicture(doc.data().DPDB.photo_url);
+    //console.log(DisplayPicture);
+  }
+
+  const set_values = db
+    .collection("TEST")
+    //.where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
+          renderDoc(doc);
+        }
+      )
+    );
+  //console.log(ContactInfo);
+  //console.log(DisplayPicture);
+
+  //console.log(display_name);
+  //console.log(UID);
   let photoUrl = props.user.photoURL
     ? props.user.photoURL
     : "/images/photo.svg";
@@ -150,11 +184,12 @@ function Left(props) {
       <ArtCard>
         <UserInfo>
           <CardBackground />
+          <set_values />
           <a>
             <Photo photoUrl={photoUrl} />
             <Link>
               Welcome to <br></br>The Last Coffee, <br></br>{" "}
-              {props.user ? props.user.displayName : ""}!
+              {props.user ? DisplayName : ""}!
             </Link>
           </a>
           <a>

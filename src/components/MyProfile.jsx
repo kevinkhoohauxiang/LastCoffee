@@ -108,9 +108,6 @@ class Info {
 
 //home page upon signing in
 function MyProfile(props) {
-  //console.log(props);
-  //console.log(props.user);
-  //console.log(props.user.uid);
   const userUID = props.user.uid;
   const [NewDescription, setNewDescription] = useState("");
   const [NewContactInfo, setNewContactInfo] = useState("");
@@ -143,41 +140,19 @@ function MyProfile(props) {
             .then((url) => {
               console.log(url);
               setUrl(url);
+              db.collection("TEST").doc(userUID).update({
+                "DPDB.photo_url": url,
+              });
             });
         }
       );
     };
 
-    /*
-	function uploadDPHandler(event, postIndex, id) {
-      event.preventDefault();
-      let UID = props.user.uid;
-      let currentLikes = props.articles[postIndex].likes.count;
-      let whoLiked = props.articles[postIndex].likes.whoLiked;
-      let user = props.user.email;
-      let userIndex = whoLiked.indexOf(user);
-
-      const payload = {
-        update: {
-          likes: {
-            count: currentLikes,
-            whoLiked: whoLiked,
-          },
-        },
-        id: id,
-      };
-
-      props.likeHandler(payload);
-    }
-	*/
-
-    //console.log("image", image)
-
     return (
       <div>
         <br />
         <input type="file" onChange={handleChange} />
-        <button onClick={handleChange}>Upload Picture</button>
+        <button onClick={handleUpload}>Upload Picture</button>
         <br />
       </div>
     );
@@ -253,7 +228,7 @@ function MyProfile(props) {
     const handleNameUpload = () => {
       console.log("works");
       db.collection("TEST").doc(userUID).update({
-        "DPDB.contact_info": NewName,
+        "DPDB.display_info": NewName,
       });
     };
 
