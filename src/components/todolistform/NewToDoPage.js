@@ -5,7 +5,7 @@ import NewToDoForm from './NewToDoForm';
 
 function NewToDoPage(props) {
   const history = useHistory();
-  //const userUID = props.user.UID;
+  console.log(props.userUID)
 
   function addToDoHandler(todoData) {
     console.log("sheesh")

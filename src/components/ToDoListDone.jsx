@@ -105,27 +105,6 @@ const HomePage = styled.div`
   }
 `;
 
-class Todothings {
-  constructor(completed, deadline, description, title) {
-    this.completed = completed; //boolean
-    this.deadline = deadline; // date
-    this.description = description; // string
-    this.title = title; // string
-  }
-
-  toString() {
-    return (
-      this.completed +
-      ", " +
-      this.deadline +
-      ", " +
-      this.description +
-      ", " +
-      this.title
-    );
-  }
-}
-
 //home page upon signing in
 function ToDoListDone(props) {
   const [loadedtodolist, setLoadedEvents] = useState([]);

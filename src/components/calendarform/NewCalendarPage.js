@@ -30,7 +30,7 @@ function NewCalendarPage(props) {
 
   return (
     <section>
-      <h1>Add New To Do Event</h1>
+      <h1>Add New Calendar Event</h1>
       <NewCalendarForm onAddCalendar={addCalendarHandler} />
     </section>
   );

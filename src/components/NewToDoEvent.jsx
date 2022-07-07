@@ -7,6 +7,7 @@ import Header from "./Header";
 import db from "../firebase";
 import NewToDoPage from "./todolistform/NewToDoPage";
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker";
 
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
@@ -52,49 +53,52 @@ const Section = styled.section`
   }
 `;
 
+const NewForm = styled.section`
+  margin-bottom: 0.5rem;
+  input,
+  textarea {
+    display: block;
+    font: inherit;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 0.25rem;
+    width: 100%;
+  }
+`;
+
 //home page upon signing in
 function NewToDoEvent(props) {
   const [editorText, setEditorText] = useState("");
   const userUID = props.user.uid;
+  const [newEvent, setNewEvent] = useState({
+    title: "",
+    start: "",
+    description: "",
+  });
+  //const [allEvents, setAllEvents] = useState(DUMMY_EVENTS);
 
-  /*
-	const EventUpload = () => {
-
-		//need to link front end to backend, upload the new event to the db and query it
-		const handleEventUpload = () => {
-			db.collection("TEST").doc(userUID).add({
-				
-			});
-		}
-
-		// events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
-		// learn how to create a form and upload the form onto firebase in the form of an array
-		return (
-			<div>
-				<br/>
-				<textarea value={editorText} onChange={(event) => setEditorText(event.target.value)} placeholder="To do List event" autoFocus={true} />
-				<button onClick = {handleEventUpload}>Upload Event</button>
-				<br/>
-			</div>
-		);
-	}
-	*/
-
-  // need to create a new function to toggle the state of the "completed" so as to query the type of event
+  function handleAddEvent() {
+    //console.log(newEvent.title);
+    //console.log(newEvent.start);
+    db.collection("TDLDB").add({
+      userUID: userUID,
+      title: newEvent.title,
+      deadline: newEvent.deadline,
+      description: newEvent.description,
+    });
+  }
 
   return (
     <Container>
       <Header />
       {!props.user && <Redirect to="/" />}
-      <Content>
-        <Section>
-          <h5>
-            <a>THIS IS TO DO LIST</a>
-          </h5>
-        </Section>
 
-        <NewToDoPage props />
-
+      <Section>
+        <h5>
+          <a>THIS IS NEW TO DO LIST</a>
+        </h5>
+      </Section>
+      <NewForm>
         <button>
           <Link to="/todolist">
             <a href="/todolist">
@@ -102,7 +106,35 @@ function NewToDoEvent(props) {
             </a>
           </Link>
         </button>
-      </Content>
+        <input
+          type="text"
+          placeholder="Add Title"
+          style={{ marginRight: "10px" }}
+          value={newEvent.title}
+          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+        />
+        <DatePicker
+          placeholderText="Deadline"
+          style={{ marginRight: "10px", marginBottom: "10px" }}
+          selected={newEvent.deadline}
+          onChange={(deadline) => setNewEvent({ ...newEvent, deadline })}
+        />
+        <input
+          type="text"
+          placeholder="Add Description"
+          style={{ marginRight: "10px" }}
+          value={newEvent.description}
+          onChange={(e) =>
+            setNewEvent({ ...newEvent, description: e.target.value })
+          }
+        />
+        <br />
+        <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
+          <Link to="/mycalendar">
+            <a href="/mycalendar">Add new Calendar Event</a>
+          </Link>
+        </button>
+      </NewForm>
     </Container>
   );
 }

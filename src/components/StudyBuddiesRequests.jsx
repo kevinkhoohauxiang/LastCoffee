@@ -5,8 +5,8 @@ import styled from "styled-components";
 import Left from "./Left";
 import Main from "./Main";
 import Header from "./Header";
-import Card from "./calendar/Card";
-import classes from "./calendar/CalendarItem.module.css";
+import Card from "./calendarform/Card";
+import classes from "./calendarform/CalendarItem.module.css";
 
 const Container = styled.div`
   max-width: 100%;

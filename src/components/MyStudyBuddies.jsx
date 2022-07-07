@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
-import Card from "./calendar/Card";
-import classes from "./calendar/CalendarItem.module.css";
+import Card from "./calendarform/Card";
+import classes from "./calendarform/CalendarItem.module.css";
 
 const Container = styled.div`
   max-width: 100%;

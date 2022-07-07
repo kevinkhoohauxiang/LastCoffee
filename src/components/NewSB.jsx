@@ -6,6 +6,9 @@ import styled from "styled-components";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import NewSBPage from "./studybuddyform/NewSBPage";
+import db from "../firebase";
+import DatePicker from "react-datepicker";
+import Firebase from "firebase";
 
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
@@ -65,8 +68,51 @@ const Layout = styled.div`
   }
 `;
 
+const NewForm = styled.section`
+  margin-bottom: 0.5rem;
+  input,
+  textarea {
+    display: block;
+    font: inherit;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 0.25rem;
+    width: 100%;
+  }
+`;
+
 //home page upon signing in
 function NewSB(props) {
+  const userUID = props.user.uid;
+
+  const [newEvent, setNewEvent] = useState({
+    userUID: "",
+    myInfo: "",
+    description: "",
+    numberBuddies: "",
+    locations: "",
+    timings: "",
+    course: "",
+    gender: "",
+  });
+  //const [allEvents, setAllEvents] = useState(DUMMY_EVENTS);
+
+  function handleAddEvent() {
+    console.log(newEvent.title);
+    console.log(newEvent.start);
+    db.collection("SBDB").add({
+      userUID: userUID,
+      myInfo: newEvent.myInfo,
+      description: newEvent.description,
+      numberBuddies: newEvent.numberBuddies,
+      locations: newEvent.locations,
+      timings: newEvent.timings,
+      course: newEvent.course,
+      gender: newEvent.gender,
+      timestamp: Firebase.firestore.Timestamp.now(),
+    });
+  }
+
   return (
     <Container>
       <Header />
@@ -78,15 +124,88 @@ function NewSB(props) {
           </h5>
         </Section>
 
-        <button>
-          <Link to="/studybuddies">
-            <a href="/studybuddies">
-              <span>Back</span>
-            </a>
-          </Link>
-        </button>
+        <NewForm>
+          <button>
+            <Link to="/studybuddies">
+              <a href="/studybuddies">
+                <span>Back</span>
+              </a>
+            </Link>
+          </button>
 
-        <NewSBPage />
+          <input
+            type="text"
+            placeholder="My Info"
+            style={{ marginRight: "10px" }}
+            value={newEvent.myInfo}
+            onChange={(e) =>
+              setNewEvent({ ...newEvent, myInfo: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            style={{ marginRight: "10px" }}
+            value={newEvent.description}
+            onChange={(e) =>
+              setNewEvent({ ...newEvent, description: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Preferred Number of Study Buddies"
+            style={{ marginRight: "10px" }}
+            value={newEvent.numberBuddies}
+            onChange={(e) =>
+              setNewEvent({ ...newEvent, numberBuddies: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Preferred Locations"
+            style={{ marginRight: "10px" }}
+            value={newEvent.locations}
+            onChange={(e) =>
+              setNewEvent({ ...newEvent, locations: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Preferred Timings"
+            style={{ marginRight: "10px" }}
+            value={newEvent.timings}
+            onChange={(e) =>
+              setNewEvent({ ...newEvent, timings: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Preferred Course / Modules"
+            style={{ marginRight: "10px" }}
+            value={newEvent.course}
+            onChange={(e) =>
+              setNewEvent({ ...newEvent, course: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Gender"
+            style={{ marginRight: "10px" }}
+            value={newEvent.gender}
+            onChange={(e) =>
+              setNewEvent({ ...newEvent, gender: e.target.value })
+            }
+          />
+          <br />
+          <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
+            <Link to="/findstudybuddy">
+              <a href="/findstudybuddy">Submit Request</a>
+            </Link>
+          </button>
+        </NewForm>
+
+        {/*<NewSBPage userUID={userUID} />
+         */}
       </Content>
     </Container>
   );

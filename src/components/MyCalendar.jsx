@@ -5,21 +5,10 @@ import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
 import { Link } from "react-router-dom";
-import Calendar from "react-calendar/dist/umd/Calendar";
-import CalendarList from "./calendar/CalendarList";
-import Card from "./calendar/Card";
-import classes from "./calendar/NewCalendarForm.module.css";
-
-const DUMMY_DATA = [
-  {
-    title: "FOW",
-    startDate: "2022-06-28",
-    startTime: "10:00",
-    endDate: "2022-06-30",
-    endTime: "22:00",
-    description: "milestone 2 deadline",
-  },
-];
+import Card from "./calendarform/Card";
+import classes from "./calendarform/NewCalendarForm.module.css";
+import CalendarApp from "./calendar/CalendarApp";
+//import CalendarApp from "./calendar/CalendarApp";
 
 const Container = styled.div`
   max-width: 100%;
@@ -123,94 +112,34 @@ const HomePage = styled.div`
   }
 `;
 
-class CalendarThings {
-  constructor(description, end_date, start_date, title) {
-    this.startDate = start_date; // date
-    this.endDate = end_date; // date
-    this.description = description; // string
-    this.title = title; // string
-  }
-
-  toString() {
-    return (
-      this.startDate +
-      ", " +
-      this.endDate +
-      ", " +
-      this.description +
-      ", " +
-      this.title
-    );
-  }
-}
-
 //home page upon signing in
 function MyCalendar(props) {
-  //const currDateInputRef = useRef();
-  const [currDate, setcurrDate] = useState("");
+  const [editorText, setEditorText] = useState("");
+  const userUID = props.user.uid;
+  console.log(userUID);
+  //const user = db.collection("DPDB").doc(userUID);
 
-  //const [isLoading, setIsLoading] = useState(true);
-  const [loadedcalendarlist, setLoadedEvents] = useState([]);
+  const EventUpload = () => {
+    //need to link front end to backend, upload the new name to the db and query it
+    const handleEventUpload = () => {
+      db.collection("TEST").doc(userUID).add({});
+    };
 
-  function SelectDate() {
-    const currDateInputRef = useRef();
-    //console.log(currDateInputRef)
-    //console.log(currDate);
-
-    function submitHandler(event) {
-      event.preventDefault();
-      const currDate1 = currDateInputRef.current.value;
-      setcurrDate(currDate1);
-
-      //console.log(currDate1)
-      //console.log(currDate)
-      //window.location.reload(false);
-    }
-
+    // events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
     return (
-      <Card>
-        <form className={classes.form} onSubmit={submitHandler}>
-          <div className={classes.control}>
-            <label htmlFor="currDate">Calendar Event Start Date</label>
-            <input type="date" required id="currDate" ref={currDateInputRef} />
-          </div>
-
-          <div className={classes.actions}>
-            <button>Select Date</button>
-          </div>
-        </form>
-      </Card>
+      <div>
+        <br />
+        <textarea
+          value={editorText}
+          onChange={(event) => setEditorText(event.target.value)}
+          placeholder="Upload a calendar event!"
+          autoFocus={true}
+        />
+        <button onClick={handleEventUpload}>Upload Event</button>
+        <br />
+      </div>
     );
-  }
-
-  useEffect(() => {
-    //setIsLoading(true);
-    fetch(
-      "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/Calendar.json"
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        const calendars = [];
-
-        for (const key in data) {
-          const info = data[key];
-          //console.log(info.startDate)
-          //console.log(currDate)
-          if (currDate == info.startDate) {
-            const calendar = {
-              id: key,
-              ...data[key],
-            };
-            calendars.push(calendar);
-          }
-        }
-
-        //setIsLoading(false);
-        setLoadedEvents(calendars);
-      });
-  }, []);
+  };
 
   return (
     <Container>
@@ -218,25 +147,21 @@ function MyCalendar(props) {
       <Header />
       <Section>
         <h5>
-          <a>THIS IS MY CALENDAR</a>
+          <a>THIS IS MY CALENDAR EVENT</a>
         </h5>
       </Section>
-
       <HomePage>
-        <button>
-          <Link to="/createnewcalendar">
-            <a href="/createnewcalendar">
-              <span>Add new Calendar Event</span>
-            </a>
-          </Link>
-        </button>
+        {
+          <button>
+            <Link to="/createnewcalendar">
+              <a href="/createnewcalendar">
+                <span>Add new Calendar Event</span>
+              </a>
+            </Link>
+          </button>
+        }
       </HomePage>
-
-      <Calendar />
-
-      <SelectDate />
-
-      <CalendarList events={loadedcalendarlist} />
+      <CalendarApp userUID={userUID} />
     </Container>
   );
 }

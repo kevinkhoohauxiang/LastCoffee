@@ -145,22 +145,23 @@ const CommunityCard = styled(ArtCard)`
 function Left(props) {
   // use the photo from google sign in, if not use the default photo
   const userUID = props.user.uid;
-  const [ContactInfo, setContactInfo] = useState("NO");
-  const [DisplayInfo, setDisplayInfo] = useState("NO");
+  console.log(userUID);
+  const [ContactInfo, setContactInfo] = useState("");
+  const [DisplayInfo, setDisplayInfo] = useState("");
   const [DisplayName, setDisplayName] = useState("");
-  const [DisplayPicture, setDisplayPicture] = useState("NO");
+  const [DisplayPicture, setDisplayPicture] = useState("");
 
   function renderDoc(doc) {
-    setContactInfo(doc.data().DPDB.contact_info);
-    setDisplayInfo(doc.data().DPDB.display_info);
-    setDisplayName(doc.data().DPDB.display_name);
-    setDisplayPicture(doc.data().DPDB.photo_url);
+    setContactInfo(doc.data().Actor.contact_info);
+    setDisplayInfo(doc.data().Actor.display_info);
+    setDisplayName(doc.data().Actor.display_name);
+    setDisplayPicture(doc.data().Actor.photo_url);
     //console.log(DisplayPicture);
   }
 
-  const set_values = db
-    .collection("TEST")
-    //.where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+  const Set_values = db
+    .collection("DPDB")
+    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
     .get()
     .then((snapshot) =>
       snapshot.docs.forEach(
@@ -175,9 +176,8 @@ function Left(props) {
 
   //console.log(display_name);
   //console.log(UID);
-  let photoUrl = props.user.photoURL
-    ? props.user.photoURL
-    : "/images/photo.svg";
+  let photoUrl = props.user.photoURL ? DisplayPicture : "/images/photo.svg";
+  //console.log(props.user.photoURL);
 
   return (
     <Container>
@@ -186,14 +186,16 @@ function Left(props) {
           <CardBackground />
           <set_values />
           <a>
-            <Photo photoUrl={photoUrl} />
+            <Photo photoUrl={DisplayPicture} />
             <Link>
               Welcome to <br></br>The Last Coffee, <br></br>{" "}
               {props.user ? DisplayName : ""}!
             </Link>
           </a>
           <a>
-            <AddPhotoText>Add a photo</AddPhotoText>
+            <AddPhotoText>
+              Dreams don't work <br /> unless you do!!!
+            </AddPhotoText>
           </a>
         </UserInfo>
       </ArtCard>

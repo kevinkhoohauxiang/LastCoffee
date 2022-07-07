@@ -5,7 +5,7 @@ import NewSBForm from './NewSBForm';
 
 function NewSBPage(props) {
   const history = useHistory();
-  //const userUID = props.user.UID;
+  const userUID = props.userUID;
 
   function addSBHandler(SBData) {
     console.log("sheesh")

@@ -20,7 +20,6 @@ function CalendarItem(props) {
           {props.description}
         </div>
         
-        
       </Card>
     </li>
   );

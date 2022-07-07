@@ -6,8 +6,9 @@ import Left from "./Left";
 import Header from "./Header";
 import { storage } from "../firebase";
 import db from "../firebase";
-import Card from "./calendar/Card";
-import classes from "./calendar/CalendarItem.module.css";
+import Card from "./calendarform/Card";
+import firebase from "firebase/app";
+import classes from "./calendarform/CalendarItem.module.css";
 import { getArticlesAPI } from "../action";
 import { updateArticleAPI } from "../action";
 
@@ -96,22 +97,12 @@ const InputBox = styled.div`
 
 //for changing contact info
 
-class Info {
-  constructor(contact_info, display_name) {
-    this.contact = contact_info; // string
-    this.name = display_name; // string
-  }
-  toString() {
-    return this.contact + ", " + this.name;
-  }
-}
-
 //home page upon signing in
 function MyProfile(props) {
   const userUID = props.user.uid;
   const [NewDescription, setNewDescription] = useState("");
   const [NewContactInfo, setNewContactInfo] = useState("");
-
+  //console.log(userUID);
   const ReactFirebaseImageUpload = () => {
     const [image, setImage] = useState(null);
     const [url, setUrl] = useState("");
@@ -140,8 +131,8 @@ function MyProfile(props) {
             .then((url) => {
               console.log(url);
               setUrl(url);
-              db.collection("TEST").doc(userUID).update({
-                "DPDB.photo_url": url,
+              db.collection("DPDB").doc(userUID).update({
+                "Actor.photo_url": url,
               });
             });
         }
@@ -169,8 +160,8 @@ function MyProfile(props) {
 
     const handleNameUpload = () => {
       console.log("works");
-      db.collection("TEST").doc(userUID).update({
-        "DPDB.display_name": NewName,
+      db.collection("DPDB").doc(userUID).update({
+        "Actor.display_name": NewName,
       });
     };
 
@@ -196,8 +187,8 @@ function MyProfile(props) {
 
     const handleNameUpload = () => {
       console.log("works");
-      db.collection("TEST").doc(userUID).update({
-        "DPDB.contact_info": NewName,
+      db.collection("DPDB").doc(userUID).update({
+        "Actor.contact_info": NewName,
       });
     };
 
@@ -219,6 +210,31 @@ function MyProfile(props) {
 
   const InfoUpload = () => {
     const [NewName, setNewName] = useState(null);
+    const [ContactInfo, setContactInfo] = useState("");
+    const [DisplayInfo, setDisplayInfo] = useState("");
+    const [DisplayName, setDisplayName] = useState("");
+    const [DisplayPicture, setDisplayPicture] = useState("");
+
+    function renderDoc(doc) {
+      setContactInfo(doc.data().Actor.contact_info);
+      setDisplayInfo(doc.data().Actor.display_info);
+      setDisplayName(doc.data().Actor.display_name);
+      setDisplayPicture(doc.data().Actor.photo_url);
+      //console.log(DisplayPicture);
+    }
+
+    const Set_values = db
+      .collection("DPDB")
+      .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+      .get()
+      .then((snapshot) =>
+        snapshot.docs.forEach(
+          //(doc) => console.log(doc.data()),
+          (doc) => {
+            renderDoc(doc);
+          }
+        )
+      );
 
     function handleChange(event) {
       setNewName(event.target.value);
@@ -227,8 +243,8 @@ function MyProfile(props) {
 
     const handleNameUpload = () => {
       console.log("works");
-      db.collection("TEST").doc(userUID).update({
-        "DPDB.display_info": NewName,
+      db.collection("DPDB").doc(userUID).update({
+        "Actor.display_info": NewName,
       });
     };
 
@@ -236,11 +252,13 @@ function MyProfile(props) {
       <div>
         <br />
         <InputBox>
-          <input
-            type="text"
+          <textarea
+            id="displayinfo"
             placeholder="New Self Introduction"
+            required
+            rows="3"
             onChange={handleChange}
-          />
+          ></textarea>
         </InputBox>
         <button onClick={handleNameUpload}>Change Display Info</button>
         <br />
@@ -264,7 +282,9 @@ function MyProfile(props) {
 
           <Card>
             <Portrait>
-              <img src="/images/dummy profile.png" alt="" />
+              {
+                //<img src="/images/dummy profile.png" alt="" />
+              }
             </Portrait>
           </Card>
         </Layout>
@@ -276,19 +296,15 @@ function MyProfile(props) {
           }
           <br />
           <h3>Change Display Name</h3>
-
           <NameUpload />
 
           <br />
-          <h3>Change Display Info</h3>
-
-          <InfoUpload />
-
-          <br />
           <h3>Change Contact Info</h3>
-
           <ContactUpload />
 
+          <br />
+          <h3>Change Display Info</h3>
+          <InfoUpload />
           <br />
         </Card>
       </Content>

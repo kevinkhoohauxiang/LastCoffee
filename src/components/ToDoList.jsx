@@ -150,6 +150,8 @@ class Todothings {
 function ToDoList(props) {
   //const [isLoading, setIsLoading] = useState(true);
   const [loadedtodolist, setLoadedEvents] = useState([]);
+  const userUID = props.user.uid;
+  //console.log(userUID);
 
   useEffect(() => {
     //setIsLoading(true);

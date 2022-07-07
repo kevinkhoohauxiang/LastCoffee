@@ -111,6 +111,7 @@ function Home(props) {
   // "get started" button used for creating all the DBs if the user is new.
 
   const userUID = props.user.uid;
+  console.log(userUID);
   const displayName = props.user.displayName;
   const photoUrl = props.user.photoURL
     ? props.user.photoURL
@@ -120,20 +121,17 @@ function Home(props) {
 
   const createnewDB = () => {
     //console.log("yes");
-    if (!db.collection("TEST").doc(userUID)) {
+    if (db.collection("TEST").doc(userUID)) {
       console.log("invoked");
-      db.collection("TEST")
+      db.collection("DPDB")
         .doc(userUID)
         .set({
-          CLDDB: {},
-          DPDB: {
+          Actor: {
             display_name: displayName,
             contact_info: contactInfo,
             photo_url: photoUrl,
             display_info: "",
           },
-          SBDB: {},
-          TDLDB: {},
         });
     } else {
       console.log(null);

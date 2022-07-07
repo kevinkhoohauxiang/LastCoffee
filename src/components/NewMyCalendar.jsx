@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 import db from "../firebase";
-import NewCalendarPage from "./calendar/NewCalendarPage";
+import DatePicker from "react-datepicker";
 
 const Container = styled.div`
   max-width: 100%;
@@ -61,59 +62,50 @@ const Layout = styled.div`
   }
 `;
 
-class CalendarThings {
-  constructor(description, end_date, start_date, title) {
-    this.startDate = start_date; // date
-    this.endDate = end_date; // date
-    this.description = description; // string
-    this.title = title; // string
+const NewForm = styled.section`
+  margin-bottom: 0.5rem;
+  input,
+  textarea {
+    display: block;
+    font: inherit;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 0.25rem;
+    width: 100%;
   }
+`;
 
-  toString() {
-    return (
-      this.startDate +
-      ", " +
-      this.endDate +
-      ", " +
-      this.description +
-      ", " +
-      this.title
-    );
-  }
-}
+const DUMMY_EVENTS = {
+  title: "Big Meeting",
+  start: new Date(2022, 6, 10, 10, 0),
+  end: new Date(2022, 6, 10, 14, 0),
+};
 
 //home page upon signing in
-function MyCalendar(props) {
+function NewMyCalendar(props) {
   const [editorText, setEditorText] = useState("");
   const userUID = props.user.uid;
-  const user = db.collection("TEST").doc(userUID);
-  const CLDDB = user.get("CLDDB");
-  const DPDB = user.get("DPDB");
-  const HSDB = user.get("HSDB");
-  const SBDB = user.get("SBDB");
-  const TDLDB = user.get("TDLDB");
+  //console.log(userUID);
+  //const user = db.collection("CLDDB").doc(userUID);
+  const [newEvent, setNewEvent] = useState({
+    title: "",
+    start: "",
+    end: "",
+    description: "",
+  });
+  const [allEvents, setAllEvents] = useState(DUMMY_EVENTS);
 
-  const EventUpload = () => {
-    //need to link front end to backend, upload the new name to the db and query it
-    const handleEventUpload = () => {
-      db.collection("TEST").doc(userUID).add({});
-    };
-
-    // events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
-    return (
-      <div>
-        <br />
-        <textarea
-          value={editorText}
-          onChange={(event) => setEditorText(event.target.value)}
-          placeholder="Upload a calendar event!"
-          autoFocus={true}
-        />
-        <button onClick={handleEventUpload}>Upload Event</button>
-        <br />
-      </div>
-    );
-  };
+  function handleAddEvent() {
+    console.log(newEvent.title);
+    console.log(newEvent.start);
+    db.collection("CLDDB").add({
+      userUID: userUID,
+      title: newEvent.title,
+      start_time: newEvent.start,
+      end_time: newEvent.end,
+      description: newEvent.description,
+    });
+  }
 
   return (
     <Container>
@@ -121,11 +113,51 @@ function MyCalendar(props) {
       <Header />
       <Section>
         <h5>
-          <a>THIS IS MY CALENDAR</a>
+          <a>THIS IS NEW CALENDAR EVENT</a>
         </h5>
       </Section>
-
-      <NewCalendarPage />
+      <NewForm>
+        <button>
+          <Link to="/mycalendar">
+            <a href="/mycalendar">
+              <img src="/images/backarrow.svg" alt="" />
+            </a>
+          </Link>
+        </button>
+        <input
+          type="text"
+          placeholder="Add Title"
+          style={{ marginRight: "10px" }}
+          value={newEvent.title}
+          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+        />
+        <DatePicker
+          placeholderText="Start Date"
+          style={{ marginRight: "10px" }}
+          selected={newEvent.start}
+          onChange={(start) => setNewEvent({ ...newEvent, start })}
+        />
+        <DatePicker
+          placeholderText="End Date"
+          selected={newEvent.end}
+          onChange={(end) => setNewEvent({ ...newEvent, end })}
+        />
+        <input
+          type="text"
+          placeholder="Add Description"
+          style={{ marginRight: "10px" }}
+          value={newEvent.description}
+          onChange={(e) =>
+            setNewEvent({ ...newEvent, description: e.target.value })
+          }
+        />
+        <br />
+        <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
+          <Link to="/mycalendar">
+            <a href="/mycalendar">Add new Calendar Event</a>
+          </Link>
+        </button>
+      </NewForm>
     </Container>
   );
 }
@@ -136,4 +168,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(MyCalendar);
+export default connect(mapStateToProps)(NewMyCalendar);
