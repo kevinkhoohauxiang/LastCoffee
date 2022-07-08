@@ -134,21 +134,6 @@ const Homepage = styled.div`
 //home page upon signing in
 function AboutUs(props) {
   const userUID = props.user.uid;
-  const [Actor, setActor] = useState(null);
-
-  // get actor, pass to new calendar form
-  const Set_values = db
-    .collection("DPDB")
-    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
-    .get()
-    .then((snapshot) =>
-      snapshot.docs.forEach(
-        //(doc) => console.log(doc.data()),
-        (doc) => {
-          setActor(doc.data());
-        }
-      )
-    );
 
   return (
     <Container>
@@ -184,7 +169,7 @@ function AboutUs(props) {
           <h2>Contact Us</h2>
         </Homepage>
 
-        <NewContactUsPage Actor={Actor} />
+        <NewContactUsPage userUID={userUID} />
       </Content>
     </Container>
   );

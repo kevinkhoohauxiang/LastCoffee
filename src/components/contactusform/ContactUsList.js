@@ -1,5 +1,5 @@
-import ContactUsItem from './ContactUsItem';
-import classes from './ContactUsList.module.css';
+import ContactUsItem from "./ContactUsItem";
+import classes from "./ContactUsList.module.css";
 
 function ContactUsList(props) {
   return (
@@ -7,6 +7,7 @@ function ContactUsList(props) {
       {props.events.map((event) => (
         <ContactUsItem
           key={event.id}
+          userUID={userUID}
           name={event.name}
           email={event.email}
           subject={event.subject}
