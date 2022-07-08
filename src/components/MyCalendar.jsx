@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Card from "./calendarform/Card";
 import classes from "./calendarform/NewCalendarForm.module.css";
 import CalendarApp from "./calendar/CalendarApp";
+import { concatenateDateTime } from "../action";
 //import CalendarApp from "./calendar/CalendarApp";
 
 const Container = styled.div`
@@ -114,32 +115,45 @@ const HomePage = styled.div`
 
 //home page upon signing in
 function MyCalendar(props) {
-  const [editorText, setEditorText] = useState("");
+  const [loadedEventslist, setLoadedEvents] = useState([]);
   const userUID = props.user.uid;
-  console.log(userUID);
-  //const user = db.collection("DPDB").doc(userUID);
+  //console.log(userUID);
 
-  const EventUpload = () => {
-    //need to link front end to backend, upload the new name to the db and query it
-    const handleEventUpload = () => {
-      db.collection("TEST").doc(userUID).add({});
-    };
+  useEffect(() => {
+    //setIsLoading(true);
+    fetch(
+      "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/Calendar.json"
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const calendarEvents = [];
 
-    // events will be stored as arrays in the main array, TDLDB. aka arrays of events in the main array
-    return (
-      <div>
-        <br />
-        <textarea
-          value={editorText}
-          onChange={(event) => setEditorText(event.target.value)}
-          placeholder="Upload a calendar event!"
-          autoFocus={true}
-        />
-        <button onClick={handleEventUpload}>Upload Event</button>
-        <br />
-      </div>
-    );
-  };
+        // we query and show only events which are not completed, aka .completed == false
+        for (const key in data) {
+          const tuple = data[key];
+          //console.log(tuple.completed)
+          if (tuple.userUID == userUID) {
+            //console.log("load");
+            //console.log(tuple.startDate);
+            //console.log(tuple.startTime);
+            const calendarEvent = {
+              id: key,
+              title: tuple.title,
+              start: concatenateDateTime(tuple.startDate, tuple.startTime),
+              end: concatenateDateTime(tuple.endDate, tuple.endTime),
+            };
+            calendarEvents.push(calendarEvent);
+            console.log(calendarEvents);
+          }
+        }
+
+        //setIsLoading(false);
+        setLoadedEvents(calendarEvents);
+        //console.log(loadedCalendarlist);
+      });
+  }, []);
 
   return (
     <Container>
@@ -161,7 +175,7 @@ function MyCalendar(props) {
           </button>
         }
       </HomePage>
-      <CalendarApp userUID={userUID} />
+      <CalendarApp userUID={userUID} events={loadedEventslist} />
     </Container>
   );
 }

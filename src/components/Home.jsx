@@ -129,7 +129,7 @@ function Home(props) {
           Actor: {
             display_name: displayName,
             contact_info: contactInfo,
-            photo_url: photoUrl,
+            display_picture: photoUrl,
             display_info: "",
           },
         });

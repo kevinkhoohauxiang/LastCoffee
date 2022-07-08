@@ -1,5 +1,5 @@
-import SBItem from './SBItem';
-import classes from './SBList.module.css';
+import SBItem from "./SBItem";
+import classes from "./SBList.module.css";
 
 function SBList(props) {
   return (
@@ -7,6 +7,7 @@ function SBList(props) {
       {props.events.map((event) => (
         <SBItem
           key={event.id}
+          userUID={event.userUID}
           gender={event.gender}
           info={event.info}
           location={event.location}

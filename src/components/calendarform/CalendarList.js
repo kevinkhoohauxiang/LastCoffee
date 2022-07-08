@@ -1,5 +1,5 @@
-import CalendarItem from './CalendarItem';
-import classes from './CalendarList.module.css';
+import CalendarItem from "./CalendarItem";
+import classes from "./CalendarList.module.css";
 
 function CalendarList(props) {
   return (
@@ -7,12 +7,13 @@ function CalendarList(props) {
       {props.events.map((event) => (
         <CalendarItem
           key={event.id}
+          userUID={event.userUID}
           startDate={event.startDate}
           startTime={event.startTime}
           endDate={event.endDate}
           endTime={event.endTime}
           title={event.title}
-          description={event.description}
+          //description={event.description}
         />
       ))}
     </ul>

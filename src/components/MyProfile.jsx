@@ -100,8 +100,31 @@ const InputBox = styled.div`
 //home page upon signing in
 function MyProfile(props) {
   const userUID = props.user.uid;
-  const [NewDescription, setNewDescription] = useState("");
-  const [NewContactInfo, setNewContactInfo] = useState("");
+  const [ContactInfo, setContactInfo] = useState("");
+  const [DisplayInfo, setDisplayInfo] = useState("");
+  const [DisplayName, setDisplayName] = useState("");
+  const [DisplayPicture, setDisplayPicture] = useState("");
+
+  function renderDoc(doc) {
+    setContactInfo(doc.data().Actor.contact_info);
+    setDisplayInfo(doc.data().Actor.display_info);
+    setDisplayName(doc.data().Actor.display_name);
+    setDisplayPicture(doc.data().Actor.display_picture);
+    //console.log(DisplayPicture);
+  }
+
+  const Set_values = db
+    .collection("DPDB")
+    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
+          renderDoc(doc);
+        }
+      )
+    );
   //console.log(userUID);
   const ReactFirebaseImageUpload = () => {
     const [image, setImage] = useState(null);
@@ -132,7 +155,7 @@ function MyProfile(props) {
               console.log(url);
               setUrl(url);
               db.collection("DPDB").doc(userUID).update({
-                "Actor.photo_url": url,
+                "Actor.display_picture": url,
               });
             });
         }
@@ -210,31 +233,6 @@ function MyProfile(props) {
 
   const InfoUpload = () => {
     const [NewName, setNewName] = useState(null);
-    const [ContactInfo, setContactInfo] = useState("");
-    const [DisplayInfo, setDisplayInfo] = useState("");
-    const [DisplayName, setDisplayName] = useState("");
-    const [DisplayPicture, setDisplayPicture] = useState("");
-
-    function renderDoc(doc) {
-      setContactInfo(doc.data().Actor.contact_info);
-      setDisplayInfo(doc.data().Actor.display_info);
-      setDisplayName(doc.data().Actor.display_name);
-      setDisplayPicture(doc.data().Actor.photo_url);
-      //console.log(DisplayPicture);
-    }
-
-    const Set_values = db
-      .collection("DPDB")
-      .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
-      .get()
-      .then((snapshot) =>
-        snapshot.docs.forEach(
-          //(doc) => console.log(doc.data()),
-          (doc) => {
-            renderDoc(doc);
-          }
-        )
-      );
 
     function handleChange(event) {
       setNewName(event.target.value);
@@ -282,9 +280,19 @@ function MyProfile(props) {
 
           <Card>
             <Portrait>
-              {
-                //<img src="/images/dummy profile.png" alt="" />
-              }
+              <h1>
+                {
+                  // Add profile name and css here
+                  DisplayName
+                }
+              </h1>
+              <br />
+              <h2>
+                {
+                  // Add profile info here
+                  DisplayInfo
+                }
+              </h2>
             </Portrait>
           </Card>
         </Layout>

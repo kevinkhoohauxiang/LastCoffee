@@ -7,7 +7,6 @@ import Header from "./Header";
 import db from "../firebase";
 import NewToDoPage from "./todolistform/NewToDoPage";
 import { Link } from "react-router-dom";
-import DatePicker from "react-datepicker";
 
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
@@ -53,52 +52,57 @@ const Section = styled.section`
   }
 `;
 
-const NewForm = styled.section`
-  margin-bottom: 0.5rem;
-  input,
-  textarea {
-    display: block;
-    font: inherit;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    padding: 0.25rem;
-    width: 100%;
+const Layout = styled.div`
+  display: grid;
+  grid-template-areas: "left main right";
+  grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
+  column-gap: 25px;
+  row-gap: 25px;
+  margin: 25px 0;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
   }
 `;
+
+class Todothings {
+  constructor(completed, deadline, description, title) {
+    this.completed = completed; //boolean
+    this.deadline = deadline; // date
+    this.description = description; // string
+    this.title = title; // string
+  }
+
+  toString() {
+    return (
+      this.completed +
+      ", " +
+      this.deadline +
+      ", " +
+      this.description +
+      ", " +
+      this.title
+    );
+  }
+}
 
 //home page upon signing in
 function NewToDoEvent(props) {
   const [editorText, setEditorText] = useState("");
   const userUID = props.user.uid;
-  const [newEvent, setNewEvent] = useState({
-    title: "",
-    start: "",
-    description: "",
-  });
-  //const [allEvents, setAllEvents] = useState(DUMMY_EVENTS);
-
-  function handleAddEvent() {
-    //console.log(newEvent.title);
-    //console.log(newEvent.start);
-    db.collection("TDLDB").add({
-      userUID: userUID,
-      title: newEvent.title,
-      deadline: newEvent.deadline,
-      description: newEvent.description,
-    });
-  }
 
   return (
     <Container>
       <Header />
       {!props.user && <Redirect to="/" />}
+      <Content>
+        <Section>
+          <h5>
+            <a>THIS IS TO DO LIST</a>
+          </h5>
+        </Section>
 
-      <Section>
-        <h5>
-          <a>THIS IS NEW TO DO LIST</a>
-        </h5>
-      </Section>
-      <NewForm>
         <button>
           <Link to="/todolist">
             <a href="/todolist">
@@ -106,35 +110,9 @@ function NewToDoEvent(props) {
             </a>
           </Link>
         </button>
-        <input
-          type="text"
-          placeholder="Add Title"
-          style={{ marginRight: "10px" }}
-          value={newEvent.title}
-          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
-        />
-        <DatePicker
-          placeholderText="Deadline"
-          style={{ marginRight: "10px", marginBottom: "10px" }}
-          selected={newEvent.deadline}
-          onChange={(deadline) => setNewEvent({ ...newEvent, deadline })}
-        />
-        <input
-          type="text"
-          placeholder="Add Description"
-          style={{ marginRight: "10px" }}
-          value={newEvent.description}
-          onChange={(e) =>
-            setNewEvent({ ...newEvent, description: e.target.value })
-          }
-        />
-        <br />
-        <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
-          <Link to="/mycalendar">
-            <a href="/mycalendar">Add new Calendar Event</a>
-          </Link>
-        </button>
-      </NewForm>
+
+        <NewToDoPage userUID={userUID} />
+      </Content>
     </Container>
   );
 }

@@ -122,8 +122,8 @@ function ToDoListDone(props) {
 
         for (const key in data) {
           const tuple = data[key];
-          //console.log(tuple.completed)
-          if (tuple.completed) {
+          //console.log(tuple.completed);
+          if (tuple.completed == true) {
             console.log("load");
             const todo = {
               id: key,
@@ -152,6 +152,7 @@ function ToDoListDone(props) {
                 </a>
               </Link>
             </button>
+
             <button>
               <Link to="/todolist">
                 <a href="/todolist">
@@ -159,7 +160,6 @@ function ToDoListDone(props) {
                 </a>
               </Link>
             </button>
-
             <h2>Well Done! You have completed the following tasks!</h2>
           </HomePage>
         </Section>

@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Left from "./Left";
-import Main from "./Main";
-import Right from "./Right";
 import Header from "./Header";
-import ContactUsList from "./contactusform/ContactUsList";
 import NewContactUsPage from "./contactusform/NewContactUsPage";
+import db from "../firebase";
+import firebase from "firebase";
 
 const Container = styled.div`
   max-width: 100%;
@@ -135,6 +133,23 @@ const Homepage = styled.div`
 
 //home page upon signing in
 function AboutUs(props) {
+  const userUID = props.user.uid;
+  const [Actor, setActor] = useState(null);
+
+  // get actor, pass to new calendar form
+  const Set_values = db
+    .collection("DPDB")
+    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
+          setActor(doc.data());
+        }
+      )
+    );
+
   return (
     <Container>
       <Header />
@@ -169,7 +184,7 @@ function AboutUs(props) {
           <h2>Contact Us</h2>
         </Homepage>
 
-        <NewContactUsPage />
+        <NewContactUsPage Actor={Actor} />
       </Content>
     </Container>
   );

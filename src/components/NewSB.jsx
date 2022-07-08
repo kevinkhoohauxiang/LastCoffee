@@ -9,6 +9,7 @@ import NewSBPage from "./studybuddyform/NewSBPage";
 import db from "../firebase";
 import DatePicker from "react-datepicker";
 import Firebase from "firebase";
+import firebase from "firebase/app";
 
 // import { compose, withState, withHandlers } from 'recompose';
 // need to npm install recompose
@@ -84,6 +85,21 @@ const NewForm = styled.section`
 //home page upon signing in
 function NewSB(props) {
   const userUID = props.user.uid;
+  const [Actor, setActor] = useState(null);
+
+  // get actor, pass to new calendar form
+  const Set_values = db
+    .collection("DPDB")
+    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
+          setActor(doc.data());
+        }
+      )
+    );
 
   const [newEvent, setNewEvent] = useState({
     userUID: "",
@@ -95,23 +111,6 @@ function NewSB(props) {
     course: "",
     gender: "",
   });
-  //const [allEvents, setAllEvents] = useState(DUMMY_EVENTS);
-
-  function handleAddEvent() {
-    console.log(newEvent.title);
-    console.log(newEvent.start);
-    db.collection("SBDB").add({
-      userUID: userUID,
-      myInfo: newEvent.myInfo,
-      description: newEvent.description,
-      numberBuddies: newEvent.numberBuddies,
-      locations: newEvent.locations,
-      timings: newEvent.timings,
-      course: newEvent.course,
-      gender: newEvent.gender,
-      timestamp: Firebase.firestore.Timestamp.now(),
-    });
-  }
 
   return (
     <Container>
@@ -132,80 +131,8 @@ function NewSB(props) {
               </a>
             </Link>
           </button>
-
-          <input
-            type="text"
-            placeholder="My Info"
-            style={{ marginRight: "10px" }}
-            value={newEvent.myInfo}
-            onChange={(e) =>
-              setNewEvent({ ...newEvent, myInfo: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Description"
-            style={{ marginRight: "10px" }}
-            value={newEvent.description}
-            onChange={(e) =>
-              setNewEvent({ ...newEvent, description: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Preferred Number of Study Buddies"
-            style={{ marginRight: "10px" }}
-            value={newEvent.numberBuddies}
-            onChange={(e) =>
-              setNewEvent({ ...newEvent, numberBuddies: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Preferred Locations"
-            style={{ marginRight: "10px" }}
-            value={newEvent.locations}
-            onChange={(e) =>
-              setNewEvent({ ...newEvent, locations: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Preferred Timings"
-            style={{ marginRight: "10px" }}
-            value={newEvent.timings}
-            onChange={(e) =>
-              setNewEvent({ ...newEvent, timings: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Preferred Course / Modules"
-            style={{ marginRight: "10px" }}
-            value={newEvent.course}
-            onChange={(e) =>
-              setNewEvent({ ...newEvent, course: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Gender"
-            style={{ marginRight: "10px" }}
-            value={newEvent.gender}
-            onChange={(e) =>
-              setNewEvent({ ...newEvent, gender: e.target.value })
-            }
-          />
-          <br />
-          <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
-            <Link to="/findstudybuddy">
-              <a href="/findstudybuddy">Submit Request</a>
-            </Link>
-          </button>
         </NewForm>
-
-        {/*<NewSBPage userUID={userUID} />
-         */}
+        <NewSBPage userUID={userUID} />
       </Content>
     </Container>
   );

@@ -6,6 +6,9 @@ import styled from "styled-components";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import ToDoListList from "./todolistform/ToDoListList";
+import db from "../firebase";
+import NewToDoForm from "./todolistform/NewToDoForm";
+//import { setLoading, getTDLundone, getTDLevents } from "../action";
 
 const DUMMY_DATA = [
   {
@@ -125,33 +128,36 @@ const HomePage = styled.div`
   }
 `;
 
-class Todothings {
-  constructor(completed, deadline, description, title) {
-    this.completed = completed; //boolean
-    this.deadline = deadline; // date
-    this.description = description; // string
-    this.title = title; // string
-  }
-
-  toString() {
-    return (
-      this.completed +
-      ", " +
-      this.deadline +
-      ", " +
-      this.description +
-      ", " +
-      this.title
-    );
-  }
-}
-
 //home page upon signing in
 function ToDoList(props) {
   //const [isLoading, setIsLoading] = useState(true);
   const [loadedtodolist, setLoadedEvents] = useState([]);
   const userUID = props.user.uid;
   //console.log(userUID);
+
+  /*
+  function getTDLevents() {
+    return (dispatch) => {
+      dispatch(setLoading(true));
+      let payload;
+      let id;
+      db.collection("TDLDB")
+        .where("userUID", "==", userUID)
+        .orderBy("deadline", "desc")
+        .onSnapshot((snapshot) => {
+          payload = snapshot.docs.map((doc) => doc.data());
+          id = snapshot.docs.map((doc) => doc.id);
+          dispatch(getTDLundone(payload, id));
+        });
+      dispatch(setLoading(false));
+    };
+  }
+  
+
+  useEffect(() => {
+    props.getEvents();
+  }, []);
+  */
 
   useEffect(() => {
     //setIsLoading(true);
@@ -168,7 +174,7 @@ function ToDoList(props) {
         for (const key in data) {
           const tuple = data[key];
           //console.log(tuple.completed)
-          if (!tuple.completed) {
+          if (tuple.completed == false && tuple.userUID == userUID) {
             console.log("load");
             const todo = {
               id: key,
@@ -180,6 +186,7 @@ function ToDoList(props) {
 
         //setIsLoading(false);
         setLoadedEvents(todos);
+        console.log(todos);
       });
   }, []);
 
@@ -197,7 +204,6 @@ function ToDoList(props) {
                 </a>
               </Link>
             </button>
-            <br></br>
             <button>
               <Link to="/todolistdone">
                 <a href="/todolistdone">
@@ -219,5 +225,11 @@ const mapStateToProps = (state) => {
     user: state.userState.user,
   };
 };
+
+/*
+const mapDispatchToProps = (dispatch) => ({
+  getEvents: () => dispatch(getTDLevents()),
+});
+*/
 
 export default connect(mapStateToProps)(ToDoList);
