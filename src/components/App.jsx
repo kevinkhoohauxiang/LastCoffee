@@ -17,6 +17,7 @@ import { getUserAuth } from "../action";
 import { connect } from "react-redux";
 import NewMyCalendar from "./NewMyCalendar";
 import NewSB from "./NewSB";
+import CalendarEvents from "./CalendarEvents";
 
 function App(props) {
   useEffect(() => {
@@ -71,6 +72,9 @@ function App(props) {
           </Route>
           <Route path="/findnewsb">
             <NewSB />
+          </Route>
+          <Route path="/calendarevents">
+            <CalendarEvents />
           </Route>
         </Switch>
       </Router>

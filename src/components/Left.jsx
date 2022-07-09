@@ -145,7 +145,7 @@ const CommunityCard = styled(ArtCard)`
 function Left(props) {
   // use the photo from google sign in, if not use the default photo
   const userUID = props.user.uid;
-  console.log(userUID);
+  //console.log(userUID);
   const [ContactInfo, setContactInfo] = useState("");
   const [DisplayInfo, setDisplayInfo] = useState("");
   const [DisplayName, setDisplayName] = useState("");

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import ToDoListList from "./todolistform/ToDoListList";
+import ToDoListListDone from "./todolistdone/ToDoListListDone";
 
 const Container = styled.div`
   max-width: 100%;
@@ -108,6 +109,7 @@ const HomePage = styled.div`
 //home page upon signing in
 function ToDoListDone(props) {
   const [loadedtodolist, setLoadedEvents] = useState([]);
+  const userUID = props.user.uid;
 
   useEffect(() => {
     //setIsLoading(true);
@@ -123,7 +125,7 @@ function ToDoListDone(props) {
         for (const key in data) {
           const tuple = data[key];
           //console.log(tuple.completed);
-          if (tuple.completed == true) {
+          if (tuple.completed == true && tuple.userUID == userUID) {
             console.log("load");
             const todo = {
               id: key,
@@ -164,7 +166,7 @@ function ToDoListDone(props) {
           </HomePage>
         </Section>
 
-        <ToDoListList events={loadedtodolist} />
+        <ToDoListListDone events={loadedtodolist} />
       </Content>
     </Container>
   );

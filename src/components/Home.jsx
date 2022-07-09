@@ -111,7 +111,7 @@ function Home(props) {
   // "get started" button used for creating all the DBs if the user is new.
 
   const userUID = props.user.uid;
-  console.log(userUID);
+  //console.log(userUID);
   const displayName = props.user.displayName;
   const photoUrl = props.user.photoURL
     ? props.user.photoURL

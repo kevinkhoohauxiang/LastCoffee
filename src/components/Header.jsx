@@ -213,7 +213,18 @@ function Header(props) {
                 </a>
               </Link>
             </NavList>
+            <NavList>
+              <a>
+                <img
+                  src="/images/LogOut.svg"
+                  alt=""
+                  onClick={() => props.signOut()}
+                />
+                <span>Sign Out</span>
+              </a>
+            </NavList>
 
+            {/*
             <User>
               <a>
                 {props.user && props.user.photoURL ? (
@@ -227,6 +238,7 @@ function Header(props) {
                 <a>Sign Out</a>
               </SignOut>
             </User>
+            */}
           </NavListWrap>
         </Nav>
       </Content>

@@ -1,7 +1,7 @@
 import SBItem from "./SBItem";
 import classes from "./SBList.module.css";
 
-function SBList(props) {
+function SBListMine(props) {
   return (
     <ul className={classes.list}>
       {props.events.map((event) => (
@@ -24,4 +24,4 @@ function SBList(props) {
   );
 }
 
-export default SBList;
+export default SBListMine;

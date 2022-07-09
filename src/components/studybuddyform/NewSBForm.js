@@ -26,7 +26,7 @@ function NewSBForm(props) {
     const enteredSubjects = subjectsInputRef.current.value;
 
     const SBData = {
-      userUID: userUID,
+      posterUID: userUID,
       gender: enteredGender,
       info: enteredInfo,
       location: enteredLocation,

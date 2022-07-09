@@ -1,11 +1,11 @@
-import ToDoItem from "./ToDoItem";
+import ToDoItemDone from "./ToDoItemDone";
 import classes from "./ToDoList.module.css";
 
-function ToDoListList(props) {
+function ToDoListListDone(props) {
   return (
     <ul className={classes.list}>
       {props.events.map((event) => (
-        <ToDoItem
+        <ToDoItemDone
           key={event.id}
           id={event.id}
           userUID={event.userUID}
@@ -19,4 +19,4 @@ function ToDoListList(props) {
   );
 }
 
-export default ToDoListList;
+export default ToDoListListDone;

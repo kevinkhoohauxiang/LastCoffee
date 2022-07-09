@@ -7,6 +7,7 @@ function CalendarList(props) {
       {props.events.map((event) => (
         <CalendarItem
           key={event.id}
+          id={event.id}
           userUID={event.userUID}
           startDate={event.startDate}
           startTime={event.startTime}

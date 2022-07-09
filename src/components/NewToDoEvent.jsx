@@ -66,26 +66,52 @@ const Layout = styled.div`
   }
 `;
 
-class Todothings {
-  constructor(completed, deadline, description, title) {
-    this.completed = completed; //boolean
-    this.deadline = deadline; // date
-    this.description = description; // string
-    this.title = title; // string
-  }
+const HomePage = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: white;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 
-  toString() {
-    return (
-      this.completed +
-      ", " +
-      this.deadline +
-      ", " +
-      this.description +
-      ", " +
-      this.title
-    );
+  button {
+    border: 0.0625rem solid rgb(17, 109, 255);
+    background-color: rgb(17, 109, 255);
+    border-radius: 1.875rem;
+    font-family: var(--main-text-font);
+    width: 20rem;
+    height: 3.5rem;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: 2rem;
+    align-items: center;
+    a:link {
+      text-decoration: none;
+    }
+
+    a:visited {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    a:active {
+      text-decoration: none;
+    }
+
+    span {
+      color: white;
+      text-decoration: none;
+      background-color: none;
+    }
   }
-}
+`;
 
 //home page upon signing in
 function NewToDoEvent(props) {
@@ -103,13 +129,13 @@ function NewToDoEvent(props) {
           </h5>
         </Section>
 
-        <button>
+        <HomePage>
           <Link to="/todolist">
             <a href="/todolist">
-              <span>Back</span>
+              <img src="/images/backarrow.svg" alt="" />
             </a>
           </Link>
-        </button>
+        </HomePage>
 
         <NewToDoPage userUID={userUID} />
       </Content>

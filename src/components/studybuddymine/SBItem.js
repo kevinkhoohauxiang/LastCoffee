@@ -74,7 +74,7 @@ function SBItem(props) {
       // "new" - have not accepted nor rejected
       // "accepted" - accepted
       // "rejected" - rejected
-      Accepted: "new",
+      accepted: "new",
       posterUID: posterUID,
       timestamp: Firebase.firestore.Timestamp.now(),
     });
@@ -99,7 +99,6 @@ function SBItem(props) {
           <br />
           Preferred course / modules: {props.subjects}
         </div>
-        <button onClick={addRequest}>Send Request!!!</button>
       </Card>
     </li>
   );

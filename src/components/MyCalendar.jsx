@@ -165,15 +165,20 @@ function MyCalendar(props) {
         </h5>
       </Section>
       <HomePage>
-        {
-          <button>
-            <Link to="/createnewcalendar">
-              <a href="/createnewcalendar">
-                <span>Add new Calendar Event</span>
-              </a>
-            </Link>
-          </button>
-        }
+        <button>
+          <Link to="/createnewcalendar">
+            <a href="/createnewcalendar">
+              <span>Add new Calendar Event</span>
+            </a>
+          </Link>
+        </button>
+        <button>
+          <Link to="/calendarevents">
+            <a href="/calendarevents">
+              <span>Calendar Events</span>
+            </a>
+          </Link>
+        </button>
       </HomePage>
       <CalendarApp userUID={userUID} events={loadedEventslist} />
     </Container>

@@ -1,30 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "./Header";
-import { Link } from "react-router-dom";
-import ToDoListList from "./todolistform/ToDoListList";
 import db from "../firebase";
-import NewToDoForm from "./todolistform/NewToDoForm";
-//import { setLoading, getTDLundone, getTDLevents } from "../action";
-
-const DUMMY_DATA = [
-  {
-    title: "orbital",
-    date: "22/06/22",
-    description: "milestone 2 deadline",
-  },
-  {
-    title: "orbital 2",
-    date: "23/07/22",
-    description: "milestone 3 deadline",
-  },
-];
-
-// import { compose, withState, withHandlers } from 'recompose';
-// need to npm install recompose
+import { Link } from "react-router-dom";
+import Card from "./calendarform/Card";
+import classes from "./calendarform/NewCalendarForm.module.css";
+import CalendarApp from "./calendar/CalendarApp";
+import { concatenateDateTime } from "../action";
+import CalendarList from "./calendarform/CalendarList";
+//import CalendarApp from "./calendar/CalendarApp";
 
 const Container = styled.div`
   max-width: 100%;
@@ -129,94 +115,75 @@ const HomePage = styled.div`
 `;
 
 //home page upon signing in
-function ToDoList(props) {
-  //const [isLoading, setIsLoading] = useState(true);
-  const [loadedtodolist, setLoadedEvents] = useState([]);
+function CalendarEvents(props) {
+  const [loadedEventslist, setLoadedEvents] = useState([]);
+  const [loadedFullEventslist, setLoadedFullEvents] = useState([]);
   const userUID = props.user.uid;
   //console.log(userUID);
-
-  /*
-  function getTDLevents() {
-    return (dispatch) => {
-      dispatch(setLoading(true));
-      let payload;
-      let id;
-      db.collection("TDLDB")
-        .where("userUID", "==", userUID)
-        .orderBy("deadline", "desc")
-        .onSnapshot((snapshot) => {
-          payload = snapshot.docs.map((doc) => doc.data());
-          id = snapshot.docs.map((doc) => doc.id);
-          dispatch(getTDLundone(payload, id));
-        });
-      dispatch(setLoading(false));
-    };
-  }
-  
-
-  useEffect(() => {
-    props.getEvents();
-  }, []);
-  */
+  //this.forceUpdate();
 
   useEffect(() => {
     //setIsLoading(true);
     fetch(
-      "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/todolist.json"
+      "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/Calendar.json"
     )
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        const todos = [];
+        const calendarEvents = [];
+        const calendarEventsList = [];
 
         // we query and show only events which are not completed, aka .completed == false
         for (const key in data) {
           const tuple = data[key];
-          //console.log(tuple.userUID);
           //console.log(tuple.completed)
-          if (tuple.completed == false && tuple.userUID == userUID) {
-            //console.log("load");
-            const todo = {
+          if (tuple.userUID == userUID) {
+            //console.log(tuple.startDate);
+            //console.log(tuple.startTime);
+            const calendarEvent = {
+              id: key,
+              title: tuple.title,
+              start: concatenateDateTime(tuple.startDate, tuple.startTime),
+              end: concatenateDateTime(tuple.endDate, tuple.endTime),
+            };
+            const calendarEventList = {
               id: key,
               ...tuple,
             };
-            todos.push(todo);
+            calendarEvents.push(calendarEvent);
+            calendarEventsList.push(calendarEventList);
+            //console.log(calendarEvents);
           }
         }
 
         //setIsLoading(false);
-        setLoadedEvents(todos);
-        console.log(todos);
+        setLoadedEvents(calendarEvents);
+        setLoadedFullEvents(calendarEventsList);
+        //console.log(loadedCalendarlist);
       });
   }, []);
 
   return (
     <Container>
-      <Header />
       {!props.user && <Redirect to="/" />}
-      <Content>
-        <Section>
-          <HomePage>
-            <button>
-              <Link to="/createnewtodo">
-                <a href="/createnewtodo">
-                  <span>Add new To Do Event</span>
-                </a>
-              </Link>
-            </button>
-            <button>
-              <Link to="/todolistdone">
-                <a href="/todolistdone">
-                  <span>Completed todolist events</span>
-                </a>
-              </Link>
-            </button>
-          </HomePage>
-        </Section>
+      <Header />
+      <Section>
+        <h5>
+          <a>THIS IS MY CALENDAR EVENT</a>
+        </h5>
+      </Section>
+      <HomePage>
+        <button>
+          <Link to="/mycalendar">
+            <a href="/mycalendar">
+              <span>Back</span>
+            </a>
+          </Link>
+        </button>
+      </HomePage>
 
-        <ToDoListList events={loadedtodolist} />
-      </Content>
+      <CalendarList events={loadedFullEventslist} />
     </Container>
   );
 }
@@ -227,10 +194,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-/*
-const mapDispatchToProps = (dispatch) => ({
-  getEvents: () => dispatch(getTDLevents()),
-});
-*/
-
-export default connect(mapStateToProps)(ToDoList);
+export default connect(mapStateToProps)(CalendarEvents);

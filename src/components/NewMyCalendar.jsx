@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
@@ -61,26 +62,52 @@ const Layout = styled.div`
   }
 `;
 
-class CalendarThings {
-  constructor(description, end_date, start_date, title) {
-    this.startDate = start_date; // date
-    this.endDate = end_date; // date
-    this.description = description; // string
-    this.title = title; // string
-  }
+const HomePage = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: white;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 
-  toString() {
-    return (
-      this.startDate +
-      ", " +
-      this.endDate +
-      ", " +
-      this.description +
-      ", " +
-      this.title
-    );
+  button {
+    border: 0.0625rem solid rgb(17, 109, 255);
+    background-color: rgb(17, 109, 255);
+    border-radius: 1.875rem;
+    font-family: var(--main-text-font);
+    width: 20rem;
+    height: 3.5rem;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: 2rem;
+    align-items: center;
+    a:link {
+      text-decoration: none;
+    }
+
+    a:visited {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    a:active {
+      text-decoration: none;
+    }
+
+    span {
+      color: white;
+      text-decoration: none;
+      background-color: none;
+    }
   }
-}
+`;
 
 //home page upon signing in
 function MyCalendar(props) {
@@ -96,6 +123,15 @@ function MyCalendar(props) {
           <a>THIS IS MY CALENDAR</a>
         </h5>
       </Section>
+      <HomePage>
+        <button>
+          <Link to="/mycalendar">
+            <a href="/mycalendar">
+              <span>Back</span>
+            </a>
+          </Link>
+        </button>
+      </HomePage>
 
       <NewCalendarPage userUID={userUID} />
     </Container>

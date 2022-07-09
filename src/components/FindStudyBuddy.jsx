@@ -6,7 +6,9 @@ import Main from "./Main";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import SBList from "./studybuddyform/SBList";
+import SBListMine from "./studybuddymine/SBListMine";
 import Left from "./Left";
+import { useRadioGroup } from "@mui/material";
 
 const Container = styled.div`
   max-width: 100%;
@@ -166,6 +168,10 @@ const initState = {
 //home page upon signing in
 function FindStudyBuddy(props) {
   const [loadedSBlist, setLoadedEvents] = useState([]);
+  const [loadedMySBlist, setMyLoadedEvents] = useState([]);
+
+  const userUID = props.user.uid;
+  //console.log(userUID);
 
   useEffect(() => {
     //setIsLoading(true);
@@ -177,23 +183,32 @@ function FindStudyBuddy(props) {
       })
       .then((data) => {
         const SBs = [];
+        const mySBs = [];
 
         // we query and show only events which are not completed, aka .completed == false
         for (const key in data) {
           const tuple = data[key];
           //console.log(tuple.completed)
-          if (!tuple.completed) {
-            console.log("load");
+          // can only send requests to posts made by others, not yourself
+          if (tuple.posterUID != userUID) {
+            //console.log("load");
             const SB = {
               id: key,
               ...tuple,
             };
             SBs.push(SB);
+          } else {
+            const SB = {
+              id: key,
+              ...tuple,
+            };
+            mySBs.push(SB);
           }
         }
 
         //setIsLoading(false);
         setLoadedEvents(SBs);
+        setMyLoadedEvents(mySBs);
       });
   }, []);
 
@@ -219,7 +234,9 @@ function FindStudyBuddy(props) {
 
         <Layout>
           <Left />
-          <SBList events={loadedSBlist} />
+          <SBListMine events={loadedMySBlist} userUID={userUID} />
+          Find my Study Buddies!!!
+          <SBList events={loadedSBlist} userUID={userUID} />
         </Layout>
       </Content>
     </Container>

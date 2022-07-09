@@ -7,6 +7,7 @@ import {
   GET_TDL_DONE,
   GET_CALENDAR,
 } from "./actionType";
+import firebase from "firebase";
 
 export function setUser(payload) {
   return {
@@ -56,7 +57,8 @@ export function getCalendar(payload, id) {
 
 export function getUserAuth() {
   return (dispatch) => {
-    auth.onAuthStateChanged(async (user) => {
+    auth.onAuthStateChanged((user) => {
+      //this.currentUser = firebase.auth().currentUser;
       if (user) {
         dispatch(setUser(user));
       }
@@ -78,7 +80,7 @@ export function signOutAPI() {
     auth
       .signOut()
       .then(() => dispatch(setUser(null)))
-      .catch((err) => alert(err.message));
+      .catch((err) => console.log(err));
   };
 }
 // Functions to post articles in find study buddies

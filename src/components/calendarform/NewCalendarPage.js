@@ -31,7 +31,7 @@ function NewCalendarPage(props) {
   // convert the string to a date class using a function in index.js
   return (
     <section>
-      <h1>Add New To Do Event</h1>
+      <h1>Add New Calendar Event</h1>
       <NewCalendarForm onAddCalendar={addCalendarHandler} userUID={userUID} />
     </section>
   );
