@@ -9,7 +9,24 @@ import Firebase from "firebase";
 function SBItem(props) {
   const userUID = props.userUID;
   const posterUID = props.posterUID;
+
+  const [DisplayName, setDisplayName] = useState("");
+
+  const Set_values = db
+    .collection("DPDB")
+    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
+          setDisplayName(doc.data().Actor.display_name);
+        }
+      )
+    );
+
   //console.log("my userUID", props.userUID);
+  /*
   const [ContactInfo, setContactInfo] = useState("");
   const [DisplayInfo, setDisplayInfo] = useState("");
   const [DisplayName, setDisplayName] = useState("");
@@ -63,6 +80,7 @@ function SBItem(props) {
 
   function addRequest() {
     console.log("changed");
+    // need to define a function so that they wont be spammed
     db.collection("SBDB").add({
       Actor: {
         display_name: DisplayName,
@@ -79,12 +97,14 @@ function SBItem(props) {
       timestamp: Firebase.firestore.Timestamp.now(),
     });
   }
+  */
+  //console.log(props.info);
 
   return (
     <li className={classes.item}>
       <Card>
         <div className={classes.content}>
-          <h2>{PosterDisplayName}</h2>
+          <h2>{DisplayName}</h2>
           <h3>Info: {props.info}</h3>
           {props.description}
           <br />

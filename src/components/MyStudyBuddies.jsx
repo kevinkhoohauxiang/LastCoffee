@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
+import db from "../firebase";
 import styled from "styled-components";
 import Header from "./Header";
 import Card from "./calendarform/Card";
 import classes from "./calendarform/CalendarItem.module.css";
+import MySBList from "./mystudybuddies/MySBList";
 
 const Container = styled.div`
   max-width: 100%;
@@ -110,6 +112,48 @@ const HomePage = styled.div`
 
 //home page upon signing in
 function MyStudyBuddies(props) {
+  const userUID = props.user.uid;
+  const [LoadedRequests, setLoadedRequests] = useState([]);
+  const [IsLoading, setIsLoading] = useState(false);
+  //console.log(LoadedRequests);
+  //console.log(userUID);
+
+  //we first query out the entries that have posterUID == userUID
+
+  useEffect(() => {
+    setIsLoading(true);
+    db.collection("SBDB")
+      .get()
+      .then((snapshot) => {
+        const myRequests = [];
+        snapshot.docs.forEach(
+          //(doc) => console.log(doc.data()),
+          (doc) => {
+            const SB = {
+              id: doc.id,
+              ...doc.data(),
+            };
+            console.log(doc.data().posterUID);
+            console.log(userUID);
+            //console.log(doc.data());
+            if (
+              // we fetch and show only "new" requests
+              doc.data().posterUID == userUID &&
+              doc.data().Accepted == "accepted"
+            ) {
+              myRequests.push(SB);
+              //console.log(mySBPost);
+            }
+          }
+        );
+        setIsLoading(false);
+        setLoadedRequests(myRequests);
+        myRequests.sort(function (x, y) {
+          return y.timestamp.seconds - x.timestamp.seconds;
+        });
+        //console.log(myRequests);
+      });
+  }, []);
   return (
     <Container>
       <Header />
@@ -122,7 +166,7 @@ function MyStudyBuddies(props) {
         </Section>
       </Content>
 
-      <Card>
+      {/*<Card>
         <div className={classes.content}>
           <h3>Name: Zen Bin</h3>
           <br />
@@ -144,6 +188,8 @@ function MyStudyBuddies(props) {
           <br />
         </div>
       </Card>
+  */}
+      <MySBList events={LoadedRequests} userUID={userUID} />
     </Container>
   );
 }

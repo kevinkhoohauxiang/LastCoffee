@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
@@ -7,6 +7,9 @@ import Main from "./Main";
 import Header from "./Header";
 import Card from "./calendarform/Card";
 import classes from "./calendarform/CalendarItem.module.css";
+import db from "../firebase";
+import SBRequestList from "./studybuddyrequests/SBRequestList";
+import { loadingButtonClasses } from "@mui/lab";
 
 const Container = styled.div`
   max-width: 100%;
@@ -84,6 +87,49 @@ const WLbuttons = styled.div`
 
 //home page upon signing in
 function StudyBuddiesRequests(props) {
+  const userUID = props.user.uid;
+  const [LoadedRequests, setLoadedRequests] = useState([]);
+  const [IsLoading, setIsLoading] = useState(false);
+  //console.log(LoadedRequests);
+  //console.log(userUID);
+
+  //we first query out the entries that have posterUID == userUID
+
+  useEffect(() => {
+    setIsLoading(true);
+    db.collection("SBDB")
+      .get()
+      .then((snapshot) => {
+        const myRequests = [];
+        snapshot.docs.forEach(
+          //(doc) => console.log(doc.data()),
+          (doc) => {
+            const SB = {
+              id: doc.id,
+              ...doc.data(),
+            };
+            console.log(doc.data().posterUID);
+            console.log(userUID);
+            //console.log(doc.data());
+            if (
+              // we fetch and show only "new" requests
+              doc.data().posterUID == userUID &&
+              doc.data().Accepted == "new"
+            ) {
+              myRequests.push(SB);
+              //console.log(mySBPost);
+            }
+          }
+        );
+        setIsLoading(false);
+        setLoadedRequests(myRequests);
+        myRequests.sort(function (x, y) {
+          return y.timestamp.seconds - x.timestamp.seconds;
+        });
+        //console.log(myRequests);
+      });
+  }, []);
+
   return (
     <Container>
       <Header />
@@ -99,18 +145,21 @@ function StudyBuddiesRequests(props) {
         }
       </Content>
 
-      <Card>
-        <div className={classes.content}>
-          <h3>Wendy has sent you a request to be a study buddy!</h3>
-          <br />
-          <h3>Info: Y2 CS student</h3>
+      <SBRequestList events={LoadedRequests} userUID={userUID} />
+      {/*
+        <Card>
+          <div className={classes.content}>
+            <h3>Wendy has sent you a request to be a study buddy!</h3>
+            <br />
+            <h3>Info: Y2 CS student</h3>
 
-          <WLbuttons>
-            <button>Accept</button>
-            <button>Reject</button>
-          </WLbuttons>
-        </div>
-      </Card>
+            <WLbuttons>
+              <button>Accept</button>
+              <button>Reject</button>
+            </WLbuttons>
+          </div>
+        </Card>
+      */}
     </Container>
   );
 }

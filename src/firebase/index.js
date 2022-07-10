@@ -8,6 +8,7 @@ import { initializeApp } from "firebase/app";
 
 //const app = initializeApp(firebaseConfig);
 firebase.initializeApp(firebaseConfig);
+firebase.firestore().settings({ experimentalForceLongPolling: true });
 const db = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();

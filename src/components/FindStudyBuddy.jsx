@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Main from "./Main";
+import db from "../firebase";
+import firebase from "firebase";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import SBList from "./studybuddyform/SBList";
@@ -167,48 +168,38 @@ const initState = {
 
 //home page upon signing in
 function FindStudyBuddy(props) {
-  const [loadedSBlist, setLoadedEvents] = useState([]);
-  const [loadedMySBlist, setMyLoadedEvents] = useState([]);
-
   const userUID = props.user.uid;
-  //console.log(userUID);
+  const [loadedSBlist, setLoadedEvents] = useState([]);
+  const [mySBPost, setmySBPost] = useState([]);
+  const [IsLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    //setIsLoading(true);
-    fetch(
-      "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/SB.json"
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
+    setIsLoading(true);
+    db.collection("SB Posts")
+      .get()
+      .then((snapshot) => {
         const SBs = [];
         const mySBs = [];
-
-        // we query and show only events which are not completed, aka .completed == false
-        for (const key in data) {
-          const tuple = data[key];
-          //console.log(tuple.completed)
-          // can only send requests to posts made by others, not yourself
-          if (tuple.posterUID != userUID) {
-            //console.log("load");
+        snapshot.docs.forEach(
+          //(doc) => console.log(doc.data()),
+          (doc) => {
             const SB = {
-              id: key,
-              ...tuple,
+              id: doc.id,
+              ...doc.data(),
             };
-            SBs.push(SB);
-          } else {
-            const SB = {
-              id: key,
-              ...tuple,
-            };
-            mySBs.push(SB);
+            //console.log(doc.data());
+            if (doc.data().posterUID == userUID) {
+              mySBs.push(SB);
+              //console.log(mySBPost);
+            } else {
+              SBs.push(SB);
+              //console.log(loadedSBlist);
+            }
           }
-        }
-
-        //setIsLoading(false);
+        );
+        setIsLoading(false);
         setLoadedEvents(SBs);
-        setMyLoadedEvents(mySBs);
+        setmySBPost(mySBs);
       });
   }, []);
 
@@ -234,7 +225,7 @@ function FindStudyBuddy(props) {
 
         <Layout>
           <Left />
-          <SBListMine events={loadedMySBlist} userUID={userUID} />
+          <SBListMine events={mySBPost} userUID={userUID} />
           Find my Study Buddies!!!
           <SBList events={loadedSBlist} userUID={userUID} />
         </Layout>

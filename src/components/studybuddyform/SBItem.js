@@ -18,6 +18,7 @@ function SBItem(props) {
   const [PosterDisplayInfo, setPosterDisplayInfo] = useState("");
   const [PosterDisplayName, setPosterDisplayName] = useState("");
   const [PosterDisplayPicture, setPosterDisplayPicture] = useState("");
+  const [AcceptanceState, setAcceptanceState] = useState(null);
 
   function renderDoc(doc) {
     setContactInfo(doc.data().Actor.contact_info);
@@ -61,23 +62,46 @@ function SBItem(props) {
       )
     );
 
+  /*
+  const checkState = () => {
+    db.collection("SB Posts")
+      .where(firebase.firestore.FieldPath.documentId(), "==", props.id)
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          setAcceptanceState(doc.data().Accepted);
+        });
+      });
+  };
+  */
+
   function addRequest() {
-    console.log("changed");
-    db.collection("SBDB").add({
-      Actor: {
-        display_name: DisplayName,
-        contact_info: ContactInfo,
-        display_picture: DisplayPicture,
-        display_info: DisplayInfo,
-      },
-      // states of acceptance:
-      // "new" - have not accepted nor rejected
-      // "accepted" - accepted
-      // "rejected" - rejected
-      Accepted: "new",
-      posterUID: posterUID,
-      timestamp: Firebase.firestore.Timestamp.now(),
-    });
+    //console.log(userUID + posterUID);
+    //we create a document id that is made up of
+    //firstly, the userUID of the user who posted the request,
+    //secondly, the userUID of the user who sent the request
+
+    //we need to define an if else statement. if props.Accepted == "accepted",
+    //we dont submit a new request to the db
+
+    db.collection("SBDB")
+      .doc(posterUID + userUID)
+      .set({
+        Actor: {
+          userUID: userUID,
+          display_name: DisplayName,
+          contact_info: ContactInfo,
+          display_picture: DisplayPicture,
+          display_info: DisplayInfo,
+        },
+        // states of acceptance:
+        // "new" - have not accepted nor rejected
+        // "accepted" - accepted
+        // "rejected" - rejected
+        Accepted: "new",
+        posterUID: posterUID,
+        timestamp: Firebase.firestore.Timestamp.now(),
+      });
   }
 
   return (

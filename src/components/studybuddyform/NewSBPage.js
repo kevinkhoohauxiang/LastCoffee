@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom";
 //import db from '../../firebase';
 //import { getUID } from '../../action';
 import NewSBForm from "./NewSBForm";
+import db from "../../firebase";
 
 function NewSBPage(props) {
   const history = useHistory();
@@ -9,12 +10,14 @@ function NewSBPage(props) {
 
   function addSBHandler(SBData) {
     console.log("sheesh");
-    //add data to db
+    db.collection("SB Posts")
+      .doc(userUID)
+      .set(SBData)
+      .then(() => {
+        history.replace("/findstudybuddy");
+      });
+
     /*
-    return db.collection("TEST").doc(userUID).add({        
-      TDLDB: {SBData}
-    });
-    */
     fetch(
       "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/SB.json",
       {
@@ -27,6 +30,7 @@ function NewSBPage(props) {
     ).then(() => {
       history.replace("/findstudybuddy");
     });
+    */
   }
 
   return (
