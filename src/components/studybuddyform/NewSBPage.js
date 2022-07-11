@@ -16,21 +16,6 @@ function NewSBPage(props) {
       .then(() => {
         history.replace("/findstudybuddy");
       });
-
-    /*
-    fetch(
-      "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app/SB.json",
-      {
-        method: "POST",
-        body: JSON.stringify(SBData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then(() => {
-      history.replace("/findstudybuddy");
-    });
-    */
   }
 
   return (

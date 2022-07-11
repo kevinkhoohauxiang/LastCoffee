@@ -18,7 +18,8 @@ function SBNotificationsList(props) {
           actor_display_name={event.Actor.display_name}
           actor_display_picture={event.Actor.display_picture}
           actor_userUID={event.Actor.userUID}
-          timestamp={event.timestamp}
+          sent_timestamp={event.sent_timestamp}
+          accepted_timestamp={event.accepted_timestamp}
         />
       ))}
     </ul>

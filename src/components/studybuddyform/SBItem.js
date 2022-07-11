@@ -9,6 +9,7 @@ import Firebase from "firebase";
 function SBItem(props) {
   const userUID = props.userUID;
   const posterUID = props.posterUID;
+  const newDocUID = posterUID + userUID;
   //console.log("my userUID", props.userUID);
   const [ContactInfo, setContactInfo] = useState("");
   const [DisplayInfo, setDisplayInfo] = useState("");
@@ -18,7 +19,9 @@ function SBItem(props) {
   const [PosterDisplayInfo, setPosterDisplayInfo] = useState("");
   const [PosterDisplayName, setPosterDisplayName] = useState("");
   const [PosterDisplayPicture, setPosterDisplayPicture] = useState("");
-  const [AcceptanceState, setAcceptanceState] = useState(null);
+  const [AcceptanceState, setAcceptanceState] = useState("");
+
+  //console.log(AcceptanceState);
 
   function renderDoc(doc) {
     setContactInfo(doc.data().Actor.contact_info);
@@ -62,20 +65,21 @@ function SBItem(props) {
       )
     );
 
-  /*
-  const checkState = () => {
-    db.collection("SB Posts")
-      .where(firebase.firestore.FieldPath.documentId(), "==", props.id)
-      .get()
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
+  const checkState = db
+    .collection("SBDB")
+    .where(firebase.firestore.FieldPath.documentId(), "==", newDocUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
           setAcceptanceState(doc.data().Accepted);
-        });
-      });
-  };
-  */
+          console.log(AcceptanceState);
+        }
+      )
+    );
 
-  function addRequest() {
+  function AddRequest() {
     //console.log(userUID + posterUID);
     //we create a document id that is made up of
     //firstly, the userUID of the user who posted the request,
@@ -84,24 +88,29 @@ function SBItem(props) {
     //we need to define an if else statement. if props.Accepted == "accepted",
     //we dont submit a new request to the db
 
-    db.collection("SBDB")
-      .doc(posterUID + userUID)
-      .set({
-        Actor: {
-          userUID: userUID,
-          display_name: DisplayName,
-          contact_info: ContactInfo,
-          display_picture: DisplayPicture,
-          display_info: DisplayInfo,
-        },
-        // states of acceptance:
-        // "new" - have not accepted nor rejected
-        // "accepted" - accepted
-        // "rejected" - rejected
-        Accepted: "new",
-        posterUID: posterUID,
-        timestamp: Firebase.firestore.Timestamp.now(),
-      });
+    if (AcceptanceState === "accepted") {
+      return;
+    } else if (AcceptanceState !== "accepted") {
+      db.collection("SBDB")
+        .doc(newDocUID)
+        .set({
+          Actor: {
+            userUID: userUID,
+            display_name: DisplayName,
+            contact_info: ContactInfo,
+            display_picture: DisplayPicture,
+            display_info: DisplayInfo,
+          },
+          // states of acceptance:
+          // "new" - have not accepted nor rejected
+          // "accepted" - accepted
+          // "rejected" - rejected
+          Accepted: "new",
+          posterUID: posterUID,
+          sent_timestamp: Firebase.firestore.Timestamp.now(),
+          accepted_timestamp: Firebase.firestore.Timestamp.now(),
+        });
+    }
   }
 
   return (
@@ -123,7 +132,7 @@ function SBItem(props) {
           <br />
           Preferred course / modules: {props.subjects}
         </div>
-        <button onClick={addRequest}>Send Request!!!</button>
+        <button onClick={AddRequest}>Send Request!!!</button>
       </Card>
     </li>
   );

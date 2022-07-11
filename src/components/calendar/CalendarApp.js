@@ -7,11 +7,6 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
-import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
-import DateTimePicker from "react-datetime-picker";
-import db from "../../firebase";
-import firebase from "firebase/app";
 import "firebase/firestore";
 
 const locales = {
@@ -50,11 +45,6 @@ const DUMMY_EVENTS = [
 
 function CalendarApp(props) {
   const events = props.events;
-  console.log(events);
-  const [allEvents, setAllEvents] = useState(events);
-  const [value, setValue] = React.useState(new Date());
-  console.log(props.userUID);
-  const userUID = props.userUID;
 
   return (
     <div className="App">

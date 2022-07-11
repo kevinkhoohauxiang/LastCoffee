@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import Firebase from "firebase";
 import styled from "styled-components";
 import { postArticleAPI } from "../action";
-//import NewToDoForm from "./todolistform/NewToDoForm";
-import NewSBForm from "./studybuddyform/NewSBForm";
 
 const Container = styled.div`
   position: fixed;
@@ -146,7 +144,7 @@ const PostButton = styled.button`
   }
 `;
 
-const Description = styled.div`
+const Editor = styled.div`
   padding: 12px 24px;
   textarea {
     width: 100%;
@@ -169,29 +167,34 @@ const UploadImage = styled.div`
 `;
 
 function PostalModal(props) {
-  const [descriptionText, setDescriptionText] = useState("");
-  //const [imageText, setImageText] = useState("");
-  const [genderText, setGenderText] = useState("");
-  const [infoText, setInfoText] = useState("");
-  const [locationText, setLocationText] = useState("");
-  const [numberText, setNumberText] = useState("");
-  const [titleText, setTitleText] = useState("");
-  const [timingText, setTimingText] = useState("");
-
-  //const [assetArea, setAssetArea] = useState("");
+  const [editorText, setEditorText] = useState("");
+  const [imageFile, setImageFile] = useState("");
+  const [videoFile, setVideoFile] = useState("");
+  const [assetArea, setAssetArea] = useState("");
 
   const reset = (event) => {
-    setDescriptionText("");
-    setGenderText("");
-    setInfoText("");
-    setLocationText("");
-    setNumberText("");
-    setTimingText("");
-    setTitleText("");
-
-    //setAssetArea("");
+    setEditorText("");
+    setImageFile("");
+    setVideoFile("");
+    setAssetArea("");
     props.clickHandler(event);
   };
+
+  function handleImage(event) {
+    let image = event.target.files[0];
+
+    if (image === "" || image === undefined) {
+      alert(`Not an image. This file is: ${typeof imageFile}`);
+      return;
+    }
+    setImageFile(image);
+  }
+
+  function switchAssetArea(area) {
+    setImageFile("");
+    setVideoFile("");
+    setAssetArea(area);
+  }
 
   function postArticle(event) {
     event.preventDefault();
@@ -200,13 +203,9 @@ function PostalModal(props) {
     }
 
     const payload = {
-      description: descriptionText,
-      gender: genderText,
-      info: infoText,
-      location: locationText,
-      number: numberText,
-      timing: timingText,
-      title: titleText,
+      image: imageFile,
+      video: videoFile,
+      description: editorText,
       user: props.user,
       timestamp: Firebase.firestore.Timestamp.now(),
     };
@@ -221,7 +220,7 @@ function PostalModal(props) {
         <Container>
           <Content>
             <Header>
-              <h2>Create a request to find Study Buddies!</h2>
+              <h2>Create a post</h2>
               <button onClick={(event) => reset(event)}>
                 <img src="/images/close-icon.svg" alt="" />
               </button>
@@ -237,23 +236,69 @@ function PostalModal(props) {
                   {props.user.displayName ? props.user.displayName : "Name"}
                 </span>
               </UserInfo>
-              <Description>
-                {
-                  // change the Description to include options for study buddies:: refer to study buddies tele group
+              <Editor>
+                <textarea
+                  value={editorText}
+                  onChange={(event) => setEditorText(event.target.value)}
+                  placeholder="What do you want to talk about?"
+                  autoFocus={true}
+                />
 
-                  <textarea
-                    value={descriptionText}
-                    onChange={(event) => setDescriptionText(event.target.value)}
-                    placeholder="What do you want to talk about?"
-                    autoFocus={true}
-                  />
-                }
-                <NewSBForm />
-              </Description>
+                {assetArea === "image" ? (
+                  <UploadImage>
+                    <input
+                      type="file"
+                      accept="image/gif, image/jpeg, image/png"
+                      name="image"
+                      id="imageFile"
+                      onChange={handleImage}
+                      style={{ display: "none" }}
+                    />
+                    <p>
+                      <label htmlFor="imageFile">
+                        Select an image to share
+                      </label>
+                    </p>
+                    {imageFile && (
+                      <img src={URL.createObjectURL(imageFile)} alt="" />
+                    )}
+                  </UploadImage>
+                ) : (
+                  assetArea === "video" && (
+                    <>
+                      <input
+                        type="text"
+                        name="video"
+                        id="videoFile"
+                        value={videoFile}
+                        placeholder="Enter the video link"
+                        onChange={(event) => setVideoFile(event.target.value)}
+                      />
+                      {videoFile && (
+                        <ReactPlayer width={"100%"} url={videoFile} />
+                      )}
+                    </>
+                  )
+                )}
+              </Editor>
             </SharedContent>
             <ShareCreation>
+              <AttachAsset>
+                <AssetButton onClick={() => switchAssetArea("image")}>
+                  <img src="/images/share-image.svg" alt="" />
+                </AssetButton>
+                <AssetButton onClick={() => switchAssetArea("video")}>
+                  <img src="/images/share-video.svg" alt="" />
+                </AssetButton>
+              </AttachAsset>
+              <ShareComment>
+                <AssetButton>
+                  <img src="/images/share-comment.svg" alt="" />
+                  <span>Anyone</span>
+                </AssetButton>
+              </ShareComment>
               <PostButton
-                disabled={!descriptionText ? true : false}
+                disabled={!editorText ? true : false}
                 onClick={(event) => postArticle(event)}
               >
                 Post

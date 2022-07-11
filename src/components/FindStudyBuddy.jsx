@@ -3,13 +3,11 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import db from "../firebase";
-import firebase from "firebase";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 import SBList from "./studybuddyform/SBList";
 import SBListMine from "./studybuddymine/SBListMine";
 import Left from "./Left";
-import { useRadioGroup } from "@mui/material";
 
 const Container = styled.div`
   max-width: 100%;
@@ -113,59 +111,6 @@ const HomePage = styled.div`
   }
 `;
 
-class StudyBuddiesThing {
-  constructor(
-    modules,
-    description,
-    gender,
-    info,
-    location,
-    num_buddies,
-    study_timing,
-    title
-  ) {
-    this.modules = modules; // array of strings
-    this.gender = gender; // string -- male, female, no preference
-    this.info = info; // String
-    this.location = location; // string
-    this.title = title; // string
-    this.description = description; // string
-    this.numBuddies = num_buddies; // number
-    this.studyTiming = study_timing; // string
-  }
-
-  toString() {
-    return (
-      this.title +
-      ", " +
-      this.description +
-      ", " +
-      this.modules +
-      ", " +
-      this.gender +
-      ", " +
-      this.info +
-      ", " +
-      this.location +
-      ", " +
-      this.numBuddies +
-      ", " +
-      this.studyTiming
-    );
-  }
-}
-
-const initState = {
-  name: "",
-  type: "Volunteer",
-  email: "",
-  startDate: new Date(),
-  timeDay: "",
-  age: "",
-  listingTitle: "",
-  description: "",
-};
-
 //home page upon signing in
 function FindStudyBuddy(props) {
   const userUID = props.user.uid;
@@ -188,7 +133,7 @@ function FindStudyBuddy(props) {
               ...doc.data(),
             };
             //console.log(doc.data());
-            if (doc.data().posterUID == userUID) {
+            if (doc.data().posterUID === userUID) {
               mySBs.push(SB);
               //console.log(mySBPost);
             } else {
@@ -209,9 +154,7 @@ function FindStudyBuddy(props) {
       {!props.user && <Redirect to="/" />}
       <Content>
         <Section>
-          <h5>
-            <a>THIS IS FIND STUDY BUDDY</a>
-          </h5>
+          <h5>THIS IS FIND STUDY BUDDY</h5>
         </Section>
         <HomePage>
           <button>

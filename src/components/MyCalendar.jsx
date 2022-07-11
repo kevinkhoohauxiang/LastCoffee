@@ -145,7 +145,7 @@ function MyCalendar(props) {
               end: concatenateDateTime(tuple.endDate, tuple.endTime),
             };
             calendarEvents.push(calendarEvent);
-            console.log(calendarEvents);
+            //console.log(calendarEvents);
           }
         }
 

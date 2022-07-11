@@ -145,26 +145,24 @@ function ToDoListDone(props) {
       <Header />
       {!props.user && <Redirect to="/" />}
       <Content>
-        <Section>
-          <HomePage>
-            <button>
-              <Link to="/createnewtodo">
-                <a href="/createnewtodo">
-                  <span>Add new To Do Event</span>
-                </a>
-              </Link>
-            </button>
+        <HomePage>
+          <button>
+            <Link to="/createnewtodo">
+              <a href="/createnewtodo">
+                <span>Add new To Do Event</span>
+              </a>
+            </Link>
+          </button>
 
-            <button>
-              <Link to="/todolist">
-                <a href="/todolist">
-                  <span>Undone todolist events</span>
-                </a>
-              </Link>
-            </button>
-            <h2>Well Done! You have completed the following tasks!</h2>
-          </HomePage>
-        </Section>
+          <button>
+            <Link to="/todolist">
+              <a href="/todolist">
+                <span>Undone todolist events</span>
+              </a>
+            </Link>
+          </button>
+          <h2>Well Done! You have completed the following tasks!</h2>
+        </HomePage>
 
         <ToDoListListDone events={loadedtodolist} />
       </Content>

@@ -2,14 +2,9 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Left from "./Left";
-import Main from "./Main";
 import Header from "./Header";
-import Card from "./calendarform/Card";
-import classes from "./calendarform/CalendarItem.module.css";
 import db from "../firebase";
 import SBRequestList from "./studybuddyrequests/SBRequestList";
-import { loadingButtonClasses } from "@mui/lab";
 
 const Container = styled.div`
   max-width: 100%;
@@ -52,51 +47,17 @@ const Section = styled.section`
   }
 `;
 
-const Layout = styled.div`
-  display: grid;
-  grid-template-areas: "left main right";
-  grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
-  column-gap: 25px;
-  row-gap: 25px;
-  margin: 25px 0;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    padding: 0 5px;
-  }
-`;
-
-const WLbuttons = styled.div`
-  button {
-    border: 0.0625rem solid rgb(17, 109, 255);
-    background-color: rgb(17, 109, 255);
-    border-radius: 1.875rem;
-    font-family: var(--main-text-font);
-    width: 20rem;
-    height: 3.5rem;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-top: 2rem;
-    align-items: center;
-    margin-right: 20px;
-    margin-left: 20px;
-  }
-`;
-
 //home page upon signing in
 function StudyBuddiesRequests(props) {
   const userUID = props.user.uid;
   const [LoadedRequests, setLoadedRequests] = useState([]);
-  const [IsLoading, setIsLoading] = useState(false);
+  const [IsLoading, setLoading] = useState(false);
   //console.log(LoadedRequests);
   //console.log(userUID);
 
   //we first query out the entries that have posterUID == userUID
 
   useEffect(() => {
-    setIsLoading(true);
     db.collection("SBDB")
       .get()
       .then((snapshot) => {
@@ -108,25 +69,24 @@ function StudyBuddiesRequests(props) {
               id: doc.id,
               ...doc.data(),
             };
-            console.log(doc.data().posterUID);
-            console.log(userUID);
+            //console.log(doc.data().posterUID);
+            //console.log(userUID);
             //console.log(doc.data());
             if (
               // we fetch and show only "new" requests
-              doc.data().posterUID == userUID &&
-              doc.data().Accepted == "new"
+              doc.data().posterUID === userUID &&
+              doc.data().Accepted === "new"
             ) {
               myRequests.push(SB);
               //console.log(mySBPost);
             }
           }
         );
-        setIsLoading(false);
+        setLoading(false);
         setLoadedRequests(myRequests);
         myRequests.sort(function (x, y) {
           return y.timestamp.seconds - x.timestamp.seconds;
         });
-        //console.log(myRequests);
       });
   }, []);
 

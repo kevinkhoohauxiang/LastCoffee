@@ -166,29 +166,6 @@ function MyStudyBuddies(props) {
         </Section>
       </Content>
 
-      {/*<Card>
-        <div className={classes.content}>
-          <h3>Name: Zen Bin</h3>
-          <br />
-          <h3>Contact Info: @zenbin123</h3>
-          <br />
-          <h3>Info: Y2 BZA student</h3>
-          <br />
-        </div>
-      </Card>
-      <br />
-
-      <Card>
-        <div className={classes.content}>
-          <h3>Name: Wayne Ng</h3>
-          <br />
-          <h3>Contact Info: wayneng123@gmail.com</h3>
-          <br />
-          <h3>Info: Y2 DSA student</h3>
-          <br />
-        </div>
-      </Card>
-  */}
       <MySBList events={LoadedRequests} userUID={userUID} />
     </Container>
   );

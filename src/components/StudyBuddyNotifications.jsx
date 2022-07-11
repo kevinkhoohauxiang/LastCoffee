@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import classes from "./calendarform/CalendarItem.module.css";
 import db from "../firebase";
 import Header from "./Header";
 import SBNotificationsList from "./studybuddynotifications/SBNotificationsList";
@@ -48,20 +47,6 @@ const Section = styled.section`
   }
 `;
 
-const Layout = styled.div`
-  display: grid;
-  grid-template-areas: "left main right";
-  grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
-  column-gap: 25px;
-  row-gap: 25px;
-  margin: 25px 0;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    padding: 0 5px;
-  }
-`;
-
 //home page upon signing in
 function StudyBuddyNotifications(props) {
   const userUID = props.user.uid;
@@ -90,8 +75,8 @@ function StudyBuddyNotifications(props) {
             //console.log(doc.data());
             if (
               // we fetch and show only "new" requests
-              doc.data().posterUID == userUID &&
-              doc.data().Accepted == "accepted"
+              doc.data().posterUID === userUID &&
+              doc.data().Accepted === "accepted"
             ) {
               myRequests.push(SB);
               //console.log(mySBPost);
@@ -113,11 +98,10 @@ function StudyBuddyNotifications(props) {
       {!props.user && <Redirect to="/" />}
       <Content>
         <Section>
-          <h5>
-            <a>THIS IS STUDY BUDDY NOTIFICATIONS</a>
-          </h5>
+          <h5>THIS IS STUDY BUDDY NOTIFICATIONS</h5>
         </Section>
       </Content>
+
       <SBNotificationsList events={LoadedRequests} userUID={userUID} />
       {/*
       <Card>

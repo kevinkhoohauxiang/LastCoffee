@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import Card from "./Card";
 import classes from "./NewCalendarForm.module.css";
-import ReactDatePicker from "react-datepicker";
 
 function NewCalendarForm(props) {
   const titleInputRef = useRef();
