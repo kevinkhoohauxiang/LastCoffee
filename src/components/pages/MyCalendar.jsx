@@ -123,9 +123,8 @@ function MyCalendar(props) {
       .get()
       .then((snapshot) => {
         const calendarEvents = [];
-        snapshot.docs.forEach(
-          //(doc) => console.log(doc.data()),
-          (doc) => {
+        snapshot.docs.forEach((doc) => {
+          if (doc.data().userUID === userUID) {
             const calendarEvent = {
               id: doc.id,
               title: doc.data().title,
@@ -138,7 +137,7 @@ function MyCalendar(props) {
             calendarEvents.push(calendarEvent);
             //console.log(calendarEvents);
           }
-        );
+        });
         //console.log(calendarEvents);
         setLoadedEvents(calendarEvents);
         //console.log(loadedEventslist);
