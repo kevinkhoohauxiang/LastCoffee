@@ -67,7 +67,6 @@ function SBNotificationsItem(props) {
             buddy!
           </h3>
           <h3>Info: {props.actor_display_info}</h3>
-          <h3>Contact Info: {props.actor_contact_info}</h3>
           <br />
           <br />
           {secondsToString(time)}

@@ -130,9 +130,14 @@ function CalendarEvents(props) {
             endTime: doc.data().endTime,
             userUID: doc.data.userUID,
           };
+          //console.log(calendarEvent.startDate);
           calendarEvents.push(calendarEvent);
         });
         setLoadedEvents(calendarEvents);
+        loadedEventslist.sort(function (x, y) {
+          //define a function to compare dates in string form
+          return y.startDate - x.startDate;
+        });
       });
   }, []);
 
@@ -140,22 +145,20 @@ function CalendarEvents(props) {
     <Container>
       {!props.user && <Redirect to="/" />}
       <Header />
-      <Section>
-        <h5>
-          <a>THIS IS MY CALENDAR EVENT</a>
-        </h5>
-      </Section>
-      <HomePage>
-        <button>
-          <Link to="/mycalendar">
-            <a href="/mycalendar">
-              <span>Back</span>
-            </a>
-          </Link>
-        </button>
-      </HomePage>
 
-      <CalendarList events={loadedEventslist} />
+      <Content>
+        <HomePage>
+          <button>
+            <Link to="/mycalendar">
+              <a href="/mycalendar">
+                <span>Back</span>
+              </a>
+            </Link>
+          </button>
+        </HomePage>
+
+        <CalendarList events={loadedEventslist} />
+      </Content>
     </Container>
   );
 }
