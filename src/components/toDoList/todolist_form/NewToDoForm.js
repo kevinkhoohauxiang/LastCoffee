@@ -50,7 +50,7 @@ function NewToDoForm(props) {
           ></textarea>
         </div>
         <div className={classes.actions}>
-          <button>Add To Do Event</button>
+          <button>Submit</button>
         </div>
       </form>
     </Card>

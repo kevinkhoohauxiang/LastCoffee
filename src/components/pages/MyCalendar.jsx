@@ -64,49 +64,54 @@ const Layout = styled.div`
   }
 `;
 
-const HomePage = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: space-evenly;
-  background-color: white;
-  width: 100%;
+const Nav = styled.nav`
   margin-left: auto;
-  margin-right: auto;
+  margin-bottom: -50px;
+  display: block;
+  @media (max-width: 768px) {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: white;
+    width: 100%;
+  }
+`;
 
-  button {
-    border: 0.0625rem solid rgb(17, 109, 255);
-    background-color: rgb(17, 109, 255);
-    border-radius: 1.875rem;
-    font-family: var(--main-text-font);
-    width: 20rem;
-    height: 3.5rem;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-top: 2rem;
+const NavListWrap = styled.ul`
+  display: flex;
+  flex-wrap: nowrap;
+  list-style-type: none;
+  justify-content: space-between;
+`;
+
+const NavList = styled.li`
+  display: flex;
+  align-items: center;
+  a {
     align-items: center;
-    a:link {
-      text-decoration: none;
-    }
-
-    a:visited {
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: none;
-    }
-
-    a:active {
-      text-decoration: none;
-    }
-
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 1.5;
+    min-height: 52px;
+    min-width: 100px;
+    position: relative;
+    text-decoration: none;
     span {
-      color: white;
-      text-decoration: none;
-      background-color: none;
+      color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      min-width: 50px;
+      font-size: 9px;
+      span > img {
+        width: 60%;
+      }
     }
   }
 `;
@@ -148,27 +153,25 @@ function MyCalendar(props) {
     <Container>
       {!props.user && <Redirect to="/" />}
       <Header />
-      <Section>
-        <h5>
-          <a>THIS IS MY CALENDAR EVENT</a>
-        </h5>
-      </Section>
-      <HomePage>
-        <button>
-          <Link to="/createnewcalendar">
-            <a href="/createnewcalendar">
-              <span>Add new Calendar Event</span>
-            </a>
-          </Link>
-        </button>
-        <button>
-          <Link to="/calendarevents">
-            <a href="/calendarevents">
-              <span>Calendar Events</span>
-            </a>
-          </Link>
-        </button>
-      </HomePage>
+
+      <Nav>
+        <NavListWrap>
+          <NavList>
+            <Link to="/createnewcalendar">
+              <a href="/createnewcalendar">
+                <img src="/images/Addbtn1.svg" alt="" />
+              </a>
+            </Link>
+          </NavList>
+          <NavList>
+            <Link to="/calendarevents">
+              <a href="/calendarevents">
+                <img src="/images/Togglebtn1.svg" alt="" />
+              </a>
+            </Link>
+          </NavList>
+        </NavListWrap>
+      </Nav>
       <CalendarApp userUID={userUID} events={loadedEventslist} />
     </Container>
   );

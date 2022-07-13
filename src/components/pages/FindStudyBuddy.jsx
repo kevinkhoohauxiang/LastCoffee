@@ -153,17 +153,12 @@ function FindStudyBuddy(props) {
       <Header />
       {!props.user && <Redirect to="/" />}
       <Content>
-        <Section>
-          <h5>THIS IS FIND STUDY BUDDY</h5>
-        </Section>
         <HomePage>
-          <button>
-            <Link to="/findnewsb">
-              <a href="/findnewsb">
-                <span>Find Study Buddies!!! </span>
-              </a>
-            </Link>
-          </button>
+          <Link to="/findnewsb">
+            <a href="/findnewsb">
+              <img src="/images/Postbtn1.svg" alt="" />
+            </a>
+          </Link>
         </HomePage>
 
         <Layout>

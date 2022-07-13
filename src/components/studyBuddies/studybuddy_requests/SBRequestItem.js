@@ -27,8 +27,8 @@ function SBRequestItem(props) {
           <h3>Info: {props.actor_display_info}</h3>
           <br />
           <br />
-          <button onClick={changeAccept}>Accept</button>
-          <button onClick={changeReject}>Reject</button>
+          <img src="/images/Acceptbtn1.svg" alt="" onClick={changeAccept} />
+          <img src="/images/Rejectbtn1.svg" alt="" onClick={changeReject} />
         </div>
       </Card>
     </li>

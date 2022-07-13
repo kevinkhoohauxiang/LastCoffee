@@ -24,8 +24,8 @@ function ToDoItem(props) {
           {props.completed}
           {props.description}
         </div>
-        <button onClick={changeDoneState}>Done</button>
-        <button onClick={changeDeleteState}>Delete</button>
+        <img src="/images/Donebtn1.svg" alt="" onClick={changeDoneState} />
+        <img src="/images/Deletebtn1.svg" alt="" onClick={changeDeleteState} />
       </Card>
     </li>
   );

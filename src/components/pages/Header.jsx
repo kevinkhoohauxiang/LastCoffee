@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { signOutAPI } from "../../action";
 import { Link } from "react-router-dom";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const Container = styled.div`
   background-color: #fff;
@@ -64,6 +65,9 @@ const NavListWrap = styled.ul`
 const NavList = styled.li`
   display: flex;
   align-items: center;
+  Dropdown {
+    display: none;
+  }
   a {
     align-items: center;
     background: transparent;
@@ -152,16 +156,6 @@ function Header(props) {
           </Link>
         </Logo>
 
-        {/* <Search>
-					<div>
-						<input type="text" placeholder="Search" />
-					</div>
-					<SearchIcon>
-						<img src="/images/search-icon.svg" alt="" />
-					</SearchIcon>
-				</Search>
-	*/}
-
         <Nav>
           <NavListWrap>
             <NavList>
@@ -197,12 +191,37 @@ function Header(props) {
               </Link>
             </NavList>
             <NavList>
-              <Link to="/studybuddies">
-                <a href="/studybuddies">
-                  <img src="/images/StudyBuddy.svg" alt="" />
-                  <span>Study Buddies</span>
-                </a>
-              </Link>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  <a>
+                    <img src="/images/StudyBuddy.svg" alt="" />
+                    <span>Study Buddies</span>
+                  </a>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Link to="/findstudybuddy">
+                    <Dropdown.Item href="findstudybuddy">
+                      Find Study Buddy
+                    </Dropdown.Item>
+                  </Link>
+                  <Link to="/mystudybuddies">
+                    <Dropdown.Item href="mystudybuddies">
+                      My Study Buddies
+                    </Dropdown.Item>
+                  </Link>
+                  <Link to="/studybuddyrequests">
+                    <Dropdown.Item href="studybuddyrequests">
+                      My Requests
+                    </Dropdown.Item>
+                  </Link>
+                  <Link to="/studybuddynotifications">
+                    <Dropdown.Item href="studybuddynotifications">
+                      Find Study Buddy
+                    </Dropdown.Item>
+                  </Link>
+                </Dropdown.Menu>
+              </Dropdown>
             </NavList>
 
             <NavList>
@@ -223,22 +242,6 @@ function Header(props) {
                 <span>Sign Out</span>
               </a>
             </NavList>
-
-            {/*
-            <User>
-              <a>
-                {props.user && props.user.photoURL ? (
-                  <img src="/images/LogOut.svg" alt="" />
-                ) : (
-                  <img src="/images/user.svg" alt="" />
-                )}
-                <span>Sign Out</span>
-              </a>
-              <SignOut onClick={() => props.signOut()}>
-                <a>Sign Out</a>
-              </SignOut>
-            </User>
-            */}
           </NavListWrap>
         </Nav>
       </Content>

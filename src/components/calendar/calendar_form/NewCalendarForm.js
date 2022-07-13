@@ -61,7 +61,7 @@ function NewCalendarForm(props) {
         </div>
 
         <div className={classes.actions}>
-          <button>Add Calendar Event</button>
+          <button>Submit</button>
         </div>
       </form>
     </Card>

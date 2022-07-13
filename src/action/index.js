@@ -291,13 +291,17 @@ export function concatenateDateTime(date, time) {
   return newDate;
 }
 
-function secondsToString(time) {
+export function secondsToString(time) {
   const days = Math.floor(time / 86400);
   const hours = Math.floor(time / 3600);
   const mins = Math.floor(time / 60);
   const secs = Math.floor(time);
   if (days !== 0) {
-    return `~ ${days} days ago`;
+    if (days === 1) {
+      return `~ 1 day ago`;
+    } else {
+      return `~ ${days} days ago`;
+    }
   } else if (hours !== 0) {
     const newMins = Math.floor((time - hours * 3600) / 60);
     if (hours === 1 && newMins !== 0) {

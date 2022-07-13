@@ -94,16 +94,6 @@ function StudyBuddiesRequests(props) {
     <Container>
       <Header />
       {!props.user && <Redirect to="/" />}
-      <Content>
-        <Section>
-          <h5>
-            <a>THIS IS STUDY BUDDIES REQUESTS</a>
-          </h5>
-        </Section>
-        {
-          // Need to have the notifications pop up here, copy facebook friend requests
-        }
-      </Content>
 
       <SBRequestList events={LoadedRequests} userUID={userUID} />
     </Container>

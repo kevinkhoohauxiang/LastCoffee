@@ -138,23 +138,6 @@ function Home(props) {
     }
   };
 
-  /*
-  const CreateAllDB = db
-    .collection("TEST")
-    .doc(userUID)
-    .set({
-      CLDDB: {},
-      DPDB: {
-        display_name: displayName,
-        contact_info: contactInfo,
-        photo_url: photoUrl,
-        display_info: "",
-      },
-      SBDB: {},
-      TDLDB: {},
-    });
-	*/
-
   return (
     <Container>
       <Header />
@@ -169,12 +152,6 @@ function Home(props) {
             <br></br> track your academic progress and connect with like-minded
             peers.
           </h2>
-          <h2>
-            New Users, what are you waiting for? <br></br>Click on the `Get
-            Started` button below to kickstart your journey!
-          </h2>
-
-          {<button onClick={createnewDB}>Get Started</button>}
           <img src="/images/books.png" alt="Bookshelf" />
         </Homepage>
       </Content>

@@ -2,6 +2,7 @@ import React from "react";
 import Card from "../../../action/Card";
 import classes from "./SBItem.module.css";
 import Firebase from "firebase";
+//import secondsToString from "../../../action/index";
 
 function SBNotificationsItem(props) {
   const currTime = Firebase.firestore.Timestamp.now().seconds;
@@ -14,7 +15,11 @@ function SBNotificationsItem(props) {
     const mins = Math.floor(time / 60);
     const secs = Math.floor(time);
     if (days !== 0) {
-      return `~ ${days} days ago`;
+      if (days === 1) {
+        return `~ 1 day ago`;
+      } else {
+        return `~ ${days} days ago`;
+      }
     } else if (hours !== 0) {
       const newMins = Math.floor((time - hours * 3600) / 60);
       if (hours === 1 && newMins !== 0) {
@@ -41,22 +46,6 @@ function SBNotificationsItem(props) {
       return `~${secs} seconds ago`;
     }
   }
-
-  //console.log(props.id);
-
-  /* key={event.id}
-          // *bug solved* note: userUID not passed into the db
-          userUID={props.userUID}
-          id={event.id}
-          posterUID={event.posterUID}
-          accepted={event.Accepted}
-          actor_contact_info={event.Actor.contact_info}
-          actor_display_info={event.Actor.display_info}
-          actor_display_name={event.Actor.display_name}
-          actor_display_picture={event.Actor.display_picture}
-          actor_userUID={event.Actor.userUID}
-          timestamp={event.timestamp}
-          */
 
   return (
     <li className={classes.item}>

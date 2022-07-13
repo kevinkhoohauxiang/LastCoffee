@@ -6,6 +6,7 @@ import Header from "./Header";
 import { Link } from "react-router-dom";
 import db from "../../firebase";
 import ToDoListListDone from "../toDoList/todolist_done/ToDoListListDone";
+import { concatenateDateTime } from "../../action";
 
 const Container = styled.div`
   max-width: 100%;
@@ -16,92 +17,54 @@ const Content = styled.div`
   margin: auto;
 `;
 
-const Section = styled.section`
-  min-height: 50px;
-  margin: 16px 0 -30px;
-  box-sizing: content-box;
-  text-align: center;
-  text-decoration: underline;
-  display: flex;
-  justify-content: center;
-  h5 {
-    color: #0a66c2;
-    font-size: 14px;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    a {
-      font-weight: 700;
-    }
-  }
-  p {
-    font-size: 14px;
-    color: #434649;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    font-weight: 600;
-  }
-
+const Nav = styled.nav`
+  margin-left: auto;
+  margin-bottom: -50px;
+  display: block;
   @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 0 5px;
-    margin: 16px 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: white;
+    width: 100%;
   }
 `;
 
-const HomePage = styled.div`
+const NavListWrap = styled.ul`
   display: flex;
-  flex-flow: column nowrap;
+  flex-wrap: nowrap;
+  list-style-type: none;
+  justify-content: space-between;
+`;
+
+const NavList = styled.li`
+  display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  background-color: white;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-
-  h2 {
-    margin-top: 20px;
-    font-size: 1.25rem;
-    margin: 0;
-    font-weight: lighter;
-    line-height: 1.6em;
-    letter-spacing: 0.01em;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  button {
-    border: 0.0625rem solid rgb(17, 109, 255);
-    background-color: rgb(17, 109, 255);
-    border-radius: 1.875rem;
-    font-family: var(--main-text-font);
-    width: 20rem;
-    height: 3.5rem;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-top: 2rem;
+  a {
     align-items: center;
-    a:link {
-      text-decoration: none;
-    }
-
-    a:visited {
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: none;
-    }
-
-    a:active {
-      text-decoration: none;
-    }
-
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 1.5;
+    min-height: 52px;
+    min-width: 100px;
+    position: relative;
+    text-decoration: none;
     span {
-      color: white;
-      text-decoration: none;
-      background-color: none;
+      color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      min-width: 50px;
+      font-size: 9px;
+      span > img {
+        width: 60%;
+      }
     }
   }
 `;
@@ -110,6 +73,11 @@ const HomePage = styled.div`
 function ToDoListDone(props) {
   const [loadedtodolist, setLoadedEvents] = useState([]);
   const userUID = props.user.uid;
+  loadedtodolist.sort(function (x, y) {
+    const x_date = concatenateDateTime(x.deadline, "00:00");
+    const y_date = concatenateDateTime(y.deadline, "00:00");
+    return x_date.getTime() - y_date.getTime();
+  });
 
   useEffect(() => {
     db.collection("TDLDB")
@@ -141,28 +109,29 @@ function ToDoListDone(props) {
     <Container>
       <Header />
       {!props.user && <Redirect to="/" />}
-      <Content>
-        <HomePage>
-          <button>
+      <Nav>
+        <NavListWrap>
+          <NavList>
             <Link to="/createnewtodo">
               <a href="/createnewtodo">
-                <span>Add new To Do Event</span>
+                <img src="/images/Addbtn1.svg" alt="" />
               </a>
             </Link>
-          </button>
+          </NavList>
 
-          <button>
+          <NavList>
             <Link to="/todolist">
               <a href="/todolist">
-                <span>Undone todolist events</span>
+                <img src="/images/Togglebtn1.svg" alt="" />
               </a>
             </Link>
-          </button>
-          <h2>Well Done! You have completed the following tasks!</h2>
-        </HomePage>
+          </NavList>
+        </NavListWrap>
+      </Nav>
+      <br />
+      <h2>Well Done! You have completed the following tasks!</h2>
 
-        <ToDoListListDone events={loadedtodolist} />
-      </Content>
+      <ToDoListListDone events={loadedtodolist} />
     </Container>
   );
 }

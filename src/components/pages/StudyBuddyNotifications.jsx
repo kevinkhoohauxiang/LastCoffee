@@ -96,11 +96,6 @@ function StudyBuddyNotifications(props) {
     <Container>
       <Header />
       {!props.user && <Redirect to="/" />}
-      <Content>
-        <Section>
-          <h5>THIS IS STUDY BUDDY NOTIFICATIONS</h5>
-        </Section>
-      </Content>
 
       <SBNotificationsList events={LoadedRequests} userUID={userUID} />
     </Container>

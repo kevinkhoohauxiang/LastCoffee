@@ -115,20 +115,12 @@ function NewSB(props) {
       <Header />
       {!props.user && <Redirect to="/" />}
       <Content>
-        <Section>
-          <h5>
-            <a>THIS IS FIND NEW SB</a>
-          </h5>
-        </Section>
-
         <NewForm>
-          <button>
-            <Link to="/studybuddies">
-              <a href="/studybuddies">
-                <span>Back</span>
-              </a>
-            </Link>
-          </button>
+          <Link to="/findstudybuddy">
+            <a href="/findstudybuddy">
+              <img src="/images/Backbtn1.svg" alt="" />
+            </a>
+          </Link>
         </NewForm>
         <NewSBPage userUID={userUID} />
       </Content>

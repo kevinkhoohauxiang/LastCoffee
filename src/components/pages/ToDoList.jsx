@@ -6,6 +6,7 @@ import Header from "./Header";
 import { Link } from "react-router-dom";
 import ToDoListList from "../toDoList/todolist_undone/ToDoListList";
 import db from "../../firebase";
+import { concatenateDateTime } from "../../action";
 
 const DUMMY_DATA = [
   {
@@ -122,9 +123,67 @@ const HomePage = styled.div`
   }
 `;
 
+const Nav = styled.nav`
+  margin-left: auto;
+  margin-bottom: -50px;
+  display: block;
+  @media (max-width: 768px) {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: white;
+    width: 100%;
+  }
+`;
+
+const NavListWrap = styled.ul`
+  display: flex;
+  flex-wrap: nowrap;
+  list-style-type: none;
+  justify-content: space-between;
+`;
+
+const NavList = styled.li`
+  display: flex;
+  align-items: center;
+  a {
+    align-items: center;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 1.5;
+    min-height: 52px;
+    min-width: 100px;
+    position: relative;
+    text-decoration: none;
+    span {
+      color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      min-width: 50px;
+      font-size: 9px;
+      span > img {
+        width: 60%;
+      }
+    }
+  }
+`;
+
 //home page upon signing in
 function ToDoList(props) {
   const [loadedtodolist, setLoadedEvents] = useState([]);
+  //console.log(loadedtodolist);
+  loadedtodolist.sort(function (x, y) {
+    const x_date = concatenateDateTime(x.deadline, "00:00");
+    const y_date = concatenateDateTime(y.deadline, "00:00");
+    return x_date.getTime() - y_date.getTime();
+  });
   const userUID = props.user.uid;
 
   useEffect(() => {
@@ -155,28 +214,32 @@ function ToDoList(props) {
 
   return (
     <Container>
-      <Header />
       {!props.user && <Redirect to="/" />}
-      <Content>
-        <HomePage>
-          <button>
+      <Header />
+
+      <Nav>
+        <NavListWrap>
+          <NavList>
             <Link to="/createnewtodo">
               <a href="/createnewtodo">
-                <span>Add new To Do Event</span>
+                <img src="/images/Addbtn1.svg" alt="" />
               </a>
             </Link>
-          </button>
-          <button>
+          </NavList>
+          <NavList>
             <Link to="/todolistdone">
               <a href="/todolistdone">
-                <span>Completed todolist events</span>
+                <img src="/images/Togglebtn1.svg" alt="" />
               </a>
             </Link>
-          </button>
-        </HomePage>
+          </NavList>
+        </NavListWrap>
+      </Nav>
 
-        <ToDoListList events={loadedtodolist} />
-      </Content>
+      {<br />}
+      {<br />}
+
+      <ToDoListList events={loadedtodolist} />
     </Container>
   );
 }

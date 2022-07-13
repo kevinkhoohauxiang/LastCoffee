@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import NewMyCalendar from "./NewMyCalendar";
 import NewSB from "./NewSB";
 import CalendarEvents from "./CalendarEvents";
+import MyProfileEdit from "./MyProfileEdit";
 
 function App(props) {
   useEffect(() => {
@@ -36,6 +37,9 @@ function App(props) {
           </Route>
           <Route path="/myprofile">
             <MyProfile />
+          </Route>
+          <Route path="/editprofile">
+            <MyProfileEdit />
           </Route>
           <Route path="/mycalendar">
             <MyCalendar />

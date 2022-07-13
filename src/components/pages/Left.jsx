@@ -9,8 +9,6 @@ const Container = styled.div`
   grid-area: left;
 `;
 
-const MainName = styled.div``;
-
 const ArtCard = styled.div`
   text-align: center;
   overflow: hidden;
@@ -155,7 +153,7 @@ function Left(props) {
     setContactInfo(doc.data().Actor.contact_info);
     setDisplayInfo(doc.data().Actor.display_info);
     setDisplayName(doc.data().Actor.display_name);
-    setDisplayPicture(doc.data().Actor.photo_url);
+    setDisplayPicture(doc.data().Actor.display_picture);
     //console.log(DisplayPicture);
   }
 
@@ -177,6 +175,7 @@ function Left(props) {
   //console.log(display_name);
   //console.log(UID);
   let photoUrl = props.user.photoURL ? DisplayPicture : "/images/photo.svg";
+  //console.log(DisplayPicture);
   //console.log(props.user.photoURL);
 
   return (
@@ -184,7 +183,6 @@ function Left(props) {
       <ArtCard>
         <UserInfo>
           <CardBackground />
-          <set_values />
           <a>
             <Photo photoUrl={DisplayPicture} />
             <Link>

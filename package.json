@@ -17,6 +17,8 @@
     "firebase-tools": "^11.0.0",
     "react": "^17.0.2",
     "react-big-calendar": "^0.40.7",
+    "react-bootstrap": "^2.4.0",
+    "react-bootstrap-validation": "^0.1.11",
     "react-calendar": "^3.7.0",
     "react-datepicker": "^4.8.0",
     "react-datetime-picker": "^3.5.0",

@@ -156,13 +156,6 @@ function MyStudyBuddies(props) {
     <Container>
       <Header />
       {!props.user && <Redirect to="/" />}
-      <Content>
-        <Section>
-          <h5>
-            <a>THIS IS MY STUDY BUDDIES</a>
-          </h5>
-        </Section>
-      </Content>
 
       <MySBList events={LoadedRequests} userUID={userUID} />
     </Container>

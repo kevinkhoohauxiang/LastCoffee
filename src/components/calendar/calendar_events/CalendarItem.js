@@ -6,7 +6,7 @@ import db from "../../../firebase";
 function CalendarItem(props) {
   const history = useHistory();
   const id = props.id;
-  console.log(id);
+  //console.log(id);
 
   function changeDeleteState() {
     //console.log(props.id);
@@ -31,7 +31,7 @@ function CalendarItem(props) {
           {props.endTime}
           <br />
         </div>
-        <button onClick={changeDeleteState}>Delete</button>
+        <img src="/images/Deletebtn1.svg" alt="" onClick={changeDeleteState} />
       </Card>
     </li>
   );

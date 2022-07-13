@@ -117,19 +117,13 @@ function MyCalendar(props) {
     <Container>
       {!props.user && <Redirect to="/" />}
       <Header />
-      <Section>
-        <h5>
-          <a>THIS IS MY CALENDAR</a>
-        </h5>
-      </Section>
+
       <HomePage>
-        <button>
-          <Link to="/mycalendar">
-            <a href="/mycalendar">
-              <span>Back</span>
-            </a>
-          </Link>
-        </button>
+        <Link to="/mycalendar">
+          <a href="/mycalendar">
+            <img src="/images/Backbtn1.svg" alt="" />
+          </a>
+        </Link>
       </HomePage>
 
       <NewCalendarPage userUID={userUID} />

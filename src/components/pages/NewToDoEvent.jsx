@@ -122,16 +122,10 @@ function NewToDoEvent(props) {
       <Header />
       {!props.user && <Redirect to="/" />}
       <Content>
-        <Section>
-          <h5>
-            <a>THIS IS TO DO LIST</a>
-          </h5>
-        </Section>
-
         <HomePage>
           <Link to="/todolist">
             <a href="/todolist">
-              <img src="/images/backarrow.svg" alt="" />
+              <img src="/images/Backbtn1.svg" alt="" />
             </a>
           </Link>
         </HomePage>

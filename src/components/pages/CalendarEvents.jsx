@@ -6,6 +6,7 @@ import Header from "./Header";
 import db from "../../firebase";
 import { Link } from "react-router-dom";
 import CalendarList from "../calendar/calendar_events/CalendarList";
+import { concatenateDateTime } from "../../action";
 
 const Container = styled.div`
   max-width: 100%;
@@ -112,6 +113,14 @@ const HomePage = styled.div`
 //home page upon signing in
 function CalendarEvents(props) {
   const [loadedEventslist, setLoadedEvents] = useState([]);
+  const userUID = props.user.uid;
+  loadedEventslist.sort(function (x, y) {
+    //define a function to compare dates in string form
+    const x_date = concatenateDateTime(x.startDate, x.startTime);
+    //console.log(x_date.getTime());
+    const y_date = concatenateDateTime(y.startDate, y.startTime);
+    return x_date.getTime() - y_date.getTime();
+  });
 
   useEffect(() => {
     //setIsLoading(true);
@@ -121,23 +130,21 @@ function CalendarEvents(props) {
       .then((snapshot) => {
         const calendarEvents = [];
         snapshot.docs.forEach((doc) => {
-          const calendarEvent = {
-            id: doc.id,
-            title: doc.data().title,
-            startDate: doc.data().startDate,
-            startTime: doc.data().startTime,
-            endDate: doc.data().endDate,
-            endTime: doc.data().endTime,
-            userUID: doc.data.userUID,
-          };
-          //console.log(calendarEvent.startDate);
-          calendarEvents.push(calendarEvent);
+          if (doc.data().userUID === userUID) {
+            const calendarEvent = {
+              id: doc.id,
+              title: doc.data().title,
+              startDate: doc.data().startDate,
+              startTime: doc.data().startTime,
+              endDate: doc.data().endDate,
+              endTime: doc.data().endTime,
+              userUID: doc.data.userUID,
+            };
+            //console.log(calendarEvent.startDate);
+            calendarEvents.push(calendarEvent);
+          }
         });
         setLoadedEvents(calendarEvents);
-        loadedEventslist.sort(function (x, y) {
-          //define a function to compare dates in string form
-          return y.startDate - x.startDate;
-        });
       });
   }, []);
 
@@ -148,13 +155,11 @@ function CalendarEvents(props) {
 
       <Content>
         <HomePage>
-          <button>
-            <Link to="/mycalendar">
-              <a href="/mycalendar">
-                <span>Back</span>
-              </a>
-            </Link>
-          </button>
+          <Link to="/mycalendar">
+            <a href="/mycalendar">
+              <img src="/images/Backbtn1.svg" alt="" />
+            </a>
+          </Link>
         </HomePage>
 
         <CalendarList events={loadedEventslist} />

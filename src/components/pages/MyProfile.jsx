@@ -1,12 +1,11 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Left from "./Left";
 import Header from "./Header";
-import { storage } from "../../firebase";
 import db from "../../firebase";
-//import { Card } from "@mui/material";
 import Card from "../../action/Card";
 import firebase from "firebase/app";
 
@@ -122,195 +121,36 @@ function MyProfile(props) {
       )
     );
   //console.log(userUID);
-  const ReactFirebaseImageUpload = () => {
-    const [image, setImage] = useState(null);
-    const [url, setUrl] = useState("");
-
-    const handleChange = (e) => {
-      if (e.target.files[0]) {
-        setImage(e.target.files[0]);
-      }
-    };
-
-    const handleUpload = () => {
-      const uploadTask = storage
-        .ref(`${userUID}/images/${image.name}`)
-        .put(image);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {},
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          storage
-            .ref(`${userUID}/images`)
-            .child(image.name)
-            .getDownloadURL()
-            .then((url) => {
-              console.log(url);
-              setUrl(url);
-              db.collection("DPDB").doc(userUID).update({
-                "Actor.display_picture": url,
-              });
-            });
-        }
-      );
-    };
-
-    return (
-      <div>
-        <br />
-        <input type="file" onChange={handleChange} />
-        <button onClick={handleUpload}>Upload Picture</button>
-        <br />
-      </div>
-    );
-  };
-
-  const NameUpload = () => {
-    //need to link front end to backend, upload the new name to the db and query it
-    const [NewName, setNewName] = useState(null);
-
-    function handleChange(event) {
-      setNewName(event.target.value);
-      console.log(event.target.value);
-    }
-
-    const handleNameUpload = () => {
-      console.log("works");
-      db.collection("DPDB").doc(userUID).update({
-        "Actor.display_name": NewName,
-      });
-    };
-
-    return (
-      <div>
-        <br />
-        <InputBox>
-          <input type="text" placeholder="New Name" onChange={handleChange} />
-          <button onClick={handleNameUpload}>Change Name</button>
-        </InputBox>
-        <br />
-      </div>
-    );
-  };
-
-  const ContactUpload = () => {
-    const [NewName, setNewName] = useState(null);
-
-    function handleChange(event) {
-      setNewName(event.target.value);
-      console.log(event.target.value);
-    }
-
-    const handleNameUpload = () => {
-      console.log("works");
-      db.collection("DPDB").doc(userUID).update({
-        "Actor.contact_info": NewName,
-      });
-    };
-
-    return (
-      <div>
-        <br />
-        <InputBox>
-          <input
-            type="text"
-            placeholder="New Email / Telehandle / Phone Number"
-            onChange={handleChange}
-          />
-        </InputBox>
-        <button onClick={handleNameUpload}>Change Contact Info</button>
-        <br />
-      </div>
-    );
-  };
-
-  const InfoUpload = () => {
-    const [NewName, setNewName] = useState(null);
-
-    function handleChange(event) {
-      setNewName(event.target.value);
-      console.log(event.target.value);
-    }
-
-    const handleNameUpload = () => {
-      console.log("works");
-      db.collection("DPDB").doc(userUID).update({
-        "Actor.display_info": NewName,
-      });
-    };
-
-    return (
-      <div>
-        <br />
-        <InputBox>
-          <textarea
-            id="displayinfo"
-            placeholder="New Self Introduction"
-            required
-            rows="3"
-            onChange={handleChange}
-          ></textarea>
-        </InputBox>
-        <button onClick={handleNameUpload}>Change Display Info</button>
-        <br />
-      </div>
-    );
-  };
 
   return (
     <Container>
       <Header />
       {!props.user && <Redirect to="/" />}
       <Content>
-        <Section>
-          <h5>
-            <a>THIS IS MY PROFILE</a>
-          </h5>
-        </Section>
-
-        <Layout>
-          <Left />
-
-          <Card>
-            <Portrait>
-              <h1>
-                {
-                  // Add profile name and css here
-                  DisplayName
-                }
-              </h1>
-              <br />
-              <h2>
-                {
-                  // Add profile info here
-                  DisplayInfo
-                }
-              </h2>
-            </Portrait>
-          </Card>
-        </Layout>
+        <Left />
         <Card>
-          <h3>Add a new photo</h3>
-          <ReactFirebaseImageUpload />
-          {
-            //<button onClick={DPupload}>DISPLAY INFO UPLOAD</button>
-          }
-          <br />
-          <h3>Change Display Name</h3>
-          <NameUpload />
-
-          <br />
-          <h3>Change Contact Info</h3>
-          <ContactUpload />
-
-          <br />
-          <h3>Change Display Info</h3>
-          <InfoUpload />
-          <br />
+          <Portrait>
+            <h1>
+              {
+                // Add profile name and css here
+                DisplayName
+              }
+            </h1>
+            <br />
+            <h2>
+              {
+                // Add profile info here
+                DisplayInfo
+              }
+            </h2>
+          </Portrait>
         </Card>
+
+        <Link to="/editprofile">
+          <a href="/editprofile">
+            <img src="/images/EditProfilebtn1.svg" alt="" />
+          </a>
+        </Link>
       </Content>
     </Container>
   );

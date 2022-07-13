@@ -23,7 +23,7 @@ function ToDoItemDone(props) {
           {props.description}
         </div>
 
-        <img src="/images/checkbox.svg" onClick={changeDeleteState} />
+        <img src="/images/Deletebtn1.svg" onClick={changeDeleteState} />
       </Card>
     </li>
   );
