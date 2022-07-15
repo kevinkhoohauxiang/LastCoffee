@@ -65,9 +65,11 @@ const NavListWrap = styled.ul`
 const NavList = styled.li`
   display: flex;
   align-items: center;
+
   Dropdown {
     display: none;
   }
+
   a {
     align-items: center;
     background: transparent;
@@ -95,13 +97,12 @@ const NavList = styled.li`
       }
     }
   }
-  &:hover,
-  &:active {
-    a {
-      span {
-        color: rgba(0, 0, 0, 0.9);
-      }
-    }
+
+  a:hover {
+    font-size: 14px;
+    border: solid; 
+    border-color: rgba(145, 145, 139, 0.94);
+    border-width: 1px;
   }
 `;
 
