@@ -7,65 +7,52 @@ import { SignOutAPI } from "../../action";
 
 const Container = styled.div`
   max-width: 100%;
+  background-color: black;
 `;
 
 const Content = styled.div`
   margin: auto;
 `;
 
-const Homepage = styled.div`
+const HomePage = styled.div`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: space-evenly;
-  background-color: white;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-
-  h1 {
-    font-size: 5rem;
-    text-align: center;
-    font-family: "Montserrat";
-    line-height: 1em;
-    font-weight: 600;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    max-width: 53.125rem;
-    margin-bottom: 30px;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-    margin: 0;
-    font-weight: lighter;
-    line-height: 1.6em;
-    letter-spacing: 0.01em;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  img {
-    margin-top: 30px;
-    width: 1100px;
-    height: 549px;
-    object-fit: cover;
-  }
-
+  color: white;
   button {
     border: 0.0625rem solid rgb(17, 109, 255);
     background-color: rgb(17, 109, 255);
     border-radius: 1.875rem;
     font-family: var(--main-text-font);
-    width: 12.125rem;
+    width: 20rem;
     height: 3.5rem;
     cursor: pointer;
     color: #ffffff;
     font-size: 1.5rem;
     font-weight: 300;
-    margin-top: 0.625rem;
+    margin-top: 2rem;
     align-items: center;
+    a:link {
+      text-decoration: none;
+    }
+    a:visited {
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    a:active {
+      text-decoration: none;
+    }
+    span {
+      color: white;
+      text-decoration: none;
+      background-color: none;
+    }
   }
 `;
 
@@ -74,16 +61,20 @@ function SignOut(props) {
   return (
     <Container>
       {!props.user && <Redirect to="/" />}
-
-      <button className="btn" onClick={() => props.signOut()}>
-        <span>Sign Out</span>
-      </button>
-
-      <Link to="/home">
-        <button className="btn">
-          <span>Back</span>
+      <HomePage>
+        <h1>
+          Oh no! you're Leaving... <br /> Are you sure?
+        </h1>
+        <button className="btn" onClick={() => props.signOut()}>
+          <span>Sign Out</span>
         </button>
-      </Link>
+
+        <Link to="/home">
+          <button className="btn">
+            <span>Back</span>
+          </button>
+        </Link>
+      </HomePage>
     </Container>
   );
 }
