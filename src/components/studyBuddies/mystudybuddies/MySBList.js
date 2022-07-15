@@ -1,18 +1,26 @@
 import MySBItem from "./MySBItem";
 import classes from "./SBList.module.css";
+import { Link } from "react-router-dom";
 
 function MySBList(props) {
   if (props.events.length === 0) {
     return (
-      <h1>
-        <br />
-        You have not added any Study Buddies!
-        <br />
-        <br />
-        Let's add your first Study Buddy :D
-        <br />
-        Post a request now!!
-      </h1>
+      <div>
+        <h1>
+          <br />
+          You have not added any Study Buddies!
+          <br />
+          <br />
+          Let's add your first Study Buddy :D
+          <br />
+          Post a request now!!
+        </h1>
+        <Link to="/findnewsb">
+          <a href="/findnewsb">
+            <img src="/images/Postbtn1.svg" alt="" />
+          </a>
+        </Link>
+      </div>
     );
   } else {
     return (

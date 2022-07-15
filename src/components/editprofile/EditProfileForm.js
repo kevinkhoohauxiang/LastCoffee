@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Card from "../../action/Card";
 import classes from "./EditProfileForm.module.css";
 import db from "../../firebase";
@@ -9,9 +9,6 @@ function EditProfileForm(props) {
   const [ContactInfo, setContactInfo] = useState("");
   const [DisplayInfo, setDisplayInfo] = useState("");
   const [DisplayPicture, setDisplayPicture] = useState("");
-  const [NewDisplayName, setNewDisplayName] = useState("");
-  const [NewContactInfo, setNewContactInfo] = useState("");
-  const [NewDisplayInfo, setNewDisplayInfo] = useState("");
   const userUID = props.userUID;
 
   function renderDoc(doc) {
@@ -35,26 +32,40 @@ function EditProfileForm(props) {
       )
     );
 
-  //console.log(props)
+  const [NewDisplayName, setNewDisplayName] = useState(DisplayName);
+  const [NewContactInfo, setNewContactInfo] = useState(ContactInfo);
+  const [NewDisplayInfo, setNewDisplayInfo] = useState(DisplayInfo);
 
   function submitHandler(event) {
     event.preventDefault();
+    /*
     console.log(NewDisplayName);
     console.log(NewContactInfo);
     console.log(NewDisplayInfo);
     console.log(DisplayName);
     console.log(ContactInfo);
     console.log(DisplayInfo);
-    console.log(NewDisplayName == "");
+    console.log(NewContactInfo == "");
+    */
 
-    if (NewDisplayName === "") {
-      setNewDisplayName(DisplayName);
+    let finalDisplayName;
+    let finalContactInfo;
+    let finalDisplayInfo;
+
+    if (NewDisplayName == "") {
+      finalDisplayName = DisplayName;
+    } else {
+      finalDisplayName = NewDisplayName;
     }
-    if (NewDisplayInfo === "") {
-      setNewDisplayInfo(DisplayInfo);
+    if (NewDisplayInfo == "") {
+      finalDisplayInfo = DisplayInfo;
+    } else {
+      finalDisplayInfo = NewDisplayInfo;
     }
-    if (NewContactInfo === "") {
-      setNewContactInfo(ContactInfo);
+    if (NewContactInfo == "") {
+      finalContactInfo = ContactInfo;
+    } else {
+      finalContactInfo = NewContactInfo;
     }
 
     const displayData = {

@@ -6,8 +6,10 @@ function SBNotificationsList(props) {
     //console.log(props.events.length);
     return (
       <h1>
+        Oh Wow much empty.
         <br />
-        You do not have any notifications for now!
+        <br />
+        I mean you do not have any notifications for now!
         <br />
         <br />
       </h1>

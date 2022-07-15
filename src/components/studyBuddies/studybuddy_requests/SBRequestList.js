@@ -1,18 +1,26 @@
 import SBRequestItem from "./SBRequestItem";
 import classes from "./SBList.module.css";
+import { Link } from "react-router-dom";
 
 function SBRequestList(props) {
   if (props.events.length === 0) {
     //console.log(props.events.length);
     return (
-      <h1>
-        <br />
-        You have not added any Requests for now!
-        <br />
-        <br />
-        Let's go find more Study Buddies :D
-        <br />
-      </h1>
+      <div>
+        <h1>
+          <br />
+          You have not added any Requests for now!
+          <br />
+          <br />
+          Let's go find more Study Buddies :D
+          <br />
+        </h1>
+        <Link to="/findstudybuddy">
+          <a href="/findstudybuddy">
+            <img src="/images/Postbtn1.svg" alt="" />
+          </a>
+        </Link>
+      </div>
     );
   } else {
     return (
