@@ -4,7 +4,7 @@ import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Left from "./Left";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import db from "../../firebase";
 import Card from "../../action/Card";
 import firebase from "firebase/app";
@@ -86,13 +86,6 @@ const InputBox = styled.div`
   }
 `;
 
-// for uploading new profile picture
-
-//for changing your name
-
-//for changing contact info
-
-//home page upon signing in
 function MyProfile(props) {
   const userUID = props.user.uid;
   const [ContactInfo, setContactInfo] = useState("");
@@ -128,6 +121,7 @@ function MyProfile(props) {
       {!props.user && <Redirect to="/" />}
       <Content>
         <Left />
+
         <Card>
           <Portrait>
             <h1>

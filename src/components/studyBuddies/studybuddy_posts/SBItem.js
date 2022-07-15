@@ -2,9 +2,17 @@
 import React, { useState } from "react";
 import Card from "../../../action/Card";
 import classes from "./SBItem.module.css";
+import styled from "styled-components";
 import db from "../../../firebase";
 import firebase from "firebase/app";
 import Firebase from "firebase";
+import Home from "../../pages/Home";
+
+const SendButton = styled.div`
+  img {
+    cursor: pointer;
+  }
+`;
 
 function SBItem(props) {
   const userUID = props.userUID;
@@ -128,7 +136,10 @@ function SBItem(props) {
           <br />
           Preferred course / modules: {props.subjects}
         </div>
-        <button onClick={AddRequest}>Send Request!!!</button>
+
+        <SendButton>
+          <img src="/images/Sendbtn1.svg" alt="" onClick={AddRequest} />
+        </SendButton>
       </Card>
     </li>
   );

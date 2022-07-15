@@ -3,8 +3,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import firebaseConfig from "./config";
-import { getDatabase } from "firebase/database";
-import { initializeApp } from "firebase/app";
 
 //const app = initializeApp(firebaseConfig);
 firebase.initializeApp(firebaseConfig);

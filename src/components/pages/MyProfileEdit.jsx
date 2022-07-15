@@ -1,14 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import { storage } from "../../firebase";
 import db from "../../firebase";
-//import { Card } from "@mui/material";
 import Card from "../../action/Card";
 import firebase from "firebase/app";
+import EditProfilePage from "../editprofile/EditProfilePage";
 
 const Container = styled.div`
   max-width: 100%;
@@ -185,7 +185,8 @@ function MyProfileEdit(props) {
       <div>
         <br />
         <input type="file" onChange={handleChange} />
-        <button onClick={handleUpload}>Upload Picture</button>
+        <img src="/images/Uploadbtn1.svg" alt="" onClick={handleUpload} />
+
         <br />
       </div>
     );
@@ -212,7 +213,7 @@ function MyProfileEdit(props) {
         <br />
         <InputBox>
           <input type="text" placeholder="New Name" onChange={handleChange} />
-          <button onClick={handleNameUpload}>Change Name</button>
+          <img src="/images/Uploadbtn1.svg" alt="" onClick={handleNameUpload} />
         </InputBox>
         <br />
       </div>
@@ -244,7 +245,7 @@ function MyProfileEdit(props) {
             onChange={handleChange}
           />
         </InputBox>
-        <button onClick={handleNameUpload}>Change Contact Info</button>
+        <img src="/images/Uploadbtn1.svg" alt="" onClick={handleNameUpload} />
         <br />
       </div>
     );
@@ -277,7 +278,11 @@ function MyProfileEdit(props) {
             onChange={handleChange}
           ></textarea>
         </InputBox>
-        <button onClick={handleNameUpload}>Change Display Info</button>
+        <img
+          src="/images/saveChangesbtn1.svg"
+          alt=""
+          onClick={handleNameUpload}
+        />
         <br />
       </div>
     );
@@ -291,13 +296,12 @@ function MyProfileEdit(props) {
       {!props.user && <Redirect to="/" />}
       <Content>
         <Card>
-          <button>
-            <Link to="/myprofile">
-              <a href="/myprofile">
-                <span>Back</span>
-              </a>
-            </Link>
-          </button>
+          <Link to="/myprofile">
+            <a href="/myprofile">
+              <img src="/images/Backbtn1.svg" alt="" />
+            </a>
+          </Link>
+
           <Photo photoUrl={DisplayPicture} />
           <h3>Add a new photo</h3>
           <ReactFirebaseImageUpload />
@@ -305,19 +309,9 @@ function MyProfileEdit(props) {
             //<button onClick={DPupload}>DISPLAY INFO UPLOAD</button>
           }
           <br />
-
-          <h3>Display Name: {DisplayName}</h3>
-          <NameUpload />
-
-          <br />
-          <h3>Contact Info: {ContactInfo}</h3>
-          <ContactUpload />
-
-          <br />
-          <h3>Display Info: {DisplayInfo}</h3>
-          <InfoUpload />
-          <br />
         </Card>
+
+        <EditProfilePage userUID={userUID} />
       </Content>
     </Container>
   );

@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
-import Header from "./Header";
+import Header from "../header/components/Header";
 
 const Container = styled.div`
   max-width: 100%;

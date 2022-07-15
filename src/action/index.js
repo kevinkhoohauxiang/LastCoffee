@@ -1,4 +1,5 @@
 import db, { auth, provider, storage } from "../firebase";
+import { useHistory } from "react-router-dom";
 import {
   SET_LOADING_STATUS,
   SET_USER,
@@ -7,6 +8,7 @@ import {
   GET_TDL_DONE,
   GET_CALENDAR,
 } from "./actionType";
+import firebase from "firebase";
 
 export function setUser(payload) {
   return {
@@ -70,18 +72,29 @@ export function signInAPI() {
     auth
       .signInWithPopup(provider)
       .then((payload) => dispatch(setUser(payload.user)))
-      .catch((err) => alert(err.message));
+      .catch((err) => console.log(err.message));
   };
 }
 
-export function signOutAPI() {
+export function SignOutAPI() {
+  //const history = useHistory();
   return (dispatch) => {
-    auth
-      .signOut()
-      .then(() => dispatch(setUser(null)))
-      .catch((err) => console.log(err));
+    //const currentUser = auth.currentUser;
+    //console.log(currentUser);
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        return null;
+      } else {
+        auth
+          .signOut()
+
+          .then(() => dispatch(setUser(null)))
+          .catch((err) => console.log(err));
+      }
+    });
   };
 }
+
 // Functions to post articles in find study buddies
 export function postArticleAPI(payload) {
   return (dispatch) => {

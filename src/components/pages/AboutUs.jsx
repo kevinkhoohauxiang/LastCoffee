@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import NewContactUsPage from "../contactUs/NewContactUsPage";
 
 const Container = styled.div`

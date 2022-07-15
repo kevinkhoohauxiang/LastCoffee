@@ -8,8 +8,7 @@ function NewContactUsPage(props) {
 
   function addContactUsHandler(ContactUsData) {
     db.collection("ContactUsDB")
-      .doc(userUID)
-      .set(ContactUsData)
+      .add(ContactUsData)
       .then(() => {
         history.replace("/aboutus");
       });

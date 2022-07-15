@@ -19,6 +19,7 @@ import NewMyCalendar from "./NewMyCalendar";
 import NewSB from "./NewSB";
 import CalendarEvents from "./CalendarEvents";
 import MyProfileEdit from "./MyProfileEdit";
+import SignOut from "./SignOut";
 
 function App(props) {
   useEffect(() => {
@@ -79,6 +80,9 @@ function App(props) {
           </Route>
           <Route path="/calendarevents">
             <CalendarEvents />
+          </Route>
+          <Route path="/signout">
+            <SignOut />
           </Route>
         </Switch>
       </Router>

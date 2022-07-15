@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import db from "../../firebase";
 import { Link } from "react-router-dom";
 import CalendarApp from "../calendar/calendar_app/CalendarApp";
 import { concatenateDateTime } from "../../action";
-//import CalendarApp from "./calendar/CalendarApp";
 
 const Container = styled.div`
   max-width: 100%;
@@ -16,6 +15,7 @@ const Container = styled.div`
 const Content = styled.div`
   max-width: 1128px;
   margin: auto;
+  margin-top: 60px;
 `;
 
 const Section = styled.section`
@@ -172,7 +172,9 @@ function MyCalendar(props) {
           </NavList>
         </NavListWrap>
       </Nav>
-      <CalendarApp userUID={userUID} events={loadedEventslist} />
+      <Content>
+        <CalendarApp userUID={userUID} events={loadedEventslist} />
+      </Content>
     </Container>
   );
 }

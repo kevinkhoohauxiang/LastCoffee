@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import NewCalendarPage from "../calendar/calendar_form/NewCalendarPage";
 
 const Container = styled.div`

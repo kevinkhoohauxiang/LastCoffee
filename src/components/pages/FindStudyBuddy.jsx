@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import db from "../../firebase";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import { Link } from "react-router-dom";
 import SBList from "../studyBuddies/studybuddy_posts/SBList";
 import SBListMine from "../studyBuddies/studybuddy_mypost/SBListMine";
@@ -160,7 +160,6 @@ function FindStudyBuddy(props) {
             </a>
           </Link>
         </HomePage>
-
         <Layout>
           <Left />
           <SBListMine events={mySBPost} userUID={userUID} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import { Link } from "react-router-dom";
 import ToDoListList from "../toDoList/todolist_undone/ToDoListList";
 import db from "../../firebase";
@@ -177,9 +177,10 @@ const NavList = styled.li`
 
 //home page upon signing in
 function ToDoList(props) {
-  const [loadedtodolist, setLoadedEvents] = useState([]);
-  //console.log(loadedtodolist);
-  loadedtodolist.sort(function (x, y) {
+  const [LoadedToDoList, setLoadedEvents] = useState([]);
+  const [DisplayMessage, setDisplayMessage] = useState("");
+  //console.log(LoadedToDoList);
+  LoadedToDoList.sort(function (x, y) {
     const x_date = concatenateDateTime(x.deadline, "00:00");
     const y_date = concatenateDateTime(y.deadline, "00:00");
     return x_date.getTime() - y_date.getTime();
@@ -212,6 +213,17 @@ function ToDoList(props) {
       });
   }, []);
 
+  useEffect(() => {
+    const listLength = LoadedToDoList.length;
+    if (listLength !== 0) {
+      setDisplayMessage(
+        `${LoadedToDoList.length} tasks left to complete! Don't give up!`
+      );
+    } else {
+      setDisplayMessage(`All tasks completed! Well Done!`);
+    }
+  });
+
   return (
     <Container>
       {!props.user && <Redirect to="/" />}
@@ -236,12 +248,11 @@ function ToDoList(props) {
         </NavListWrap>
       </Nav>
       <br />
-      <h2>
-        {loadedtodolist.length} tasks left to complete!!! Don't give up!!!
-      </h2>
+
+      <h2>{DisplayMessage}</h2>
 
       <Content>
-        <ToDoListList events={loadedtodolist} />
+        <ToDoListList events={LoadedToDoList} />
       </Content>
     </Container>
   );

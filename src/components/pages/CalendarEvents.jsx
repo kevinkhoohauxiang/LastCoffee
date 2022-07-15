@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import db from "../../firebase";
 import { Link } from "react-router-dom";
 import CalendarList from "../calendar/calendar_events/CalendarList";

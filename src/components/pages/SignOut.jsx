@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
-import db from "../../firebase";
-import Header from "../header/components/Header";
+import { SignOutAPI } from "../../action";
 
 const Container = styled.div`
   max-width: 100%;
@@ -70,52 +70,20 @@ const Homepage = styled.div`
 `;
 
 //home page upon signing in
-function Home(props) {
-  //console.log(props.user.photoURL);
-  useEffect(() => {
-    //console.log(db.collection("DPDB").doc(props.user.uid).get());
-    //console.log("yes");
-    db.collection("DPDB")
-      .doc(props.user.uid)
-      .get()
-      .then((doc) => {
-        //console.log(doc.exists);
-        if (!doc.exists) {
-          console.log("invoked");
-          db.collection("DPDB")
-            .doc(props.user.uid)
-            .set({
-              Actor: {
-                display_name: props.user.displayName,
-                contact_info: props.user.email,
-                display_picture: props.user.photoURL,
-                display_info: "",
-              },
-            });
-        } else {
-          console.log(null);
-          return;
-        }
-      });
-  });
-
+function SignOut(props) {
   return (
     <Container>
-      <Header />
-      {!props.user && <Redirect to="/home" />}
-      <Content>
-        <Homepage>
-          <h1>
-            The Ultimate <br></br>All-in-One <br></br>Student Website <br></br>
-          </h1>
-          <h2>
-            Discover the platform that allows you to plan you schedule,{" "}
-            <br></br> track your academic progress and connect with like-minded
-            peers.
-          </h2>
-          <img src="/images/books.png" alt="Bookshelf" />
-        </Homepage>
-      </Content>
+      {!props.user && <Redirect to="/" />}
+
+      <button className="btn" onClick={() => props.signOut()}>
+        <span>Sign Out</span>
+      </button>
+
+      <Link to="/home">
+        <button className="btn">
+          <span>Back</span>
+        </button>
+      </Link>
     </Container>
   );
 }
@@ -126,4 +94,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => ({
+  signOut: () => dispatch(SignOutAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignOut);

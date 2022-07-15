@@ -4,7 +4,7 @@ import classes from "./ToDoList.module.css";
 function ToDoListList(props) {
   if (props.events.length === 0) {
     console.log(props.events.length);
-    return <h2>No events!</h2>;
+    return <h2></h2>;
   } else {
     return (
       <ul className={classes.list}>

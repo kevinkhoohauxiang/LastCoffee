@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import db from "../../firebase";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "../header/components/Header";
 import MySBList from "../studyBuddies/mystudybuddies/MySBList";
 
 const Container = styled.div`
