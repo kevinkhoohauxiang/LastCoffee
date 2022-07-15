@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
@@ -72,71 +72,39 @@ const Homepage = styled.div`
 
 //home page upon signing in
 function Home(props) {
-  /*
-  const [ContactInfo, setContactInfo] = useState(null);
-  const [DisplayInfo, setDisplayInfo] = useState(null);
-  const [DisplayName, setDisplayName] = useState(null);
-  const [DisplayPicture, setDisplayPicture] = useState(null);
-
-  function renderDoc(doc) {
-    setContactInfo(doc.data().DPDB.contact_info);
-    setDisplayInfo(doc.data().DPDB.display_info);
-    setDisplayName(doc.data().DPDB.display_name);
-    setDisplayPicture(doc.data().DPDB.photo_url);
-    //console.log(DisplayPicture);
-  }
-
-  const set_values = db
-    .collection("TEST")
-    //.where(firebase.firestore.FieldPath.documentId(), "==", userUID)
-    .get()
-    .then((snapshot) =>
-      snapshot.docs.forEach(
-        //(doc) => console.log(doc.data()),
-        (doc) => {
-          renderDoc(doc);
-        }
-      )
-    );
-  */
-
-  // When the user first successfully logs in, we check if there is already an entry in the Users collection.
-  // If there is an entry already, we do nothing. else, we follow the steps below
-
-  // In the DB, we first have a main collection of users.
-  // Upon logging in, we need to first create a document with the UID in the Users collection.
-  // we then add the 5 subcollections, DPDB, TDLDB, CLDDB, SBDB, HSDB into the document with the UID
-
-  // "get started" button used for creating all the DBs if the user is new.
-
   const userUID = props.user.uid;
-  //console.log(userUID);
   const displayName = props.user.displayName;
   const photoUrl = props.user.photoURL
     ? props.user.photoURL
     : "/images/photo.svg";
   const contactInfo = props.user.email;
-  //console.log(props.user.email)
 
-  const createnewDB = () => {
+  useEffect(() => {
+    //console.log(db.collection("DPDB").doc(userUID).get());
     //console.log("yes");
-    if (db.collection("TEST").doc(userUID)) {
-      console.log("invoked");
-      db.collection("DPDB")
-        .doc(userUID)
-        .set({
-          Actor: {
-            display_name: displayName,
-            contact_info: contactInfo,
-            display_picture: photoUrl,
-            display_info: "",
-          },
-        });
-    } else {
-      console.log(null);
-      return;
-    }
-  };
+    db.collection("DPDB")
+      .doc(userUID)
+      .get()
+      .then((doc) => {
+        //console.log(doc.exists);
+        if (!doc.exists) {
+          console.log("invoked");
+          db.collection("DPDB")
+            .doc(userUID)
+            .set({
+              Actor: {
+                display_name: displayName,
+                contact_info: contactInfo,
+                display_picture: photoUrl,
+                display_info: "",
+              },
+            });
+        } else {
+          console.log(null);
+          return;
+        }
+      });
+  });
 
   return (
     <Container>
