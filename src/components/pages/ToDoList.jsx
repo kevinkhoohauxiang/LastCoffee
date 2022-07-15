@@ -216,7 +216,6 @@ function ToDoList(props) {
     <Container>
       {!props.user && <Redirect to="/" />}
       <Header />
-
       <Nav>
         <NavListWrap>
           <NavList>
@@ -226,6 +225,7 @@ function ToDoList(props) {
               </a>
             </Link>
           </NavList>
+
           <NavList>
             <Link to="/todolistdone">
               <a href="/todolistdone">
@@ -235,11 +235,14 @@ function ToDoList(props) {
           </NavList>
         </NavListWrap>
       </Nav>
+      <br />
+      <h2>
+        {loadedtodolist.length} tasks left to complete!!! Don't give up!!!
+      </h2>
 
-      {<br />}
-      {<br />}
-
-      <ToDoListList events={loadedtodolist} />
+      <Content>
+        <ToDoListList events={loadedtodolist} />
+      </Content>
     </Container>
   );
 }

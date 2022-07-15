@@ -66,10 +66,6 @@ const NavList = styled.li`
   display: flex;
   align-items: center;
 
-  Dropdown {
-    display: none;
-  }
-
   a {
     align-items: center;
     background: transparent;
@@ -100,7 +96,7 @@ const NavList = styled.li`
 
   a:hover {
     font-size: 14px;
-    border: solid; 
+    border: solid;
     border-color: rgba(145, 145, 139, 0.94);
     border-width: 1px;
   }
@@ -192,7 +188,16 @@ function Header(props) {
               </Link>
             </NavList>
             <NavList>
-              <Dropdown>
+              <Link to="/studybuddies">
+                <a href="/studybuddies">
+                  <img src="/images/StudyBuddy.svg" alt="" />
+                  <span>Study Buddies</span>
+                </a>
+              </Link>
+            </NavList>
+            {/*
+            <NavList>
+              <Dropdown className="dropdownbtn">
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                   <a>
                     <img src="/images/StudyBuddy.svg" alt="" />
@@ -218,12 +223,12 @@ function Header(props) {
                   </Link>
                   <Link to="/studybuddynotifications">
                     <Dropdown.Item href="studybuddynotifications">
-                      Find Study Buddy
+                      My Notifications
                     </Dropdown.Item>
                   </Link>
                 </Dropdown.Menu>
               </Dropdown>
-            </NavList>
+            </NavList>*/}
 
             <NavList>
               <Link to="/aboutus">
@@ -234,14 +239,16 @@ function Header(props) {
               </Link>
             </NavList>
             <NavList>
-              <a>
-                <img
-                  src="/images/LogOut.svg"
-                  alt=""
-                  onClick={() => props.signOut()}
-                />
-                <span>Sign Out</span>
-              </a>
+              <Link to="/">
+                <a href="/">
+                  <img
+                    src="/images/LogOut.svg"
+                    alt=""
+                    onClick={() => props.signOut()}
+                  />
+                  <span>Sign Out</span>
+                </a>
+              </Link>
             </NavList>
           </NavListWrap>
         </Nav>

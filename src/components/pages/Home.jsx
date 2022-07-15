@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import db from "../../firebase";
 // import { collection, query, where, getDocs } from "firebase/firestore";
+import NavBar from "../header/header";
 
 const Container = styled.div`
   max-width: 100%;

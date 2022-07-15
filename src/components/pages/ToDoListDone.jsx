@@ -107,8 +107,8 @@ function ToDoListDone(props) {
 
   return (
     <Container>
-      <Header />
       {!props.user && <Redirect to="/" />}
+      <Header />
       <Nav>
         <NavListWrap>
           <NavList>
@@ -131,7 +131,9 @@ function ToDoListDone(props) {
       <br />
       <h2>Well Done! You have completed the following tasks!</h2>
 
-      <ToDoListListDone events={loadedtodolist} />
+      <Content>
+        <ToDoListListDone events={loadedtodolist} />
+      </Content>
     </Container>
   );
 }

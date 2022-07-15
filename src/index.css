@@ -40,12 +40,7 @@ span {
 
 body {
 	font-family: Arial, sans-serif;
-	background-image: url("C:\Users\zenbi\OneDrive\Desktop\Y1S2\Orbital\LastCoffee-main\LastCoffee-main\public\images\BackgroundPic.svg");
-	background-repeat: no-repeat;
-	background-position: right top;
-	background-attachment: scroll;
-	padding-bottom: 1000px;
-} 
+}
 
 @keyframes fadeIn {
 	from {
