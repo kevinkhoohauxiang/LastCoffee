@@ -73,14 +73,11 @@ const Homepage = styled.div`
 //home page upon signing in
 function Home(props) {
   const userUID = props.user.uid;
-  //console.log(userUID);
   const displayName = props.user.displayName;
   const photoUrl = props.user.photoURL
     ? props.user.photoURL
     : "/images/photo.svg";
   const contactInfo = props.user.email;
-  //console.log(props.user.email)
-  //console.log(userUID);
 
   useEffect(() => {
     //console.log(db.collection("DPDB").doc(userUID).get());
