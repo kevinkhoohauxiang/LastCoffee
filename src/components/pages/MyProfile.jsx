@@ -148,7 +148,7 @@ function MyProfile(props) {
 
         <Link to="/editprofile">
           <a href="/editprofile">
-            <img src="/images/EditProfilebtn1.svg" alt="" />
+              <img src="/images/EditProfilebtn1.svg" alt="" />
           </a>
         </Link>
       </Content>
