@@ -23,6 +23,8 @@ const HomePage = styled.div`
   margin-left: auto;
   margin-right: auto;
   color: white;
+  font-size: 2rem;
+  backgroundcolor: black;
   button {
     border: 0.0625rem solid rgb(17, 109, 255);
     background-color: rgb(17, 109, 255);
@@ -34,7 +36,8 @@ const HomePage = styled.div`
     color: #ffffff;
     font-size: 1.5rem;
     font-weight: 300;
-    margin-top: 2rem;
+    margin-top: 5.5rem;
+    margin-bottom: 10rem;
     align-items: center;
     a:link {
       text-decoration: none;
@@ -61,14 +64,15 @@ function SignOut(props) {
   return (
     <Container>
       {!props.user && <Redirect to="/" />}
+
       <HomePage>
+        <br />
         <h1>
           Oh no! you're Leaving... <br /> Are you sure?
         </h1>
         <button className="btn" onClick={() => props.signOut()}>
           <span>Sign Out</span>
         </button>
-
         <Link to="/home">
           <button className="btn">
             <span>Back</span>
