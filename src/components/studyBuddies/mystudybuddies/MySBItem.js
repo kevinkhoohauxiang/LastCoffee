@@ -10,6 +10,7 @@ function MySBItem(props) {
   const PosterUID = props.posterUID;
   const UID1 = ActorUID + PosterUID;
   const UID2 = PosterUID + ActorUID;
+
   function deleteRequest() {
     db.collection("SBDB").doc(UID1).update({
       Accepted: "booo",

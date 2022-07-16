@@ -47,7 +47,7 @@ function SBNotificationsItem(props) {
     }
   }
 
-  if (props.accepter == false) {
+  if (props.accepter === true) {
     return (
       <li className={classes.item}>
         <Card>
