@@ -20,6 +20,8 @@ import NewSB from "./NewSB";
 import CalendarEvents from "./CalendarEvents";
 import MyProfileEdit from "./MyProfileEdit";
 import SignOut from "./SignOut";
+import SearchSB from "./SearchSB";
+import SearchedSB from "./SearchedSB";
 
 function App(props) {
   useEffect(() => {
@@ -83,6 +85,12 @@ function App(props) {
           </Route>
           <Route path="/signout">
             <SignOut />
+          </Route>
+          <Route path="/searchSB">
+            <SearchSB />
+          </Route>
+          <Route path="/searchedSB">
+            <SearchedSB />
           </Route>
         </Switch>
       </Router>

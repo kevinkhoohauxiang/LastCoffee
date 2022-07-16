@@ -6,8 +6,8 @@ import db from "../../firebase";
 import Header from "../header/components/Header";
 import { Link } from "react-router-dom";
 import SBList from "../studyBuddies/studybuddy_posts/SBList";
-import SBListMine from "../studyBuddies/studybuddy_mypost/SBListMine";
 import Left from "./Left";
+import firebase from "firebase";
 
 const Container = styled.div`
   max-width: 100%;
@@ -111,11 +111,37 @@ const HomePage = styled.div`
 `;
 
 //home page upon signing in
-function FindStudyBuddy(props) {
+function SearchedSB(props) {
   const userUID = props.user.uid;
   const [loadedSBlist, setLoadedEvents] = useState([]);
-  const [mySBPost, setmySBPost] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
+  const [SearchLocation, setSearchLocation] = useState("");
+  const [SearchTiming, setSearchTiming] = useState("");
+  const [SearchGender, setSearchGender] = useState("");
+  const [SearchFaculty, setSearchFaculty] = useState("");
+
+  function renderDoc(doc) {
+    setSearchLocation(doc.data().location);
+    setSearchTiming(doc.data().timing);
+    setSearchGender(doc.data().gender);
+    setSearchFaculty(doc.data().faculty);
+    //console.log(DisplayPicture);
+  }
+
+  const Set_Values = db
+    .collection("SB Searches")
+    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
+          renderDoc(doc);
+        }
+      )
+    );
+
+  // create function to query for searches in the db that match the search data
 
   useEffect(() => {
     setIsLoading(true);
@@ -143,7 +169,6 @@ function FindStudyBuddy(props) {
         );
         setIsLoading(false);
         setLoadedEvents(SBs);
-        setmySBPost(mySBs);
       });
   }, []);
 
@@ -152,22 +177,14 @@ function FindStudyBuddy(props) {
       <Header />
       {!props.user && <Redirect to="/" />}
       <Content>
-        <HomePage>
-          <Link to="/findnewsb">
-            <a href="/findnewsb">
-              <img src="/images/Postbtn1.svg" alt="" />
-            </a>
-          </Link>
-          <Link to="/searchsb">
-            <a href="/searchsb">
-              <img src="/images/Searchbtn1.svg" alt="" />
-            </a>
-          </Link>
-        </HomePage>
+        <Link to="/searchSB">
+          <a href="/searchSB">
+            <img src="/images/Backbtn1.svg" alt="" />
+          </a>
+        </Link>
         <Layout>
           <Left />
-          <SBListMine events={mySBPost} userUID={userUID} />
-          Find my Study Buddies!!!
+
           <SBList events={loadedSBlist} userUID={userUID} />
         </Layout>
       </Content>
@@ -181,4 +198,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(FindStudyBuddy);
+export default connect(mapStateToProps)(SearchedSB);

@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import SBList from "../studyBuddies/studybuddy_posts/SBList";
 import SBListMine from "../studyBuddies/studybuddy_mypost/SBListMine";
 import Left from "./Left";
+import SearchSBPage from "../studyBuddies/searchSB_form/SearchSBPage";
 
 const Container = styled.div`
   max-width: 100%;
@@ -110,67 +111,38 @@ const HomePage = styled.div`
   }
 `;
 
-//home page upon signing in
-function FindStudyBuddy(props) {
-  const userUID = props.user.uid;
-  const [loadedSBlist, setLoadedEvents] = useState([]);
-  const [mySBPost, setmySBPost] = useState([]);
-  const [IsLoading, setIsLoading] = useState(false);
+const InputBox = styled.div`
+  input,
+  textarea {
+    display: block;
+    font: inherit;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 0.25rem;
+    width: 100%;
+  }
+`;
 
-  useEffect(() => {
-    setIsLoading(true);
-    db.collection("SB Posts")
-      .get()
-      .then((snapshot) => {
-        const SBs = [];
-        const mySBs = [];
-        snapshot.docs.forEach(
-          //(doc) => console.log(doc.data()),
-          (doc) => {
-            const SB = {
-              id: doc.id,
-              ...doc.data(),
-            };
-            //console.log(doc.data());
-            if (doc.data().posterUID === userUID) {
-              mySBs.push(SB);
-              //console.log(mySBPost);
-            } else {
-              SBs.push(SB);
-              //console.log(loadedSBlist);
-            }
-          }
-        );
-        setIsLoading(false);
-        setLoadedEvents(SBs);
-        setmySBPost(mySBs);
-      });
-  }, []);
+//home page upon signing in
+function SearchSB(props) {
+  const userUID = props.user.uid;
 
   return (
     <Container>
       <Header />
       {!props.user && <Redirect to="/" />}
       <Content>
-        <HomePage>
-          <Link to="/findnewsb">
-            <a href="/findnewsb">
-              <img src="/images/Postbtn1.svg" alt="" />
-            </a>
-          </Link>
-          <Link to="/searchsb">
-            <a href="/searchsb">
-              <img src="/images/Searchbtn1.svg" alt="" />
-            </a>
-          </Link>
-        </HomePage>
+        <Link to="/findstudybuddy">
+          <a href="/findstudybuddy">
+            <img src="/images/Backbtn1.svg" alt="" />
+          </a>
+        </Link>
         <Layout>
           <Left />
-          <SBListMine events={mySBPost} userUID={userUID} />
-          Find my Study Buddies!!!
-          <SBList events={loadedSBlist} userUID={userUID} />
+          <h1>Filter and search for study buddies!</h1>
         </Layout>
       </Content>
+      <SearchSBPage userUID={userUID} />
     </Container>
   );
 }
@@ -181,4 +153,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(FindStudyBuddy);
+export default connect(mapStateToProps)(SearchSB);
