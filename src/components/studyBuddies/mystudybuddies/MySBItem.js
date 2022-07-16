@@ -6,8 +6,16 @@ import Firebase from "firebase";
 import Card from "../../../action/Card";
 
 function MySBItem(props) {
+  const ActorUID = props.actor_userUID;
+  const PosterUID = props.posterUID;
+  const UID1 = ActorUID + PosterUID;
+  const UID2 = PosterUID + ActorUID;
   function deleteRequest() {
-    db.collection("SBDB").doc(props.id).update({
+    db.collection("SBDB").doc(UID1).update({
+      Accepted: "booo",
+      accepted_timestamp: Firebase.firestore.Timestamp.now(),
+    });
+    db.collection("SBDB").doc(UID2).update({
       Accepted: "booo",
       accepted_timestamp: Firebase.firestore.Timestamp.now(),
     });
