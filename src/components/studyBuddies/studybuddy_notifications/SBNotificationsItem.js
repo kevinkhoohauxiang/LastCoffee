@@ -47,22 +47,38 @@ function SBNotificationsItem(props) {
     }
   }
 
-  return (
-    <li className={classes.item}>
-      <Card>
-        <div className={classes.content}>
-          <h3>
-            {props.actor_display_name} accepted your request to be a study
-            buddy!
-          </h3>
-          <h3>Info: {props.actor_display_info}</h3>
-          <br />
-          <br />
-          {secondsToString(time)}
-        </div>
-      </Card>
-    </li>
-  );
+  if (props.accepter == false) {
+    return (
+      <li className={classes.item}>
+        <Card>
+          <div className={classes.content}>
+            <h3>
+              {props.actor_display_name} accepted your request to be a study
+              buddy!
+            </h3>
+            <h3>Info: {props.actor_display_info}</h3>
+            <br />
+            <br />
+            {secondsToString(time)}
+          </div>
+        </Card>
+      </li>
+    );
+  } else {
+    return (
+      <li className={classes.item}>
+        <Card>
+          <div className={classes.content}>
+            <h3>{props.actor_display_name} is now your study buddy!</h3>
+            <h3>Info: {props.actor_display_info}</h3>
+            <br />
+            <br />
+            {secondsToString(time)}
+          </div>
+        </Card>
+      </li>
+    );
+  }
 }
 
 export default SBNotificationsItem;

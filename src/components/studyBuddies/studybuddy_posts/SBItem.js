@@ -113,6 +113,7 @@ function SBItem(props) {
           posterUID: posterUID,
           sent_timestamp: Firebase.firestore.Timestamp.now(),
           accepted_timestamp: Firebase.firestore.Timestamp.now(),
+          accepter: false,
         });
     }
   }
