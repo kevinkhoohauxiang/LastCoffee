@@ -9,6 +9,9 @@ function EditProfileForm(props) {
   const [ContactInfo, setContactInfo] = useState("");
   const [DisplayInfo, setDisplayInfo] = useState("");
   const [DisplayPicture, setDisplayPicture] = useState("");
+  const [NewDisplayName, setNewDisplayName] = useState("");
+  const [NewContactInfo, setNewContactInfo] = useState("");
+  const [NewDisplayInfo, setNewDisplayInfo] = useState("");
   const userUID = props.userUID;
 
   function renderDoc(doc) {
@@ -32,48 +35,34 @@ function EditProfileForm(props) {
       )
     );
 
-  const [NewDisplayName, setNewDisplayName] = useState(DisplayName);
-  const [NewContactInfo, setNewContactInfo] = useState(ContactInfo);
-  const [NewDisplayInfo, setNewDisplayInfo] = useState(DisplayInfo);
-
   function submitHandler(event) {
     event.preventDefault();
-    /*
-    console.log(NewDisplayName);
-    console.log(NewContactInfo);
-    console.log(NewDisplayInfo);
-    console.log(DisplayName);
-    console.log(ContactInfo);
-    console.log(DisplayInfo);
-    console.log(NewContactInfo == "");
-    */
-
-    let finalDisplayName;
-    let finalContactInfo;
-    let finalDisplayInfo;
+    var finalDisplayName = "";
+    var finalContactInfo = "";
+    var finalDisplayInfo = "";
 
     if (NewDisplayName == "") {
-      finalDisplayName = DisplayName;
+      finalDisplayName += DisplayName;
     } else {
-      finalDisplayName = NewDisplayName;
+      finalDisplayName += NewDisplayName;
     }
     if (NewDisplayInfo == "") {
-      finalDisplayInfo = DisplayInfo;
+      finalDisplayInfo += DisplayInfo;
     } else {
-      finalDisplayInfo = NewDisplayInfo;
+      finalDisplayInfo += NewDisplayInfo;
     }
     if (NewContactInfo == "") {
-      finalContactInfo = ContactInfo;
+      finalContactInfo += ContactInfo;
     } else {
-      finalContactInfo = NewContactInfo;
+      finalContactInfo += NewContactInfo;
     }
 
     const displayData = {
       Actor: {
-        display_name: NewDisplayName,
-        contact_info: NewContactInfo,
+        display_name: finalDisplayName,
+        contact_info: finalContactInfo,
         display_picture: DisplayPicture,
-        display_info: NewDisplayInfo,
+        display_info: finalDisplayInfo,
       },
     };
 
@@ -105,6 +94,7 @@ function EditProfileForm(props) {
           <input
             type="text"
             onChange={handleNameChange}
+            //setNewDisplayName(event.value)}
             placeholder="New Name"
           />
         </div>

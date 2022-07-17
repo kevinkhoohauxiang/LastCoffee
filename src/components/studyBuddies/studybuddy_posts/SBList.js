@@ -16,7 +16,7 @@ function SBList(props) {
           location={event.location}
           number={event.number}
           timing={event.timing}
-          subjects={event.subjects}
+          subjects={event.faculty}
           description={event.description}
         />
       ))}

@@ -174,7 +174,7 @@ function Left(props) {
 
   //console.log(display_name);
   //console.log(UID);
-  let photoUrl = props.user.photoURL ? DisplayPicture : "/images/photo.svg";
+  let photoUrl = DisplayPicture ? DisplayPicture : "/images/photo.svg";
   //console.log(DisplayPicture);
   //console.log(props.user.photoURL);
 

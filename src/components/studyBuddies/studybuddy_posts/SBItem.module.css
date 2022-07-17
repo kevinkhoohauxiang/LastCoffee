@@ -1,5 +1,5 @@
 .item {
-  margin: 1rem 0;
+  margin-bottom: 1rem;
 }
 
 .image {
@@ -16,7 +16,7 @@
 }
 
 .content {
-  text-align: center;
+  text-align: left;
   padding: 1rem;
 }
 

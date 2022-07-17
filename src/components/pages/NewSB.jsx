@@ -98,17 +98,6 @@ function NewSB(props) {
       )
     );
 
-  const [newEvent, setNewEvent] = useState({
-    userUID: "",
-    myInfo: "",
-    description: "",
-    numberBuddies: "",
-    locations: "",
-    timings: "",
-    course: "",
-    gender: "",
-  });
-
   return (
     <Container>
       <Header />

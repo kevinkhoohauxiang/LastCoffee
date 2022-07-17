@@ -122,8 +122,9 @@ function SBItem(props) {
     <li className={classes.item}>
       <Card>
         <div className={classes.content}>
-          <h2>{PosterDisplayName}</h2>
-          <h3>Info: {props.info}</h3>
+          <h3>{PosterDisplayName}</h3>
+          <h3>{props.info}</h3>
+          <br />
           {props.description}
           <br />
           <br />
@@ -135,7 +136,7 @@ function SBItem(props) {
           <br />
           Preferred gender: {props.gender}
           <br />
-          Preferred course / modules: {props.subjects}
+          Preferred faculty: {props.subjects}
         </div>
 
         <SendButton>

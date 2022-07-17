@@ -119,51 +119,64 @@ function SearchedSB(props) {
   const [SearchTiming, setSearchTiming] = useState("");
   const [SearchGender, setSearchGender] = useState("");
   const [SearchFaculty, setSearchFaculty] = useState("");
-
-  function renderDoc(doc) {
-    setSearchLocation(doc.data().location);
-    setSearchTiming(doc.data().timing);
-    setSearchGender(doc.data().gender);
-    setSearchFaculty(doc.data().faculty);
-    //console.log(DisplayPicture);
-  }
-
-  const Set_Values = db
-    .collection("SB Searches")
-    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
-    .get()
-    .then((snapshot) =>
-      snapshot.docs.forEach(
-        //(doc) => console.log(doc.data()),
-        (doc) => {
-          renderDoc(doc);
-        }
-      )
-    );
-
-  // create function to query for searches in the db that match the search data
+  const SBSearch = [];
+  //console.log(SearchData);
 
   useEffect(() => {
-    setIsLoading(true);
+    db.collection("SB Searches")
+      .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+      .get()
+      .then((snapshot) =>
+        snapshot.docs.forEach(
+          //(doc) => console.log(doc.data()),
+          (doc) => {
+            const number = doc.data().number;
+            const location = doc.data().location;
+            const timing = doc.data().timing;
+            const gender = doc.data().gender;
+            const faculty = doc.data().faculty;
+            SBSearch.push(number);
+            SBSearch.push(location);
+            SBSearch.push(timing);
+            SBSearch.push(gender);
+            SBSearch.push(faculty);
+          }
+        )
+      );
     db.collection("SB Posts")
       .get()
       .then((snapshot) => {
         const SBs = [];
-        const mySBs = [];
         snapshot.docs.forEach(
           //(doc) => console.log(doc.data()),
           (doc) => {
-            const SB = {
-              id: doc.id,
-              ...doc.data(),
-            };
-            //console.log(doc.data());
-            if (doc.data().posterUID === userUID) {
-              mySBs.push(SB);
-              //console.log(mySBPost);
-            } else {
+            const PostData = [];
+            let count = 0;
+            const number = doc.data().number;
+            const location = doc.data().location;
+            const timing = doc.data().timing;
+            const gender = doc.data().gender;
+            const faculty = doc.data().subjects;
+            PostData.push(number);
+            PostData.push(location);
+            PostData.push(timing);
+            PostData.push(gender);
+            PostData.push(faculty);
+            console.log(SBSearch);
+            for (let i = 0; i < PostData.length; i++) {
+              const PostValue = PostData[i];
+              const SearchValue = SBSearch[i];
+              if (SearchValue === "" || SearchValue === PostValue) {
+                count++;
+              }
+            }
+            console.log(count);
+            if (count === PostData.length && doc.data().posterUID !== userUID) {
+              const SB = {
+                id: doc.id,
+                ...doc.data(),
+              };
               SBs.push(SB);
-              //console.log(loadedSBlist);
             }
           }
         );
@@ -171,6 +184,52 @@ function SearchedSB(props) {
         setLoadedEvents(SBs);
       });
   }, []);
+  // create function to query for searches in the db that match the search data
+  // if data is "", ignore.
+
+  /*
+  useEffect(() => {
+    setIsLoading(true);
+    db.collection("SB Posts")
+      .get()
+      .then((snapshot) => {
+        const SBs = [];
+        snapshot.docs.forEach(
+          //(doc) => console.log(doc.data()),
+          (doc) => {
+            const PostData = [];
+            let count = 0;
+            const location = doc.data().location;
+            const timing = doc.data().timing;
+            const gender = doc.data().gender;
+            const faculty = doc.data().subjects;
+            PostData.push(location);
+            PostData.push(timing);
+            PostData.push(gender);
+            PostData.push(faculty);
+            console.log(SBSearch);
+            for (let i = 0; i < PostData.length; i++) {
+              const PostValue = PostData[i];
+              const SearchValue = SearchData[i];
+              if (SearchValue == "" || SearchValue == PostValue) {
+                count++;
+              }
+            }
+            console.log(count);
+            if (count == PostData.length) {
+              const SB = {
+                id: doc.id,
+                ...doc.data(),
+              };
+              SBs.push(SB);
+            }
+          }
+        );
+        setIsLoading(false);
+        setLoadedEvents(SBs);
+      });
+  }, []);
+  */
 
   return (
     <Container>

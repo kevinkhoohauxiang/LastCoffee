@@ -141,8 +141,8 @@ function SearchSB(props) {
           <Left />
           <h1>Filter and search for study buddies!</h1>
         </Layout>
+        <SearchSBPage userUID={userUID} />
       </Content>
-      <SearchSBPage userUID={userUID} />
     </Container>
   );
 }

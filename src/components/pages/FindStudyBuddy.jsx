@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import SBList from "../studyBuddies/studybuddy_posts/SBList";
 import SBListMine from "../studyBuddies/studybuddy_mypost/SBListMine";
 import Left from "./Left";
+import Card from "../../action/Card";
 
 const Container = styled.div`
   max-width: 100%;
@@ -52,7 +53,7 @@ const Section = styled.section`
 
 const Layout = styled.div`
   display: grid;
-  grid-template-areas: "left main";
+  grid-template-areas: "left main ";
   grid-template-columns: minmax(0, 5fr) minmax(0, 17fr);
   column-gap: 25px;
   row-gap: 25px;
@@ -116,6 +117,10 @@ function FindStudyBuddy(props) {
   const [loadedSBlist, setLoadedEvents] = useState([]);
   const [mySBPost, setmySBPost] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
+  loadedSBlist.sort(function (x, y) {
+    console.log(x.timestamp.seconds);
+    return y.timestamp.seconds - x.timestamp.seconds;
+  });
 
   useEffect(() => {
     setIsLoading(true);

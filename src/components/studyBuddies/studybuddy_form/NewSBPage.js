@@ -18,7 +18,6 @@ function NewSBPage(props) {
 
   return (
     <section>
-      <h1>Submit Request to Find Study Buddies</h1>
       <NewSBForm onAddSB={addSBHandler} userUID={userUID} />
     </section>
   );

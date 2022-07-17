@@ -1,4 +1,4 @@
-const firebaseConfig = {
+/*const firebaseConfig = {
   apiKey: "AIzaSyBFepshBD7fxZ0071Ozcprl9ig6ZqjIJGI",
   authDomain: "the-last-coffee.firebaseapp.com",
   databaseURL: "https://the-last-coffee-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -12,4 +12,18 @@ const firebaseConfig = {
 // Initialize Firebase
 
 
+export default firebaseConfig;
+*/
+
+// Backup firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyAQekmgRVOyzhVJwFd6gZwICseIwQaVO-0",
+  authDomain: "last-coffee-backup.firebaseapp.com",
+  projectId: "last-coffee-backup",
+  storageBucket: "last-coffee-backup.appspot.com",
+  messagingSenderId: "474066137879",
+  appId: "1:474066137879:web:e69c946e17ec227769bd52",
+};
+
+// Initialize Firebase
 export default firebaseConfig;

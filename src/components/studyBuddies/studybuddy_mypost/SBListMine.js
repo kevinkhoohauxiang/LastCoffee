@@ -4,7 +4,7 @@ import classes from "./SBList.module.css";
 function SBListMine(props) {
   if (props.events.length === 0) {
     console.log(props.events.length);
-    return <h2>empty</h2>;
+    return <h2>Make a post to find new Study Buddies now!!!</h2>;
   } else {
     return (
       <ul className={classes.list}>
@@ -20,7 +20,7 @@ function SBListMine(props) {
             location={event.location}
             number={event.number}
             timing={event.timing}
-            subjects={event.subjects}
+            subjects={event.faculty}
             description={event.description}
           />
         ))}
