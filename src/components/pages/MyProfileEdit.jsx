@@ -110,6 +110,15 @@ const Photo = styled.div`
   border-radius: 50%;
 `;
 
+const ImageUpload = styled.div`
+  img {
+    cursor: pointer;
+  }
+  input {
+    display: none;
+  }
+`;
+
 // for uploading new profile picture
 
 //for changing your name
@@ -182,13 +191,16 @@ function MyProfileEdit(props) {
     };
 
     return (
-      <div>
+      <ImageUpload>
         <br />
-        <input type="file" onChange={handleChange} />
-        <img src="/images/Uploadbtn1.svg" alt="" onClick={handleUpload} />
+        <label for="file-input">
+          <img src="/images/Uploadbtn1.svg" />
+        </label>
+        <input id="file-input" type="file" onChange={handleChange} />
+        <img src="/images/Submitbtn1.svg" alt="" onClick={handleUpload} />
 
         <br />
-      </div>
+      </ImageUpload>
     );
   };
 
@@ -200,11 +212,13 @@ function MyProfileEdit(props) {
       {!props.user && <Redirect to="/" />}
       <Content>
         <Card>
-          <Link to="/myprofile">
-            <a href="/myprofile">
-              <img src="/images/Backbtn1.svg" alt="" />
-            </a>
-          </Link>
+          <Layout>
+            <Link to="/myprofile">
+              <a href="/myprofile">
+                <img src="/images/Backbtn1.svg" alt="" />
+              </a>
+            </Link>
+          </Layout>
 
           <Photo photoUrl={DisplayPicture} />
           <h3>Add a new photo</h3>

@@ -87,7 +87,6 @@ export function SignOutAPI() {
       } else {
         auth
           .signOut()
-
           .then(() => dispatch(setUser(null)))
           .catch((err) => console.log(err));
       }

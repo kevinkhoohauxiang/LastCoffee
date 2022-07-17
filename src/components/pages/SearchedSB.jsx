@@ -135,11 +135,7 @@ function SearchedSB(props) {
             const timing = doc.data().timing;
             const gender = doc.data().gender;
             const faculty = doc.data().faculty;
-            SBSearch.push(number);
-            SBSearch.push(location);
-            SBSearch.push(timing);
-            SBSearch.push(gender);
-            SBSearch.push(faculty);
+            SBSearch.push(number, location, timing, gender, faculty);
           }
         )
       );
@@ -157,12 +153,8 @@ function SearchedSB(props) {
             const timing = doc.data().timing;
             const gender = doc.data().gender;
             const faculty = doc.data().subjects;
-            PostData.push(number);
-            PostData.push(location);
-            PostData.push(timing);
-            PostData.push(gender);
-            PostData.push(faculty);
-            console.log(SBSearch);
+            PostData.push(number, location, timing, gender, faculty);
+
             for (let i = 0; i < PostData.length; i++) {
               const PostValue = PostData[i];
               const SearchValue = SBSearch[i];

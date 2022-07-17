@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Card from "../../../action/Card";
 import classes from "./SearchSBForm.module.css";
-
 import { Dropdown } from "react-dropdown-now";
 import "react-dropdown-now/style.css";
 
@@ -107,7 +106,7 @@ function SearchSBForm(props) {
         <br />
 
         <div className={classes.control}>
-          <label htmlFor="faculty">Preferred Gender:</label>
+          <label htmlFor="gender">Preferred Gender:</label>
           <Dropdown
             placeholder="No Preference"
             options={["No preference", "Male only", "Female only"]}

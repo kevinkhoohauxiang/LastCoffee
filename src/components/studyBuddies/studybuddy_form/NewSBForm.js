@@ -6,7 +6,6 @@ import { Dropdown } from "react-dropdown-now";
 
 function NewSBForm(props) {
   const infoInputRef = useRef();
-  const numberInputRef = useRef();
   const descriptionInputRef = useRef();
   const userUID = props.userUID;
   const [SearchNumberSB, setSearchNumberSB] = useState("");
@@ -139,7 +138,7 @@ function NewSBForm(props) {
         <br />
 
         <div className={classes.control}>
-          <label htmlFor="faculty">Preferred Gender:</label>
+          <label htmlFor="gender">Preferred Gender:</label>
           <Dropdown
             placeholder="No Preference"
             options={["No preference", "Male only", "Female only"]}
