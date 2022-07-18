@@ -176,6 +176,7 @@ const NavList = styled.li`
 `;
 
 //home page upon signing in
+//get data again from db
 function ToDoList(props) {
   const [LoadedToDoList, setLoadedEvents] = useState([]);
   const [DisplayMessage, setDisplayMessage] = useState("");

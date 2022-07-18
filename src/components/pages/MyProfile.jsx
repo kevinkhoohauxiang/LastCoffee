@@ -92,12 +92,19 @@ function MyProfile(props) {
   const [DisplayInfo, setDisplayInfo] = useState("");
   const [DisplayName, setDisplayName] = useState("");
   const [DisplayPicture, setDisplayPicture] = useState("");
+  const [Gender, setGender] = useState("");
+  const [Faculty, setFaculty] = useState("");
+  const [Year, setYear] = useState("");
 
   function renderDoc(doc) {
     setContactInfo(doc.data().Actor.contact_info);
     setDisplayInfo(doc.data().Actor.display_info);
     setDisplayName(doc.data().Actor.display_name);
     setDisplayPicture(doc.data().Actor.display_picture);
+    setGender(doc.data().Actor.gender);
+    setFaculty(doc.data().Actor.faculty);
+    setYear(doc.data().Actor.year);
+
     //console.log(DisplayPicture);
   }
 
@@ -124,19 +131,11 @@ function MyProfile(props) {
 
         <Card>
           <Portrait>
-            <h1>
-              {
-                // Add profile name and css here
-                DisplayName
-              }
-            </h1>
+            <h1>{DisplayName}</h1>
+            <h2>{Faculty}</h2>
             <br />
-            <h2>
-              {
-                // Add profile info here
-                DisplayInfo
-              }
-            </h2>
+
+            <h2>{DisplayInfo}</h2>
           </Portrait>
         </Card>
 

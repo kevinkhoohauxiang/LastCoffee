@@ -54,6 +54,7 @@ function MyStudyBuddies(props) {
         //console.log(myRequests);
       });
   }, []);
+
   return (
     <Container>
       <Header />

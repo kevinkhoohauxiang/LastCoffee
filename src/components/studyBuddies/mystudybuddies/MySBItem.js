@@ -20,6 +20,7 @@ function MySBItem(props) {
       Accepted: "booo",
       accepted_timestamp: Firebase.firestore.Timestamp.now(),
     });
+    //window.location.reload();
   }
 
   return (

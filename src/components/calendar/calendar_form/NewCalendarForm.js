@@ -40,23 +40,23 @@ function NewCalendarForm(props) {
     <Card>
       <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor="title">Calendar Event Title</label>
+          <label htmlFor="title">Event Title</label>
           <input type="text" required id="title" ref={titleInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor="start date">Calendar Event start Date</label>
+          <label htmlFor="start date">Event Start Date</label>
           <input type="date" required id="startDate" ref={startDateInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor="start time">Calendar Event start Date</label>
+          <label htmlFor="start time">Event Start Time</label>
           <input type="time" required id="startTime" ref={startTimeInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor="end date">Calendar Event end Date</label>
+          <label htmlFor="end date">Event End Date</label>
           <input type="date" required id="endDate" ref={endDateInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor="end time">Calendar Event start Date</label>
+          <label htmlFor="end time">Event End Time</label>
           <input type="time" required id="endTime" ref={endTimeInputRef} />
         </div>
 

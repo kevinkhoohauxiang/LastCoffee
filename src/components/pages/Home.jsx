@@ -97,6 +97,7 @@ function Home(props) {
           return;
         }
       });
+    //driver.refresh();
   });
 
   return (
