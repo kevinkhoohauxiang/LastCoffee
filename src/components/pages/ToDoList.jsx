@@ -4,11 +4,10 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "../header/components/Header";
 import { Link } from "react-router-dom";
-import ToDoListList from "../toDoList/todolist_undone/ToDoListList";
-import db from "../../firebase";
 import { concatenateDateTime } from "../../action";
+import MainUndone from "../toDoList/MainUndone";
 
-const DUMMY_DATA = [
+/*const DUMMY_DATA = [
   {
     title: "orbital",
     date: "22/06/22",
@@ -19,7 +18,7 @@ const DUMMY_DATA = [
     date: "23/07/22",
     description: "milestone 3 deadline",
   },
-];
+];*/
 
 const Container = styled.div`
   max-width: 100%;
@@ -125,7 +124,7 @@ const HomePage = styled.div`
 
 const Nav = styled.nav`
   margin-left: auto;
-  margin-bottom: -50px;
+  margin-bottom: -20px;
   display: block;
   @media (max-width: 768px) {
     position: fixed;
@@ -187,58 +186,39 @@ function ToDoList(props) {
     return x_date.getTime() - y_date.getTime();
   });
   const userUID = props.user.uid;
+  //const len = props.articles.length;
 
   useEffect(() => {
-    db.collection("TDLDB")
-      .get()
-      .then((snapshot) => {
-        const todoEvents = [];
-        snapshot.docs.forEach(
-          //(doc) => console.log(doc.data()),
-          (doc) => {
-            //console.log(doc.data());
-            if (
-              doc.data().completed === false &&
-              doc.data().userUID === userUID
-            ) {
-              const todoEvent = {
-                id: doc.id,
-                ...doc.data(),
-              };
-              todoEvents.push(todoEvent);
-            }
-            //console.log(todoEvents);
-          }
-        );
-        setLoadedEvents(todoEvents);
-      });
+    //props.getEvents(userUID);
   }, []);
 
+  /*
   useEffect(() => {
-    const listLength = LoadedToDoList.length;
+    const listLength = props.events.length;
     if (listLength !== 0) {
-      setDisplayMessage(
-        `${LoadedToDoList.length} tasks left to complete! Don't give up!`
-      );
+      setDisplayMessage(`${listLength} tasks left to complete! Don't give up!`);
     } else {
       setDisplayMessage(`All tasks completed! Well Done!`);
     }
   });
+  */
 
+  /*
+  function changeDeleteState(docID) {
+    props.updateDeleteState(docID);
+  }
+
+  function changeDoneState(docID) {
+    props.updateDoneState(docID);
+  }
+
+  */
   return (
     <Container>
       {!props.user && <Redirect to="/" />}
       <Header />
       <Nav>
         <NavListWrap>
-          <NavList>
-            <Link to="/createnewtodo">
-              <a href="/createnewtodo">
-                <img src="/images/Addbtn1.svg" alt="" />
-              </a>
-            </Link>
-          </NavList>
-
           <NavList>
             <Link to="/todolistdone">
               <a href="/todolistdone">
@@ -253,7 +233,7 @@ function ToDoList(props) {
       <h2>{DisplayMessage}</h2>
 
       <Content>
-        <ToDoListList events={LoadedToDoList} />
+        <MainUndone />
       </Content>
     </Container>
   );
@@ -264,11 +244,5 @@ const mapStateToProps = (state) => {
     user: state.userState.user,
   };
 };
-
-/*
-const mapDispatchToProps = (dispatch) => ({
-  getEvents: () => dispatch(getTDLevents()),
-});
-*/
 
 export default connect(mapStateToProps)(ToDoList);

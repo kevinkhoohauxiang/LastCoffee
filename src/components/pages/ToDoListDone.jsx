@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import db from "../../firebase";
 import ToDoListListDone from "../toDoList/todolist_done/ToDoListListDone";
 import { concatenateDateTime } from "../../action";
+import MainDone from "../toDoList/MainDone";
 
 const Container = styled.div`
   max-width: 100%;
@@ -111,14 +112,6 @@ function ToDoListDone(props) {
       <Header />
       <Nav>
         <NavListWrap>
-          <NavList>
-            <Link to="/createnewtodo">
-              <a href="/createnewtodo">
-                <img src="/images/Addbtn1.svg" alt="" />
-              </a>
-            </Link>
-          </NavList>
-
           <NavList>
             <Link to="/todolist">
               <a href="/todolist">

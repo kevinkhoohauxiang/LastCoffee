@@ -23,7 +23,10 @@ function ToDoItemDone(props) {
           {props.description}
         </div>
 
-        <img src="/images/Deletebtn1.svg" onClick={changeDeleteState} />
+        {
+          // bug: doesnt show delete until refresh
+          //<img src="/images/Deletebtn1.svg" onClick={changeDeleteState} />
+        }
       </Card>
     </li>
   );

@@ -4,8 +4,7 @@ import {
   SET_LOADING_STATUS,
   SET_USER,
   GET_ARTICLES,
-  GET_TDL_UNDONE,
-  GET_TDL_DONE,
+  GET_TDL,
   GET_CALENDAR,
 } from "./actionType";
 import firebase from "firebase";
@@ -32,17 +31,9 @@ export function getArticles(payload, id) {
   };
 }
 
-export function getTDLundone(payload, id) {
+export function getTDL(payload, id) {
   return {
-    type: GET_TDL_UNDONE,
-    payload: payload,
-    id: id,
-  };
-}
-
-export function getTDLdone(payload, id) {
-  return {
-    type: GET_TDL_DONE,
+    type: GET_TDL,
     payload: payload,
     id: id,
   };
@@ -173,6 +164,21 @@ export function postArticleAPI(payload) {
   };
 }
 
+export function postTDLAPI(payload) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    db.collection("TDLDB").add({
+      userUID: payload.userUID,
+      title: payload.title,
+      deadline: payload.deadline,
+      completed: false,
+      description: payload.description,
+      timestamp: payload.timestamp,
+    });
+    dispatch(setLoading(false));
+  };
+}
+
 // function for getting post articles
 export function getArticlesAPI() {
   return (dispatch) => {
@@ -191,21 +197,44 @@ export function getArticlesAPI() {
 }
 
 // function for getting to do list events
-export function getTDLevents(props) {
-  const userUID = props.user.uid;
+export function getTDLAPI(userUID, bool) {
   return (dispatch) => {
     dispatch(setLoading(true));
-    let payload;
-    let id;
+    var payload = [];
+    var id = [];
     db.collection("TDLDB")
+      .where("completed", "==", bool)
       .where("userUID", "==", userUID)
-      .orderBy("deadline", "desc")
+      //.orderBy("timestamp", "desc")
+      .orderBy("deadline", "asc")
       .onSnapshot((snapshot) => {
         payload = snapshot.docs.map((doc) => doc.data());
+        console.log(payload);
         id = snapshot.docs.map((doc) => doc.id);
-        dispatch(getTDLundone(payload, id));
+        /*snapshot.docs.forEach((doc) => {
+          
+          const docdata = doc.data();
+          const docid = doc.id;
+          docdata["id"] = docid;
+          //if (doc.data().userUID == userUID && doc.data().completed == bool)
+          payload.push(docdata);
+          */
+
+        dispatch(getArticles(payload, id));
       });
     dispatch(setLoading(false));
+  };
+}
+
+export function TDLdoneAPI(payload, id) {
+  return (dispatch) => {
+    db.collection("TDLDB").doc(id).set(payload);
+  };
+}
+
+export function TDLdeleteAPI(id) {
+  return (dispatch) => {
+    db.collection("TDLDB").doc(id).delete();
   };
 }
 
@@ -293,8 +322,12 @@ export function postDP(payload) {
   };
 }
 
-export function getUID(props) {
-  return props.user.uid;
+export function concatenatePayloadID(payload, id) {
+  var result = payload;
+  for (let i = 0; i < id.length; i++) {
+    payload[i] = id[i];
+  }
+  return result;
 }
 
 export function concatenateDateTime(date, time) {

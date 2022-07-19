@@ -96,7 +96,7 @@ const UserInfo = styled.div`
 
 const Photo = styled.div`
   box-shadow: none;
-  background: url(${(props) => props.photoUrl});
+  background: url(${(props) => props.photoURL});
   width: 72px;
   height: 72px;
   box-sizing: border-box;
@@ -204,7 +204,7 @@ function MyProfileEdit(props) {
     );
   };
 
-  let photoUrl = DisplayPicture ? DisplayPicture : "/images/photo.svg";
+  let photoURL = DisplayPicture ? DisplayPicture : "/images/photo.svg";
 
   return (
     <Container>
@@ -220,7 +220,7 @@ function MyProfileEdit(props) {
             </Link>
           </Layout>
 
-          <Photo photoUrl={DisplayPicture} />
+          <Photo photoURL={DisplayPicture} />
           <h3>Add a new photo</h3>
           <ReactFirebaseImageUpload />
           {
