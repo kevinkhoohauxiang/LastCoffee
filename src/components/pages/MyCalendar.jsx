@@ -18,52 +18,6 @@ const Content = styled.div`
   margin-top: 60px;
 `;
 
-const Section = styled.section`
-  min-height: 50px;
-  margin: 16px 0 -30px;
-  box-sizing: content-box;
-  text-align: center;
-  text-decoration: underline;
-  display: flex;
-  justify-content: center;
-  h5 {
-    color: #0a66c2;
-    font-size: 14px;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    a {
-      font-weight: 700;
-    }
-  }
-  p {
-    font-size: 14px;
-    color: #434649;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 0 5px;
-    margin: 16px 0;
-  }
-`;
-
-const Layout = styled.div`
-  display: grid;
-  grid-template-areas: "left main right";
-  grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
-  column-gap: 25px;
-  row-gap: 25px;
-  margin: 25px 0;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    padding: 0 5px;
-  }
-`;
-
 const Nav = styled.nav`
   margin-left: auto;
   margin-bottom: -50px;
@@ -116,12 +70,9 @@ const NavList = styled.li`
   }
 `;
 
-//home page upon signing in
 function MyCalendar(props) {
   const [loadedEventslist, setLoadedEvents] = useState([]);
   const userUID = props.user.uid;
-  //console.log(loadedEventslist);
-  //console.log(userUID);
 
   useEffect(() => {
     db.collection("CLDDB")
@@ -140,12 +91,9 @@ function MyCalendar(props) {
               end: concatenateDateTime(doc.data().endDate, doc.data().endTime),
             };
             calendarEvents.push(calendarEvent);
-            //console.log(calendarEvents);
           }
         });
-        //console.log(calendarEvents);
         setLoadedEvents(calendarEvents);
-        //console.log(loadedEventslist);
       });
   }, []);
 
@@ -157,16 +105,16 @@ function MyCalendar(props) {
       <Nav>
         <NavListWrap>
           <NavList>
-            <Link to="/createnewcalendar">
-              <a href="/createnewcalendar">
-                <img src="/images/Addbtn1.svg" alt="" />
+            <Link to="/calendarevents">
+              <a href="/calendarevents">
+                <img src="/images/Togglebtn1.svg" alt="" />
               </a>
             </Link>
           </NavList>
           <NavList>
-            <Link to="/calendarevents">
-              <a href="/calendarevents">
-                <img src="/images/Togglebtn1.svg" alt="" />
+            <Link to="/createnewcalendar">
+              <a href="/createnewcalendar">
+                <img src="/images/Addbtn1.svg" alt="" />
               </a>
             </Link>
           </NavList>

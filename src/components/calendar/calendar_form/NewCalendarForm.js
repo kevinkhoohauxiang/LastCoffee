@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { concatenateDateTime } from "../../../action";
 import Card from "../../../action/Card";
 import classes from "./NewCalendarForm.module.css";
 
@@ -29,6 +30,7 @@ function NewCalendarForm(props) {
       startTime: enteredstartTime,
       endDate: enteredendDate,
       endTime: enteredendTime,
+      startTimestamp: concatenateDateTime(enteredstartDate, enteredstartTime),
       //description: enteredDescription,
     };
 

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ReactPlayer from "react-player";
 import styled from "styled-components";
-import { getTDLdoneAPI, TDLdeleteAPI, TDLdoneAPI } from "../../action";
-import TDLmodal from "./TDLmodal";
+import { getMySBsAPI, SBdeleteAPI } from "../../action";
 
 const Container = styled.div`
   grid-area: main;
@@ -202,17 +200,16 @@ const Content = styled.div`
   }
 `;
 
-function MainDone(props) {
-  const [showModal, setShowModal] = useState("close");
+function MainMySB(props) {
   const userUID = props.user.uid;
 
   useEffect(() => {
-    props.getTDLdone(userUID);
+    props.getMySBs(userUID);
   }, []);
 
   function changeDeleteState(event, id) {
     event.preventDefault();
-    props.TDLdelete(id);
+    props.SBDelete(id);
   }
 
   return (
@@ -222,19 +219,18 @@ function MainDone(props) {
           //console.log(props.articles)}
         }
         {props.loading && <img src="/images/spin-loader.gif" alt="" />}
-        {props.TDLdone.length > 0 &&
-          props.TDLdone.map((article, key) => (
+        {props.mySBs.length > 0 &&
+          props.mySBs.map((article, key) => (
             <Article key={key}>
               {
                 //console.log(props.ids[key])}
               }
               <br />
-              <h2>Title: {article.title}</h2>
-              <h3>Deadline: {article.deadline}</h3>
-              <Description>{article.description}</Description>
-              {
-                //console.log(article["completed"])
-              }
+              <h2>Name: {article.Actor.display_name}</h2>
+              <h2></h2>
+              <h3></h3>
+              <h3></h3>
+
               <SocialActions>
                 <img
                   src="/images/Deletebtn1.svg"
@@ -252,15 +248,15 @@ function MainDone(props) {
 const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
-    loading: state.TDLdoneState.loading,
-    TDLdone: state.TDLdoneState.TDLdone,
-    ids: state.TDLdoneState.ids,
+    loading: state.mySBState.loading,
+    mySBs: state.mySBState.mySBs,
+    ids: state.mySBState.ids,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getTDLdone: (userUID) => dispatch(getTDLdoneAPI(userUID)),
-  TDLdelete: (id) => dispatch(TDLdeleteAPI(id)),
+  getMySBs: (userUID) => dispatch(getMySBsAPI(userUID)),
+  SBDelete: (id) => dispatch(SBdeleteAPI(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainDone);
+export default connect(mapStateToProps, mapDispatchToProps)(MainMySB);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { getTDLAPI, TDLdeleteAPI, TDLdoneAPI } from "../../action";
+import { getTDLundoneAPI, TDLdeleteAPI, TDLdoneAPI } from "../../action";
 import TDLmodal from "./TDLmodal";
 
 const Container = styled.div`
@@ -206,7 +206,7 @@ function MainUndone(props) {
   const userUID = props.user.uid;
 
   useEffect(() => {
-    props.getArticles(userUID, false);
+    props.getTDLundone(userUID, false);
   }, []);
 
   const clickHandler = (event) => {
@@ -258,10 +258,10 @@ function MainUndone(props) {
         </div>
       </ShareBox>
       <Content>
-        {console.log(props.articles)}
+        {console.log(props.TDLundone)}
         {props.loading && <img src="/images/spin-loader.gif" alt="" />}
-        {props.articles.length > 0 &&
-          props.articles.map((article, key) => (
+        {props.TDLundone.length > 0 &&
+          props.TDLundone.map((article, key) => (
             <Article key={key}>
               {
                 //console.log(props.ids[key])}
@@ -298,15 +298,15 @@ function MainUndone(props) {
 const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
-    loading: state.articleState.loading,
-    articles: state.articleState.articles,
-    ids: state.articleState.ids,
+    loading: state.TDLundoneState.loading,
+    TDLundone: state.TDLundoneState.TDLundone,
+    ids: state.TDLundoneState.ids,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getArticles: (userUID, bool) => dispatch(getTDLAPI(userUID, bool)),
-  TDLdone: (id) => dispatch(TDLdoneAPI(id)),
+  getTDLundone: (userUID) => dispatch(getTDLundoneAPI(userUID)),
+  TDLdone: (article, id) => dispatch(TDLdoneAPI(article, id)),
   TDLdelete: (id) => dispatch(TDLdeleteAPI(id)),
 });
 

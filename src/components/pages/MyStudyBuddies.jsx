@@ -5,6 +5,7 @@ import db from "../../firebase";
 import styled from "styled-components";
 import Header from "../header/components/Header";
 import MySBList from "../studyBuddies/mystudybuddies/MySBList";
+import MainMySB from "../studyBuddies/MainMySB";
 
 const Container = styled.div`
   max-width: 100%;
@@ -60,7 +61,7 @@ function MyStudyBuddies(props) {
       <Header />
       {!props.user && <Redirect to="/" />}
 
-      <MySBList events={LoadedRequests} userUID={userUID} />
+      <MainMySB />
     </Container>
   );
 }

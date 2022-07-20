@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import ReactPlayer from "react-player";
 import styled from "styled-components";
-import { getTDLdoneAPI, TDLdeleteAPI, TDLdoneAPI } from "../../action";
-import TDLmodal from "./TDLmodal";
+import { getSBrequestsAPI, SBrepostAPI, SBdeleteAPI } from "../../action";
+import Firebase from "firebase";
+import firebase from "firebase";
+import db from "../../firebase";
 
 const Container = styled.div`
   grid-area: main;
@@ -202,44 +203,94 @@ const Content = styled.div`
   }
 `;
 
-function MainDone(props) {
-  const [showModal, setShowModal] = useState("close");
+function MainSBreq(props) {
   const userUID = props.user.uid;
+  //console.log(props);
 
   useEffect(() => {
-    props.getTDLdone(userUID);
+    props.getSBrequests(userUID);
   }, []);
 
-  function changeDeleteState(event, id) {
+  function changeRejectState(event, id) {
     event.preventDefault();
-    props.TDLdelete(id);
+    props.SBdelete(id);
+  }
+
+  function changeAcceptState(article, event, id) {
+    event.preventDefault();
+    article["Accepted"] = "accepted";
+    article["accepted_timestamp"] = Firebase.firestore.Timestamp.now();
+    // bug -- doenst update when calling the db
+    /*
+    const PosterUID = article.posterUID;
+    const ActorUID = article.Actor.userUID;
+    let ContactInfo;
+    let DisplayInfo;
+    let DisplayName;
+    let DisplayPicture;
+
+    db.collection("DPDB")
+      .where(firebase.firestore.FieldPath.documentId(), "==", PosterUID)
+      .get()
+      .then((snapshot) =>
+        snapshot.docs.forEach((doc) => {
+          console.log(doc.data().Actor.display_name);
+          ContactInfo = doc.data().Actor.contact_info;
+          DisplayInfo = doc.data().Actor.display_info;
+          DisplayName = doc.data().Actor.display_name;
+          DisplayPicture = doc.data().Actor.display_picture;
+        })
+      );
+
+    const newID = PosterUID + ActorUID;
+    const payload = {
+      Actor: {
+        userUID: PosterUID,
+        display_name: DisplayName,
+        contact_info: ContactInfo,
+        display_picture: DisplayPicture,
+        display_info: DisplayInfo,
+      },
+      posterUID: ActorUID,
+      Accepted: "accepted",
+      sent_timestamp: article.sent_timestamp,
+      accepted_timestamp: Firebase.firestore.Timestamp.now(),
+      accepter: true,
+    };
+    console.log(DisplayName);
+    */
+
+    props.SBdelete(id);
+    props.SBrepost(article, id);
+    //props.SBrepost(payload, newID);
   }
 
   return (
     <Container>
       <Content>
-        {
-          //console.log(props.articles)}
-        }
         {props.loading && <img src="/images/spin-loader.gif" alt="" />}
-        {props.TDLdone.length > 0 &&
-          props.TDLdone.map((article, key) => (
+        {props.SBrequests.length > 0 &&
+          props.SBrequests.map((article, key) => (
             <Article key={key}>
-              {
-                //console.log(props.ids[key])}
-              }
               <br />
-              <h2>Title: {article.title}</h2>
-              <h3>Deadline: {article.deadline}</h3>
-              <Description>{article.description}</Description>
-              {
-                //console.log(article["completed"])
-              }
+              <h2>
+                {article.Actor.display_name} sent you a request to be a study
+                buddy!
+              </h2>
+              <h3>{article.Actor.display_info}</h3>
+
               <SocialActions>
                 <img
-                  src="/images/Deletebtn1.svg"
+                  src="/images/Acceptbtn1.svg"
                   alt=""
-                  onClick={(event) => changeDeleteState(event, props.ids[key])}
+                  onClick={(event) =>
+                    changeAcceptState(article, event, props.ids[key])
+                  }
+                />
+                <img
+                  src="/images/Rejectbtn1.svg"
+                  alt=""
+                  onClick={(event) => changeRejectState(event, props.ids[key])}
                 />
               </SocialActions>
             </Article>
@@ -252,15 +303,16 @@ function MainDone(props) {
 const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
-    loading: state.TDLdoneState.loading,
-    TDLdone: state.TDLdoneState.TDLdone,
-    ids: state.TDLdoneState.ids,
+    loading: state.SBrequestsState.loading,
+    SBrequests: state.SBrequestsState.SBrequests,
+    ids: state.SBrequestsState.ids,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getTDLdone: (userUID) => dispatch(getTDLdoneAPI(userUID)),
-  TDLdelete: (id) => dispatch(TDLdeleteAPI(id)),
+  getSBrequests: (userUID) => dispatch(getSBrequestsAPI(userUID)),
+  SBrepost: (article, id) => dispatch(SBrepostAPI(article, id)),
+  SBdelete: (id) => dispatch(SBdeleteAPI(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainDone);
+export default connect(mapStateToProps, mapDispatchToProps)(MainSBreq);

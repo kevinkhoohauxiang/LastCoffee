@@ -4,10 +4,14 @@ import {
   SET_LOADING_STATUS,
   SET_USER,
   GET_ARTICLES,
-  GET_TDL,
   GET_CALENDAR,
+  GET_EVENTS,
+  GET_TDL_DONE,
+  GET_TDL_UNDONE,
+  GET_SB_REQ,
+  GET_MY_SB,
 } from "./actionType";
-import firebase from "firebase";
+//import firebase from "firebase";
 
 export function setUser(payload) {
   return {
@@ -31,17 +35,47 @@ export function getArticles(payload, id) {
   };
 }
 
-export function getTDL(payload, id) {
+export function getCalendar(payload, id) {
   return {
-    type: GET_TDL,
+    type: GET_CALENDAR,
     payload: payload,
     id: id,
   };
 }
 
-export function getCalendar(payload, id) {
+export function getTDLdone(payload, id) {
   return {
-    type: GET_CALENDAR,
+    type: GET_TDL_DONE,
+    payload: payload,
+    id: id,
+  };
+}
+export function getTDLundone(payload, id) {
+  return {
+    type: GET_TDL_UNDONE,
+    payload: payload,
+    id: id,
+  };
+}
+export function getEvents(payload, id) {
+  return {
+    type: GET_EVENTS,
+    payload: payload,
+    id: id,
+  };
+}
+
+export function getSBreq(payload, id) {
+  return {
+    type: GET_SB_REQ,
+    payload: payload,
+    id: id,
+  };
+}
+
+export function getmySBs(payload, id) {
+  return {
+    type: GET_MY_SB,
     payload: payload,
     id: id,
   };
@@ -197,13 +231,13 @@ export function getArticlesAPI() {
 }
 
 // function for getting to do list events
-export function getTDLAPI(userUID, bool) {
+export function getTDLundoneAPI(userUID, bool) {
   return (dispatch) => {
     dispatch(setLoading(true));
     var payload = [];
     var id = [];
     db.collection("TDLDB")
-      .where("completed", "==", bool)
+      .where("completed", "==", false)
       .where("userUID", "==", userUID)
       //.orderBy("timestamp", "desc")
       .orderBy("deadline", "asc")
@@ -211,16 +245,84 @@ export function getTDLAPI(userUID, bool) {
         payload = snapshot.docs.map((doc) => doc.data());
         console.log(payload);
         id = snapshot.docs.map((doc) => doc.id);
-        /*snapshot.docs.forEach((doc) => {
-          
-          const docdata = doc.data();
-          const docid = doc.id;
-          docdata["id"] = docid;
-          //if (doc.data().userUID == userUID && doc.data().completed == bool)
-          payload.push(docdata);
-          */
 
-        dispatch(getArticles(payload, id));
+        dispatch(getTDLundone(payload, id));
+      });
+    dispatch(setLoading(false));
+  };
+}
+
+export function getTDLdoneAPI(userUID) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    var payload = [];
+    var id = [];
+    db.collection("TDLDB")
+      .where("completed", "==", true)
+      .where("userUID", "==", userUID)
+      .orderBy("deadline", "asc")
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        console.log(payload);
+        id = snapshot.docs.map((doc) => doc.id);
+
+        dispatch(getTDLdone(payload, id));
+      });
+    dispatch(setLoading(false));
+  };
+}
+
+export function getCalendarAPI(userUID) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    var payload = [];
+    var id = [];
+    db.collection("CLDDB")
+      .where("userUID", "==", userUID)
+      .orderBy("startTimestamp", "asc")
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        console.log(payload);
+        id = snapshot.docs.map((doc) => doc.id);
+        dispatch(getCalendar(payload, id));
+      });
+    dispatch(setLoading(false));
+  };
+}
+
+export function getMySBsAPI(userUID) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    var payload = [];
+    var id = [];
+    db.collection("SBDB")
+      .where("posterUID", "==", userUID)
+      .where("Accepted", "==", "accepted")
+      .orderBy("accepted_timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        console.log(payload);
+        id = snapshot.docs.map((doc) => doc.id);
+        dispatch(getmySBs(payload, id));
+      });
+    dispatch(setLoading(false));
+  };
+}
+
+export function getSBrequestsAPI(userUID) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    var payload = [];
+    var id = [];
+    db.collection("SBDB")
+      .where("posterUID", "==", userUID)
+      .where("Accepted", "==", "new")
+      //.orderBy("sent_timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        console.log(payload);
+        id = snapshot.docs.map((doc) => doc.id);
+        dispatch(getSBreq(payload, id));
       });
     dispatch(setLoading(false));
   };
@@ -241,6 +343,24 @@ export function TDLdeleteAPI(id) {
 export function updateArticleAPI(payload) {
   return (dispatch) => {
     db.collection("articles").doc(payload.id).update(payload.update);
+  };
+}
+
+export function CalendarDeleteAPI(id) {
+  return (dispatch) => {
+    db.collection("CLDDB").doc(id).delete();
+  };
+}
+
+export function SBdeleteAPI(id) {
+  return (dispatch) => {
+    db.collection("SBDB").doc(id).delete();
+  };
+}
+
+export function SBrepostAPI(payload, id) {
+  return (dispatch) => {
+    db.collection("SBDB").doc(id).set(payload);
   };
 }
 

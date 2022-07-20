@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../header/components/Header";
 import db from "../../firebase";
 import SBRequestList from "../studyBuddies/studybuddy_requests/SBRequestList";
+import MainSBreq from "../studyBuddies/MainSBreq";
 
 const Container = styled.div`
   max-width: 100%;
@@ -95,7 +96,7 @@ function StudyBuddiesRequests(props) {
       <Header />
       {!props.user && <Redirect to="/" />}
 
-      <SBRequestList events={LoadedRequests} userUID={userUID} />
+      <MainSBreq />
     </Container>
   );
 }

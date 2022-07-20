@@ -20,7 +20,7 @@ const Content = styled.div`
 
 const Nav = styled.nav`
   margin-left: auto;
-  margin-bottom: -50px;
+  margin-bottom: -35px;
   display: block;
   @media (max-width: 768px) {
     position: fixed;
@@ -121,11 +121,14 @@ function ToDoListDone(props) {
           </NavList>
         </NavListWrap>
       </Nav>
-      <br />
       <h2>Well Done! You have completed the following tasks!</h2>
+      <br />
 
       <Content>
-        <ToDoListListDone events={loadedtodolist} />
+        {
+          //<ToDoListListDone events={loadedtodolist} />
+        }
+        <MainDone />
       </Content>
     </Container>
   );
