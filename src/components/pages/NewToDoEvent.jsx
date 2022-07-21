@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import styled from "styled-components";
 import Header from "../header/components/Header";
-import NewToDoPage from "../toDoList/todolist_form/NewToDoPage";
 import { Link } from "react-router-dom";
 
 // import { compose, withState, withHandlers } from 'recompose';
@@ -128,8 +127,6 @@ function NewToDoEvent(props) {
             </a>
           </Link>
         </HomePage>
-
-        <NewToDoPage userUID={userUID} />
       </Content>
     </Container>
   );

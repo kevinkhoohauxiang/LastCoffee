@@ -1,5 +1,5 @@
 //import { useContext } from 'react';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../../action/Card";
 import classes from "./SBItem.module.css";
 import styled from "styled-components";
@@ -26,7 +26,8 @@ function SBItem(props) {
   const [PosterDisplayInfo, setPosterDisplayInfo] = useState("");
   const [PosterDisplayName, setPosterDisplayName] = useState("");
   const [PosterDisplayPicture, setPosterDisplayPicture] = useState("");
-  const [AcceptanceState, setAcceptanceState] = useState("");
+  //const [AcceptanceState, setAcceptanceState] = useState("");
+  var AcceptanceState = "";
 
   function renderDoc(doc) {
     setContactInfo(doc.data().Actor.contact_info);
@@ -69,32 +70,26 @@ function SBItem(props) {
       )
     );
 
-  const checkState = db
-    .collection("SBDB")
-    .where(firebase.firestore.FieldPath.documentId(), "==", newDocUID)
-    .get()
-    .then((snapshot) =>
-      snapshot.docs.forEach(
-        //(doc) => console.log(doc.data()),
-        (doc) => {
-          setAcceptanceState(doc.data().Accepted);
-          //console.log(AcceptanceState);
-        }
-      )
-    );
+  useEffect(() => {
+    db.collection("SBDB")
+      .where(firebase.firestore.FieldPath.documentId(), "==", newDocUID)
+      .get()
+      .then((snapshot) =>
+        snapshot.docs.forEach(
+          //(doc) => console.log(doc.data()),
+          (doc) => {
+            //setAcceptanceState(doc.data().Accepted);
+            AcceptanceState = doc.data().Accepted;
+            console.log(doc.data());
+          }
+        )
+      );
+  });
 
   function AddRequest() {
-    //console.log(userUID + posterUID);
-    //we create a document id that is made up of
-    //firstly, the userUID of the user who posted the request,
-    //secondly, the userUID of the user who sent the request
-
-    //we need to define an if else statement. if props.Accepted == "accepted",
-    //we dont submit a new request to the db
-
-    if (AcceptanceState === "accepted") {
+    if (AcceptanceState == "accepted") {
       return;
-    } else if (AcceptanceState !== "accepted") {
+    } else if (AcceptanceState != "accepted") {
       db.collection("SBDB")
         .doc(newDocUID)
         .set({
@@ -110,7 +105,13 @@ function SBItem(props) {
           // "accepted" - accepted
           // "rejected" - rejected
           Accepted: "new",
-          posterUID: posterUID,
+          Poster: {
+            userUID: posterUID,
+            display_name: PosterDisplayName,
+            contact_info: PosterContactInfo,
+            display_picture: PosterDisplayPicture,
+            display_info: PosterDisplayInfo,
+          },
           sent_timestamp: Firebase.firestore.Timestamp.now(),
           accepted_timestamp: Firebase.firestore.Timestamp.now(),
           accepter: false,

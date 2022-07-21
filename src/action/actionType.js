@@ -8,3 +8,5 @@ export const GET_TDL_DONE = "GET_TDL_DONE";
 export const GET_CALENDAR = "GET_CALENDAR";
 export const GET_SB_REQ = "GET_SB_REQ";
 export const GET_MY_SB = "GET_MY_SB";
+export const GET_SB_POSTS = "GET_SB_POSTS";
+export const GET_SB_NOTIFS = "GET_SB_NOTIFS";

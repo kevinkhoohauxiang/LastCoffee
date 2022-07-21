@@ -81,7 +81,7 @@ function Home(props) {
       .then((doc) => {
         //console.log(doc.exists);
         if (!doc.exists) {
-          console.log("invoked");
+          //console.log("invoked");
           db.collection("DPDB")
             .doc(props.user.uid)
             .set({
@@ -90,14 +90,16 @@ function Home(props) {
                 contact_info: props.user.email,
                 display_picture: props.user.photoURL,
                 display_info: "",
+                faculty: "",
+                gender: "",
+                year: "",
               },
             });
         } else {
-          console.log(null);
+          //console.log(null);
           return;
         }
       });
-    //driver.refresh();
   });
 
   return (

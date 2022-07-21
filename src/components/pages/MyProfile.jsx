@@ -120,7 +120,6 @@ function MyProfile(props) {
         }
       )
     );
-  //console.log(userUID);
 
   return (
     <Container>

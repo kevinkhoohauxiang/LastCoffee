@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { getMySBsAPI, SBdeleteAPI } from "../../action";
+import { getSBnotifsAPI } from "../../action";
 
 const Container = styled.div`
   grid-area: main;
@@ -200,27 +200,19 @@ const Content = styled.div`
   }
 `;
 
-function MainMySB(props) {
+function MainSBnotifs(props) {
   const userUID = props.user.uid;
 
   useEffect(() => {
-    props.getMySBs(userUID);
+    props.getSBnotifs(userUID);
   }, []);
-
-  function changeDeleteState(event, ID1, ID2) {
-    event.preventDefault();
-    const newID1 = ID1 + ID2;
-    const newID2 = ID2 + ID1;
-    props.SBDelete(newID1);
-    props.SBDelete(newID2);
-  }
 
   return (
     <Container>
       <Content>
         {props.loading && <img src="/images/spin-loader.gif" alt="" />}
-        {props.mySBs.length > 0 &&
-          props.mySBs.map((article, key) => (
+        {props.SBnotifs.length > 0 &&
+          props.SBnotifs.map((article, key) => (
             <Article key={key}>
               {
                 //console.log(props.ids[key])}
@@ -230,20 +222,6 @@ function MainMySB(props) {
               <h2>Info: {article.Actor.display_info}</h2>
               <h3></h3>
               <h3></h3>
-
-              <SocialActions>
-                <img
-                  src="/images/Deletebtn1.svg"
-                  alt=""
-                  onClick={(event) =>
-                    changeDeleteState(
-                      event,
-                      article.Actor.userUID,
-                      article.Poster.userUID
-                    )
-                  }
-                />
-              </SocialActions>
             </Article>
           ))}
       </Content>
@@ -254,15 +232,14 @@ function MainMySB(props) {
 const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
-    loading: state.mySBState.loading,
-    mySBs: state.mySBState.mySBs,
-    ids: state.mySBState.ids,
+    loading: state.SBnotifsState.loading,
+    SBnotifs: state.SBnotifsState.SBnotifs,
+    ids: state.SBnotifsState.ids,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getMySBs: (userUID) => dispatch(getMySBsAPI(userUID)),
-  SBDelete: (id) => dispatch(SBdeleteAPI(id)),
+  getSBnotifs: (userUID) => dispatch(getSBnotifsAPI(userUID)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainMySB);
+export default connect(mapStateToProps, mapDispatchToProps)(MainSBnotifs);

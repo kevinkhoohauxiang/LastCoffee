@@ -4,6 +4,7 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import db from "../../firebase";
 import Header from "../header/components/Header";
+import MainSBnotifs from "../studyBuddies/MainSBnotifs";
 import SBNotificationsList from "../studyBuddies/studybuddy_notifications/SBNotificationsList";
 
 const Container = styled.div`
@@ -75,7 +76,7 @@ function StudyBuddyNotifications(props) {
             //console.log(doc.data());
             if (
               // we fetch and show only "new" requests
-              doc.data().posterUID === userUID &&
+              doc.data().Poster.userUID === userUID &&
               doc.data().Accepted === "accepted"
             ) {
               myRequests.push(SB);

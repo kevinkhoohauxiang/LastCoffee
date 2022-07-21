@@ -10,6 +10,8 @@ import {
   GET_TDL_UNDONE,
   GET_SB_REQ,
   GET_MY_SB,
+  GET_SB_POSTS,
+  GET_SB_NOTIFS,
 } from "./actionType";
 //import firebase from "firebase";
 
@@ -76,6 +78,22 @@ export function getSBreq(payload, id) {
 export function getmySBs(payload, id) {
   return {
     type: GET_MY_SB,
+    payload: payload,
+    id: id,
+  };
+}
+
+export function geTSBposts(payload, id) {
+  return {
+    type: GET_SB_POSTS,
+    payload: payload,
+    id: id,
+  };
+}
+
+export function getSBnotifs(payload, id) {
+  return {
+    type: GET_SB_NOTIFS,
     payload: payload,
     id: id,
   };
@@ -213,6 +231,16 @@ export function postTDLAPI(payload) {
   };
 }
 
+export function postSBAPI(payload) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    db.collection("SB posts").add({
+      payload,
+    });
+    dispatch(setLoading(false));
+  };
+}
+
 // function for getting post articles
 export function getArticlesAPI() {
   return (dispatch) => {
@@ -231,7 +259,7 @@ export function getArticlesAPI() {
 }
 
 // function for getting to do list events
-export function getTDLundoneAPI(userUID, bool) {
+export function getTDLundoneAPI(userUID) {
   return (dispatch) => {
     dispatch(setLoading(true));
     var payload = [];
@@ -247,6 +275,27 @@ export function getTDLundoneAPI(userUID, bool) {
         id = snapshot.docs.map((doc) => doc.id);
 
         dispatch(getTDLundone(payload, id));
+      });
+    dispatch(setLoading(false));
+  };
+}
+
+export function getSBnotifsAPI(userUID) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    var payload = [];
+    var id = [];
+    db.collection("SBDB")
+      .where("Accepted", "==", "accepted")
+      .where("Poster.userUID", "==", userUID)
+      //.orderBy("timestamp", "desc")
+      .orderBy("accepted_timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        console.log(payload);
+        id = snapshot.docs.map((doc) => doc.id);
+
+        dispatch(getSBnotifs(payload, id));
       });
     dispatch(setLoading(false));
   };
@@ -296,7 +345,7 @@ export function getMySBsAPI(userUID) {
     var payload = [];
     var id = [];
     db.collection("SBDB")
-      .where("posterUID", "==", userUID)
+      .where("Poster.userUID", "==", userUID)
       .where("Accepted", "==", "accepted")
       .orderBy("accepted_timestamp", "desc")
       .onSnapshot((snapshot) => {
@@ -315,7 +364,7 @@ export function getSBrequestsAPI(userUID) {
     var payload = [];
     var id = [];
     db.collection("SBDB")
-      .where("posterUID", "==", userUID)
+      .where("Poster.userUID", "==", userUID)
       .where("Accepted", "==", "new")
       //.orderBy("sent_timestamp", "desc")
       .onSnapshot((snapshot) => {
@@ -327,6 +376,25 @@ export function getSBrequestsAPI(userUID) {
     dispatch(setLoading(false));
   };
 }
+/*
+export function getSBpostsAPI(userUID) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    var payload = [];
+    var id = [];
+    db.collection("SBDB")
+      .where("posterUID", "==", userUID)
+      .where("Accepted", "==", "new")
+      //.orderBy("sent_timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        console.log(payload);
+        id = snapshot.docs.map((doc) => doc.id);
+        dispatch(getSBreq(payload, id));
+      });
+    dispatch(setLoading(false));
+  };
+}*/
 
 export function TDLdoneAPI(payload, id) {
   return (dispatch) => {

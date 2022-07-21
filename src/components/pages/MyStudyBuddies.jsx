@@ -4,7 +4,6 @@ import { Redirect } from "react-router";
 import db from "../../firebase";
 import styled from "styled-components";
 import Header from "../header/components/Header";
-import MySBList from "../studyBuddies/mystudybuddies/MySBList";
 import MainMySB from "../studyBuddies/MainMySB";
 
 const Container = styled.div`
@@ -61,7 +60,7 @@ function MyStudyBuddies(props) {
       <Header />
       {!props.user && <Redirect to="/" />}
 
-      <MainMySB />
+      {<MainMySB />}
     </Container>
   );
 }

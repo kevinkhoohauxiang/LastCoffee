@@ -221,48 +221,46 @@ function MainSBreq(props) {
     article["Accepted"] = "accepted";
     article["accepted_timestamp"] = Firebase.firestore.Timestamp.now();
     // bug -- doenst update when calling the db
-    /*
-    const PosterUID = article.posterUID;
+
+    const PosterUID = article.Poster.userUID;
     const ActorUID = article.Actor.userUID;
-    let ContactInfo;
-    let DisplayInfo;
-    let DisplayName;
-    let DisplayPicture;
+    const Poster_contact_info = article.Poster.contact_info;
+    const Poster_display_info = article.Poster.display_info;
+    const Poster_display_name = article.Poster.display_name;
+    const Poster_display_picture = article.Poster.display_picture;
+    const Actor_contact_info = article.Actor.contact_info;
+    const Actor_display_info = article.Actor.display_info;
+    const Actor_display_name = article.Actor.display_name;
+    const Actor_display_picture = article.Actor.display_picture;
 
-    db.collection("DPDB")
-      .where(firebase.firestore.FieldPath.documentId(), "==", PosterUID)
-      .get()
-      .then((snapshot) =>
-        snapshot.docs.forEach((doc) => {
-          console.log(doc.data().Actor.display_name);
-          ContactInfo = doc.data().Actor.contact_info;
-          DisplayInfo = doc.data().Actor.display_info;
-          DisplayName = doc.data().Actor.display_name;
-          DisplayPicture = doc.data().Actor.display_picture;
-        })
-      );
-
-    const newID = PosterUID + ActorUID;
+    const newID = ActorUID + PosterUID;
+    //console.log(newID);
     const payload = {
       Actor: {
         userUID: PosterUID,
-        display_name: DisplayName,
-        contact_info: ContactInfo,
-        display_picture: DisplayPicture,
-        display_info: DisplayInfo,
+        display_name: Poster_display_name,
+        contact_info: Poster_contact_info,
+        display_picture: Poster_display_picture,
+        display_info: Poster_display_info,
       },
-      posterUID: ActorUID,
+
+      Poster: {
+        userUID: ActorUID,
+        display_name: Actor_display_name,
+        contact_info: Actor_contact_info,
+        display_picture: Actor_display_picture,
+        display_info: Actor_display_info,
+      },
       Accepted: "accepted",
       sent_timestamp: article.sent_timestamp,
       accepted_timestamp: Firebase.firestore.Timestamp.now(),
       accepter: true,
     };
-    console.log(DisplayName);
-    */
+    //console.log(payload);
 
     props.SBdelete(id);
     props.SBrepost(article, id);
-    //props.SBrepost(payload, newID);
+    props.SBrepost(payload, newID);
   }
 
   return (
@@ -278,7 +276,6 @@ function MainSBreq(props) {
                 buddy!
               </h2>
               <h3>{article.Actor.display_info}</h3>
-
               <SocialActions>
                 <img
                   src="/images/Acceptbtn1.svg"

@@ -6,6 +6,7 @@ import TDLundoneReducer from "./TDLundoneReduce";
 import CalendarReducer from "./CalendarReducer";
 import mySBReducer from "./mySBReducer";
 import SBrequestsReducer from "./SBrequestsReducer";
+import SBnotifsReducer from "./SBnotifsReducer";
 
 const rootReducer = combineReducers({
   userState: userReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   calendarState: CalendarReducer,
   mySBState: mySBReducer,
   SBrequestsState: SBrequestsReducer,
+  SBnotifsState: SBnotifsReducer,
 });
 
 export default rootReducer;
