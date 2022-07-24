@@ -116,6 +116,7 @@ function Home(props) {
             <br></br> track your academic progress and connect with like-minded
             peers.
           </h2>
+
           <img src="/images/books.png" alt="Bookshelf" />
         </Homepage>
       </Content>

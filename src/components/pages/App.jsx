@@ -32,8 +32,14 @@ function App(props) {
     <div className="App">
       <Router>
         <Switch>
+          <Route exact path="/LastCoffee">
+            <Login />
+          </Route>
           <Route exact path="/">
             <Login />
+          </Route>
+          <Route path="/LastCoffee">
+            <Home />
           </Route>
           <Route path="/home">
             <Home />

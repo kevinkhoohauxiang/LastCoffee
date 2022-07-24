@@ -1,8 +1,8 @@
 {
-  "homepage": "https://kevinkhoohauxiang.github.io/LastCoffee",
-  "name": "LastCoffee",
+  "homepage": ".",
+  "name": "last-coffee",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -37,8 +37,6 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
