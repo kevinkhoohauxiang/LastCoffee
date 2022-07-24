@@ -1,6 +1,6 @@
 {
-  "homepage": "https://hx1228.github.io/LastCoffee",
-  "name": "last-coffee",
+  "homepage": "https://kevinkhoohauxiang.github.io/LastCoffee",
+  "name": "LastCoffee",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -37,7 +37,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "predeploy" :"npm run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -1,20 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.dd95b861.chunk.css",
-    "main.js": "/static/js/main.adf52246.chunk.js",
-    "main.js.map": "/static/js/main.adf52246.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.fa2d2f10.js",
-    "runtime-main.js.map": "/static/js/runtime-main.fa2d2f10.js.map",
-    "static/js/2.a8b1d35c.chunk.js": "/static/js/2.a8b1d35c.chunk.js",
-    "static/js/2.a8b1d35c.chunk.js.map": "/static/js/2.a8b1d35c.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.dd95b861.chunk.css.map": "/static/css/main.dd95b861.chunk.css.map",
-    "static/js/2.a8b1d35c.chunk.js.LICENSE.txt": "/static/js/2.a8b1d35c.chunk.js.LICENSE.txt"
+    "main.css": "/LastCoffee/static/css/main.f7d11f0d.css",
+    "main.js": "/LastCoffee/static/js/main.6884566a.js",
+    "index.html": "/LastCoffee/index.html",
+    "main.f7d11f0d.css.map": "/LastCoffee/static/css/main.f7d11f0d.css.map",
+    "main.6884566a.js.map": "/LastCoffee/static/js/main.6884566a.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.fa2d2f10.js",
-    "static/js/2.a8b1d35c.chunk.js",
-    "static/css/main.dd95b861.chunk.css",
-    "static/js/main.adf52246.chunk.js"
+    "static/css/main.f7d11f0d.css",
+    "static/js/main.6884566a.js"
   ]
 }
