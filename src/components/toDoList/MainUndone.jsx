@@ -75,102 +75,24 @@ const Article = styled(CommonBox)`
   overflow: visible;
 `;
 
-const SharedActor = styled.div`
-  padding-right: 40px;
-  flex-wrap: nowrap;
-  padding: 12px 16px 0;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  a {
-    margin-right: 12px;
-    flex-grow: 1;
-    overflow: hidden;
-    display: flex;
-    img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-    }
-    & > div {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      flex-basis: 0;
-      margin-left: 8px;
-      overflow: hidden;
-      span {
-        text-align: left;
-        &:first-child {
-          font-size: 14px;
-          font-weight: 700;
-          color: #000;
-        }
-        &:nth-child(n + 2) {
-          font-size: 12px;
-          color: rgba(0, 0, 0, 0.6);
-        }
-      }
-    }
-  }
-  button {
-    position: absolute;
-    top: 0;
-    right: 12px;
-    border: none;
-    outline: none;
-    background: transparent;
-  }
-`;
-
 const Description = styled.div`
   padding: 0 16px;
   overflow: hidden;
   font-size: 14px;
-  text-align: left;
-`;
-
-const SharedImage = styled.div`
-  margin: 8px 16px 0;
-  background-color: #f9fafb;
-  img {
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const SocialCount = styled.ul`
-  line-height: 1.3;
-  display: flex;
-  align-items: flex-start;
-  overflow: auto;
-  margin: 0 16px;
-  padding: 8px 0;
-  border-bottom: 1px solid #e9efdf;
-  color: rgba(0, 0, 0, 0.6);
-  list-style: none;
-  li {
-    margin-right: 5px;
-    font-size: 12px;
-    button {
-      display: flex;
-      border: none;
-      color: rgba(0, 0, 0, 0.6);
-      background: transparent;
-      span {
-        padding-left: 5px;
-      }
-    }
-  }
+  margin-top: 10px;
+  text-align: center;
 `;
 
 const SocialActions = styled.div`
-  display: flex;
+  display: center;
   align-items: center;
   justify-content: flex-start;
   margin: 4px 12px;
   min-height: 40px;
   padding-bottom: 5px;
+  img {
+    cursor: pointer;
+  }
   button {
     display: inline-flex;
     align-items: center;
