@@ -37,19 +37,19 @@ const CardBackground = styled.div`
 `;
 
 const Photo = styled.div`
-  box-shadow: none;
-  background: url(${(props) => props.photoUrl});
+  display: flex;
+  flex-direction: column;
   width: 72px;
   height: 72px;
-  box-sizing: border-box;
-  background-clip: content-box;
-  background-color: #fff;
-  background-position: center;
-  /* background-size: 60%; */
-  background-repeat: no-repeat;
   border: 2px solid white;
-  margin: -38px auto 12px;
+  margin: -39px auto 11px;
   border-radius: 50%;
+  img {
+    width: 72px;
+    height: 72px;
+    background-clip: content-box;
+    border-radius: 50%;
+  }
 `;
 
 const Link = styled.div`
@@ -65,79 +65,6 @@ const AddPhotoText = styled.div`
   font-size: 12px;
   line-height: 1.33;
   font-weight: 400;
-`;
-
-const Widget = styled.div`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 12px 0;
-  & > a {
-    text-decoration: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 12px;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.08);
-    }
-    div {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      span {
-        font-size: 12px;
-        line-height: 1.333;
-        &:first-child {
-          color: rgba(0, 0, 0, 0.6);
-        }
-        &:nth-child(2) {
-          color: #000;
-        }
-      }
-    }
-  }
-`;
-
-const Item = styled.a`
-  display: block;
-  border-color: rgba(0, 0, 0, 0.6);
-  text-align: left;
-  padding: 12px;
-  font-size: 12px;
-  span {
-    display: flex;
-    align-items: center;
-  }
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-`;
-
-const CommunityCard = styled(ArtCard)`
-  padding: 8px 0 0;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  a {
-    color: #000;
-    padding: 4px 12px;
-    font-size: 12px;
-    &:hover {
-      color: #0a66c2;
-    }
-    span {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    &:last-child {
-      color: rgba(0, 0, 0, 0.6);
-      border-top: 1px solid #d6cec2;
-      padding: 12px;
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.08);
-      }
-    }
-  }
 `;
 
 function Left(props) {
@@ -184,7 +111,9 @@ function Left(props) {
         <UserInfo>
           <CardBackground />
           <a>
-            <Photo photoUrl={DisplayPicture} />
+            <Photo>
+              <img src={DisplayPicture} />
+            </Photo>
             <Link>
               Welcome to <br></br>The Last Coffee, <br></br>{" "}
               {props.user ? DisplayName : ""}!

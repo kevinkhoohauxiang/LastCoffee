@@ -2,7 +2,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import Firebase from "firebase";
 import styled from "styled-components";
-import { postTDLAPI } from "../../action";
+import { concatenateDateTime, postCalendarAPI } from "../../action";
 import firebase from "firebase";
 import db from "../../firebase";
 
@@ -149,10 +149,12 @@ const UploadImage = styled.div`
   }
 `;
 
-function TDLmodal(props) {
+function Calendarmodal(props) {
   const [Title, setTitle] = useState("");
-  const [Deadline, setDeadline] = useState("");
-  const [Description, setDescription] = useState("");
+  const [StartDate, setStartDate] = useState("");
+  const [StartTime, setStartTime] = useState("");
+  const [EndDate, setEndDate] = useState("");
+  const [EndTime, setEndTime] = useState("");
   const [DisplayPicture, setDisplayPicture] = useState("");
   const userUID = props.user.uid;
   //const [assetArea, setAssetArea] = useState("");
@@ -172,27 +174,31 @@ function TDLmodal(props) {
 
   const reset = (event) => {
     setTitle("");
-    setDeadline("");
-    setDescription("");
+    setStartDate("");
+    setStartTime("");
+    setEndDate("");
+    setEndTime("");
     props.clickHandler(event);
   };
 
-  function postTDL(event) {
+  function postCalendar(event) {
     event.preventDefault();
     if (event.target !== event.currentTarget) {
       return;
     }
 
     const payload = {
-      deadline: Deadline,
-      description: Description,
+      userUID: userUID,
       title: Title,
-      userUID: props.user.uid,
-      timestamp: Firebase.firestore.Timestamp.now(),
+      startDate: StartDate,
+      startTime: StartTime,
+      endDate: EndDate,
+      endTime: EndTime,
+      startTimestamp: concatenateDateTime(StartDate, StartTime),
     };
     //console.log(payload);
 
-    props.postTDL(payload);
+    props.postCalendar(payload);
     reset(event);
   }
 
@@ -227,30 +233,63 @@ function TDLmodal(props) {
                   //autoFocus={true}
                 />
 
-                <label>{<br />}Deadline</label>
+                <label>
+                  <br />
+                  Start Date
+                </label>
                 <div>
                   <input
-                    //value={Deadline}
                     type="date"
                     required
-                    id="deadline"
-                    onChange={(event) => setDeadline(event.target.value)}
+                    id="startDate"
+                    onChange={(event) => setStartDate(event.target.value)}
                   />
                 </div>
 
-                <label>Description</label>
-                <textarea
-                  value={Description}
-                  onChange={(event) => setDescription(event.target.value)}
-                  placeholder="Complete deployment of app, update tailwind.css ..."
-                  //autoFocus={true}
-                />
+                <label>
+                  <br />
+                  Start Time
+                </label>
+                <div>
+                  <input
+                    type="time"
+                    required
+                    id="startTime"
+                    onChange={(event) => setStartTime(event.target.value)}
+                  />
+                </div>
+
+                <label>
+                  <br />
+                  End Date
+                </label>
+                <div>
+                  <input
+                    type="date"
+                    required
+                    id="endDate"
+                    onChange={(event) => setEndDate(event.target.value)}
+                  />
+                </div>
+
+                <label>
+                  <br />
+                  End Time
+                </label>
+                <div>
+                  <input
+                    type="time"
+                    required
+                    id="endTime"
+                    onChange={(event) => setEndTime(event.target.value)}
+                  />
+                </div>
               </Editor>
             </SharedContent>
             <ShareCreation>
               <PostButton
                 disabled={!Title ? true : false}
-                onClick={(event) => postTDL(event)}
+                onClick={(event) => postCalendar(event)}
               >
                 Add
               </PostButton>
@@ -270,8 +309,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    postTDL: (payload) => dispatch(postTDLAPI(payload)),
+    postCalendar: (payload) => dispatch(postCalendarAPI(payload)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TDLmodal);
+export default connect(mapStateToProps, mapDispatchToProps)(Calendarmodal);

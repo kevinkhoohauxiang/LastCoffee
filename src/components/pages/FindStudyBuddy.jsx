@@ -57,7 +57,6 @@ const Layout = styled.div`
   grid-template-columns: minmax(0, 5fr) minmax(0, 17fr);
   column-gap: 25px;
   row-gap: 25px;
-  margin: 25px 0;
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
@@ -74,6 +73,12 @@ const HomePage = styled.div`
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+
+  img {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   button {
     border: 0.0625rem solid rgb(17, 109, 255);
     background-color: rgb(17, 109, 255);
@@ -85,7 +90,6 @@ const HomePage = styled.div`
     color: #ffffff;
     font-size: 1.5rem;
     font-weight: 300;
-    margin-top: 2rem;
     align-items: center;
     a:link {
       text-decoration: none;

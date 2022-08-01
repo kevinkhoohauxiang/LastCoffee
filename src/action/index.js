@@ -230,6 +230,21 @@ export function postTDLAPI(payload) {
     dispatch(setLoading(false));
   };
 }
+export function postCalendarAPI(payload) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    db.collection("CLDDB").add({
+      userUID: payload.userUID,
+      title: payload.title,
+      startDate: payload.startDate,
+      startTime: payload.startTime,
+      endDate: payload.endDate,
+      endTime: payload.endTime,
+      startTimestamp: payload.startTimestamp,
+    });
+    dispatch(setLoading(false));
+  };
+}
 
 export function postSBAPI(payload) {
   return (dispatch) => {

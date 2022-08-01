@@ -7,6 +7,7 @@ import db from "../../firebase";
 import { Link } from "react-router-dom";
 import CalendarApp from "../calendar/calendar_app/CalendarApp";
 import { concatenateDateTime } from "../../action";
+import Calendarmodal from "../calendar/Calendarmodal";
 
 const Container = styled.div`
   max-width: 100%;
@@ -71,6 +72,7 @@ const NavList = styled.li`
 `;
 
 function MyCalendar(props) {
+  const [showModal, setShowModal] = useState("close");
   const [loadedEventslist, setLoadedEvents] = useState([]);
   const userUID = props.user.uid;
 
@@ -97,6 +99,24 @@ function MyCalendar(props) {
       });
   }, []);
 
+  const clickHandler = (event) => {
+    event.preventDefault();
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+    switch (showModal) {
+      case "open":
+        setShowModal("close");
+        break;
+      case "close":
+        setShowModal("open");
+        break;
+      default:
+        setShowModal("close");
+        break;
+    }
+  };
+
   return (
     <Container>
       {!props.user && <Redirect to="/" />}
@@ -110,19 +130,20 @@ function MyCalendar(props) {
                 <img src="/images/Togglebtn1.svg" alt="" />
               </a>
             </Link>
-          </NavList>
-          <NavList>
-            <Link to="/createnewcalendar">
-              <a href="/createnewcalendar">
-                <img src="/images/Addbtn1.svg" alt="" />
-              </a>
-            </Link>
+            <img
+              src="/images/Addbtn1.svg"
+              alt=""
+              onClick={clickHandler}
+              disabled={props.loading ? true : false}
+            />
           </NavList>
         </NavListWrap>
       </Nav>
+
       <Content>
         <CalendarApp userUID={userUID} events={loadedEventslist} />
       </Content>
+      <Calendarmodal showModal={showModal} clickHandler={clickHandler} />
     </Container>
   );
 }

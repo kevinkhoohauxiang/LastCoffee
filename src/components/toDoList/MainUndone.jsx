@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { getTDLundoneAPI, TDLdeleteAPI, TDLdoneAPI } from "../../action";
 import TDLmodal from "./TDLmodal";
+import firebase from "firebase";
+import db from "../../firebase";
 
 const Container = styled.div`
   grid-area: main;
@@ -42,7 +44,8 @@ const ShareBox = styled(CommonBox)`
       align-items: center;
       padding: 8px 16px;
       img {
-        width: 48px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         margin-right: 8px;
       }
@@ -53,17 +56,6 @@ const ShareBox = styled(CommonBox)`
         border: 1px solid rgba(0, 0, 0, 0.15);
         border-radius: 35px;
         text-align: left;
-      }
-    }
-    &:nth-child(2) {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      padding-bottom: 4px;
-      button {
-        img {
-          margin: 0 4px 0 -2px;
-        }
       }
     }
   }
@@ -125,11 +117,25 @@ const Content = styled.div`
 
 function MainUndone(props) {
   const [showModal, setShowModal] = useState("close");
+  const [DisplayPicture, setDisplayPicture] = useState("");
   const userUID = props.user.uid;
 
   useEffect(() => {
     props.getTDLundone(userUID, false);
   }, []);
+
+  const Set_values = db
+    .collection("DPDB")
+    .where(firebase.firestore.FieldPath.documentId(), "==", userUID)
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.forEach(
+        //(doc) => console.log(doc.data()),
+        (doc) => {
+          setDisplayPicture(doc.data().Actor.display_picture);
+        }
+      )
+    );
 
   const clickHandler = (event) => {
     event.preventDefault();
@@ -167,7 +173,7 @@ function MainUndone(props) {
       <ShareBox>
         <div>
           {props.user.photoURL ? (
-            <img src={props.user.photoURL} alt="" />
+            <img src={DisplayPicture} alt="" />
           ) : (
             <img src="/images/user.svg" alt="" />
           )}
