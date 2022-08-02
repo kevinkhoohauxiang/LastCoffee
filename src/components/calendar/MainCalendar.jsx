@@ -76,16 +76,10 @@ function MainCalendar(props) {
   return (
     <Container>
       <Content>
-        {
-          //console.log(props.articles)}
-        }
         {props.loading && <img src="/images/spin-loader.gif" alt="" />}
         {props.calendars.length > 0 &&
           props.calendars.map((article, key) => (
             <Article key={key}>
-              {
-                //console.log(props.ids[key])}
-              }
               <br />
               <h2>Title: {article.title}</h2>
               <h3>

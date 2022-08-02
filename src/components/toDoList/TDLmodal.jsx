@@ -93,22 +93,6 @@ const ShareCreation = styled.div`
   padding: 10px 24px 10px 16px;
 `;
 
-const AssetButton = styled.button`
-  display: flex;
-  align-items: center;
-  height: 40px;
-  min-width: auto;
-  margin-right: 8px;
-  border-radius: 50%;
-  border: none;
-  outline: none;
-  justify-content: center;
-  background: transparent;
-  &:hover {
-    background: rgba(0, 0, 0, 0.08);
-  }
-`;
-
 const PostButton = styled.button`
   min-width: 60px;
   padding: 0 16px;
@@ -139,13 +123,6 @@ const Editor = styled.div`
     height: 35px;
     font-size: 16px;
     margin-bottom: 20px;
-  }
-`;
-
-const UploadImage = styled.div`
-  text-align: center;
-  img {
-    width: 100%;
   }
 `;
 

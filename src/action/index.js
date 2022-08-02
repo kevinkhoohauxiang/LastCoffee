@@ -240,7 +240,8 @@ export function postCalendarAPI(payload) {
       startTime: payload.startTime,
       endDate: payload.endDate,
       endTime: payload.endTime,
-      startTimestamp: payload.startTimestamp,
+      start: payload.start,
+      end: payload.end,
     });
     dispatch(setLoading(false));
   };
@@ -343,10 +344,37 @@ export function getCalendarAPI(userUID) {
     var id = [];
     db.collection("CLDDB")
       .where("userUID", "==", userUID)
-      .orderBy("startTimestamp", "asc")
+      .orderBy("start", "asc")
       .onSnapshot((snapshot) => {
         payload = snapshot.docs.map((doc) => doc.data());
         console.log(payload);
+        id = snapshot.docs.map((doc) => doc.id);
+        dispatch(getCalendar(payload, id));
+      });
+    dispatch(setLoading(false));
+  };
+}
+
+function changeToDate(doc) {
+  return {
+    title: doc.data().title,
+    start: concatenateDateTime(doc.data().startDate, doc.data().startTime),
+    end: concatenateDateTime(doc.data().endDate, doc.data().endTime),
+  };
+}
+
+export function getCalendarAppAPI(userUID) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    var payload = [];
+    var id = [];
+    db.collection("CLDDB")
+      .where("userUID", "==", userUID)
+      .orderBy("start", "asc")
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => {
+          changeToDate(doc);
+        });
         id = snapshot.docs.map((doc) => doc.id);
         dispatch(getCalendar(payload, id));
       });
