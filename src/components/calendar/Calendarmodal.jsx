@@ -195,7 +195,6 @@ function Calendarmodal(props) {
       endDate: EndDate,
       endTime: EndTime,
       start: concatenateDateTime(StartDate, StartTime),
-      end: concatenateDateTime(EndDate, EndTime),
     };
     //console.log(payload);
 
@@ -209,7 +208,7 @@ function Calendarmodal(props) {
         <Container>
           <Content>
             <Header>
-              <h2>Add Calendar Event </h2>
+              <h2>Add New To-Do </h2>
               <button onClick={(event) => reset(event)}>
                 <img src="/images/close-icon.svg" alt="" />
               </button>
@@ -230,7 +229,7 @@ function Calendarmodal(props) {
                 <textarea
                   value={Title}
                   onChange={(event) => setTitle(event.target.value)}
-                  placeholder="Freshman Orientation Camp..."
+                  placeholder="Finish up orbital milestone 3..."
                   //autoFocus={true}
                 />
 

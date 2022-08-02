@@ -6,7 +6,7 @@ import Header from "../header/components/Header";
 import db from "../../firebase";
 import { Link } from "react-router-dom";
 import CalendarApp from "../calendar/calendar_app/CalendarApp";
-import { concatenateDateTime, getCalendarAppAPI } from "../../action";
+import { concatenateDateTime } from "../../action";
 import Calendarmodal from "../calendar/Calendarmodal";
 
 const Container = styled.div`
@@ -75,12 +75,8 @@ function MyCalendar(props) {
   const [showModal, setShowModal] = useState("close");
   const [loadedEventslist, setLoadedEvents] = useState([]);
   const userUID = props.user.uid;
-  //console.log(loadedEventslist);
-  //console.log("hello", props.calendars);
-  //console.log(loadedEventslist);
 
   useEffect(() => {
-    props.getCalendar();
     db.collection("CLDDB")
       .get()
       .then((snapshot) => {
@@ -134,7 +130,6 @@ function MyCalendar(props) {
                 <img src="/images/Togglebtn1.svg" alt="" />
               </a>
             </Link>
-
             <img
               src="/images/Addbtn1.svg"
               alt=""
@@ -156,14 +151,7 @@ function MyCalendar(props) {
 const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
-    loading: state.calendarState.loading,
-    calendars: state.calendarState.calendars,
-    ids: state.calendarState.ids,
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getCalendar: (userUID) => dispatch(getCalendarAppAPI(userUID)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyCalendar);
+export default connect(mapStateToProps)(MyCalendar);
