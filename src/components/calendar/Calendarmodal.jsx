@@ -195,6 +195,7 @@ function Calendarmodal(props) {
       endDate: EndDate,
       endTime: EndTime,
       start: concatenateDateTime(StartDate, StartTime),
+      end: concatenateDateTime(EndDate, EndTime),
     };
     //console.log(payload);
 

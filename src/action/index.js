@@ -241,6 +241,7 @@ export function postCalendarAPI(payload) {
       endDate: payload.endDate,
       endTime: payload.endTime,
       start: payload.start,
+      end: payload.end,
     });
     dispatch(setLoading(false));
   };
