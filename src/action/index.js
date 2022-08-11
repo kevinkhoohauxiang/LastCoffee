@@ -366,7 +366,7 @@ export function getMySBsAPI(userUID) {
       .orderBy("accepted_timestamp", "desc")
       .onSnapshot((snapshot) => {
         payload = snapshot.docs.map((doc) => doc.data());
-        console.log(payload);
+        //console.log(payload);
         id = snapshot.docs.map((doc) => doc.id);
         dispatch(getmySBs(payload, id));
       });

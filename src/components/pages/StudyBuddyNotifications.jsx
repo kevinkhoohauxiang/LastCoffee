@@ -4,7 +4,6 @@ import { Redirect } from "react-router";
 import styled from "styled-components";
 import db from "../../firebase";
 import Header from "../header/components/Header";
-import MainSBnotifs from "../studyBuddies/MainSBnotifs";
 import SBNotificationsList from "../studyBuddies/studybuddy_notifications/SBNotificationsList";
 
 const Container = styled.div`
@@ -84,11 +83,13 @@ function StudyBuddyNotifications(props) {
             }
           }
         );
+        //console.log(myRequests);
+        myRequests.sort(function (x, y) {
+          return y.accepted_timestamp.seconds - x.accepted_timestamp.seconds;
+        });
         setIsLoading(false);
         setLoadedRequests(myRequests);
-        myRequests.sort(function (x, y) {
-          return y.timestamp.seconds - x.timestamp.seconds;
-        });
+
         //console.log(myRequests);
       });
   }, []);
