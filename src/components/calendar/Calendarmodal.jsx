@@ -201,7 +201,7 @@ function Calendarmodal(props) {
         <Container>
           <Content>
             <Header>
-              <h2>Add New To-Do </h2>
+              <h2>Add New Event </h2>
               <button onClick={(event) => reset(event)}>
                 <img src="/images/close-icon.svg" alt="" />
               </button>
