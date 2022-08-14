@@ -18,51 +18,6 @@ const Content = styled.div`
   margin: auto;
 `;
 
-const Section = styled.section`
-  min-height: 50px;
-  margin: 16px 0 -30px;
-  box-sizing: content-box;
-  text-align: center;
-  text-decoration: underline;
-  display: flex;
-  justify-content: center;
-  h5 {
-    color: #0a66c2;
-    font-size: 14px;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    a {
-      font-weight: 700;
-    }
-  }
-  p {
-    font-size: 14px;
-    color: #434649;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 0 5px;
-    margin: 16px 0;
-  }
-`;
-
-const Layout = styled.div`
-  display: grid;
-  grid-template-areas: "left main ";
-  grid-template-columns: minmax(0, 5fr) minmax(0, 17fr);
-  column-gap: 25px;
-  row-gap: 25px;
-  margin: 25px 0;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    padding: 0 5px;
-  }
-`;
 const Portrait = styled.div`
   img {
     margin-top: 5px;
@@ -71,18 +26,6 @@ const Portrait = styled.div`
     float: left;
     margin-right: 10px;
     object-fit: cover;
-  }
-`;
-
-const InputBox = styled.div`
-  input,
-  textarea {
-    display: block;
-    font: inherit;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    padding: 0.25rem;
-    width: 100%;
   }
 `;
 

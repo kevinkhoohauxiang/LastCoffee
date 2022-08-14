@@ -19,38 +19,6 @@ const Content = styled.div`
   margin: auto;
 `;
 
-const Section = styled.section`
-  min-height: 50px;
-  margin: 16px 0 -30px;
-  box-sizing: content-box;
-  text-align: center;
-  text-decoration: underline;
-  display: flex;
-  justify-content: center;
-  h5 {
-    color: #0a66c2;
-    font-size: 14px;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    a {
-      font-weight: 700;
-    }
-  }
-  p {
-    font-size: 14px;
-    color: #434649;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 0 5px;
-    margin: 16px 0;
-  }
-`;
-
 const Layout = styled.div`
   display: grid;
   grid-template-areas: "left main ";
@@ -63,35 +31,6 @@ const Layout = styled.div`
     flex-direction: column;
     padding: 0 5px;
   }
-`;
-const Portrait = styled.div`
-  img {
-    margin-top: 5px;
-    width: 830px;
-    border-radius: 100px;
-    float: left;
-    margin-right: 10px;
-    object-fit: cover;
-  }
-`;
-
-const InputBox = styled.div`
-  input,
-  textarea {
-    display: block;
-    font: inherit;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    padding: 0.25rem;
-    width: 100%;
-  }
-`;
-
-const UserInfo = styled.div`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 12px 12px 16px;
-  word-wrap: break-word;
-  word-break: break-word;
 `;
 
 const Photo = styled.div`
@@ -119,13 +58,6 @@ const ImageUpload = styled.div`
   }
 `;
 
-// for uploading new profile picture
-
-//for changing your name
-
-//for changing contact info
-
-//home page upon signing in
 function MyProfileEdit(props) {
   const userUID = props.user.uid;
   const [ContactInfo, setContactInfo] = useState("");

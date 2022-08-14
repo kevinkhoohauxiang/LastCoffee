@@ -79,7 +79,6 @@ function App(props) {
           <Route path="/todolistdone">
             <ToDoListDone />
           </Route>
-
           <Route path="/findnewsb">
             <NewSB />
           </Route>

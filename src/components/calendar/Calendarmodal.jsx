@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import Firebase from "firebase";
 import styled from "styled-components";
 import { concatenateDateTime, postCalendarAPI } from "../../action";
 import firebase from "firebase";
@@ -139,13 +138,6 @@ const Editor = styled.div`
     height: 35px;
     font-size: 16px;
     margin-bottom: 20px;
-  }
-`;
-
-const UploadImage = styled.div`
-  text-align: center;
-  img {
-    width: 100%;
   }
 `;
 

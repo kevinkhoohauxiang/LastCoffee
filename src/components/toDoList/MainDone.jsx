@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ReactPlayer from "react-player";
 import styled from "styled-components";
-import { getTDLdoneAPI, TDLdeleteAPI, TDLdoneAPI } from "../../action";
-import TDLmodal from "./TDLmodal";
+import { getTDLdoneAPI, TDLdeleteAPI } from "../../action";
 
 const Container = styled.div`
   grid-area: main;
@@ -18,56 +16,6 @@ const CommonBox = styled.div`
   position: relative;
   border: none;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
-`;
-
-const ShareBox = styled(CommonBox)`
-  display: flex;
-  flex-direction: column;
-  margin: 0 0 8px;
-  color: #958b7b;
-  div {
-    button {
-      outline: none;
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 14px;
-      line-height: 1.5;
-      min-height: 48px;
-      display: flex;
-      align-items: center;
-      border: none;
-      background-color: transparent;
-      font-weight: 600;
-    }
-    &:first-child {
-      display: flex;
-      align-items: center;
-      padding: 8px 16px;
-      img {
-        width: 48px;
-        border-radius: 50%;
-        margin-right: 8px;
-      }
-      button {
-        margin: 4px 0;
-        flex-grow: 1;
-        padding-left: 16px;
-        border: 1px solid rgba(0, 0, 0, 0.15);
-        border-radius: 35px;
-        text-align: left;
-      }
-    }
-    &:nth-child(2) {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      padding-bottom: 4px;
-      button {
-        img {
-          margin: 0 4px 0 -2px;
-        }
-      }
-    }
-  }
 `;
 
 const Article = styled(CommonBox)`
@@ -125,7 +73,6 @@ const Content = styled.div`
 `;
 
 function MainDone(props) {
-  const [showModal, setShowModal] = useState("close");
   const userUID = props.user.uid;
 
   useEffect(() => {

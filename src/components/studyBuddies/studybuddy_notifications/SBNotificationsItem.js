@@ -2,7 +2,6 @@ import React from "react";
 import Card from "../../../action/Card";
 import classes from "./SBItem.module.css";
 import Firebase from "firebase";
-//import secondsToString from "../../../action/index";
 
 function SBNotificationsItem(props) {
   const currTime = Firebase.firestore.Timestamp.now().seconds;

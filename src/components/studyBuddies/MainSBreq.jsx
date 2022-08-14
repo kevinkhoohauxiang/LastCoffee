@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { getSBrequestsAPI, SBrepostAPI, SBdeleteAPI } from "../../action";
 import Firebase from "firebase";
-import firebase from "firebase";
-import db from "../../firebase";
 
 const Container = styled.div`
   grid-area: main;

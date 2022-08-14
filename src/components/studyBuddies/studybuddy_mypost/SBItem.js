@@ -1,4 +1,3 @@
-//import { useContext } from 'react';
 import React, { useState } from "react";
 import Card from "../../../action/Card";
 import classes from "./SBItem.module.css";
@@ -7,8 +6,6 @@ import firebase from "firebase/app";
 
 function SBItem(props) {
   const userUID = props.userUID;
-  const posterUID = props.posterUID;
-
   const [DisplayName, setDisplayName] = useState("");
 
   const Set_values = db

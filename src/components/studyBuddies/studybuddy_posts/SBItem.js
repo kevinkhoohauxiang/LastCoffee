@@ -6,7 +6,6 @@ import styled from "styled-components";
 import db from "../../../firebase";
 import firebase from "firebase/app";
 import Firebase from "firebase";
-import Home from "../../pages/Home";
 
 const SendButton = styled.div`
   img {
@@ -75,21 +74,17 @@ function SBItem(props) {
       .where(firebase.firestore.FieldPath.documentId(), "==", newDocUID)
       .get()
       .then((snapshot) =>
-        snapshot.docs.forEach(
-          //(doc) => console.log(doc.data()),
-          (doc) => {
-            //setAcceptanceState(doc.data().Accepted);
-            AcceptanceState = doc.data().Accepted;
-            console.log(doc.data());
-          }
-        )
+        snapshot.docs.forEach((doc) => {
+          AcceptanceState = doc.data().Accepted;
+          //console.log(doc.data());
+        })
       );
   });
 
   function AddRequest() {
-    if (AcceptanceState == "accepted") {
+    if (AcceptanceState === "accepted") {
       return;
-    } else if (AcceptanceState != "accepted") {
+    } else if (AcceptanceState !== "accepted") {
       db.collection("SBDB")
         .doc(newDocUID)
         .set({

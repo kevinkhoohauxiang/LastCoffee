@@ -96,14 +96,8 @@ function Left(props) {
         }
       )
     );
-  //console.log(ContactInfo);
-  //console.log(DisplayPicture);
 
-  //console.log(display_name);
-  //console.log(UID);
   let photoUrl = DisplayPicture ? DisplayPicture : "/images/photo.svg";
-  //console.log(DisplayPicture);
-  //console.log(props.user.photoURL);
 
   return (
     <Container>
@@ -112,7 +106,7 @@ function Left(props) {
           <CardBackground />
           <a>
             <Photo>
-              <img src={DisplayPicture} />
+              <img src={photoUrl} />
             </Photo>
             <Link>
               Welcome to <br></br>The Last Coffee, <br></br>{" "}
@@ -135,14 +129,5 @@ const mapStateToProps = (state) => {
     user: state.userState.user,
   };
 };
-
-// function to allow for the adding of photo into the database
-//const addaPhoto =
-
-//function to allow for the adding of their new(updated) name into the database
-
-//function to allow for the adding of their
-
-//function to allow for the viewing of information
 
 export default connect(mapStateToProps)(Left);

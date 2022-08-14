@@ -10,50 +10,11 @@ const Container = styled.div`
   max-width: 100%;
 `;
 
-const Content = styled.div`
-  max-width: 1128px;
-  margin: auto;
-`;
-
-const Section = styled.section`
-  min-height: 50px;
-  margin: 16px 0 -30px;
-  box-sizing: content-box;
-  text-align: center;
-  text-decoration: underline;
-  display: flex;
-  justify-content: center;
-  h5 {
-    color: #0a66c2;
-    font-size: 14px;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    a {
-      font-weight: 700;
-    }
-  }
-  p {
-    font-size: 14px;
-    color: #434649;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 0 5px;
-    margin: 16px 0;
-  }
-`;
-
 //home page upon signing in
 function StudyBuddyNotifications(props) {
   const userUID = props.user.uid;
   const [LoadedRequests, setLoadedRequests] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
-  //console.log(LoadedRequests);
-  //console.log(userUID);
 
   //we first query out the entries that have posterUID == userUID
 

@@ -150,8 +150,6 @@ const Google = styled.button`
 `;
 
 function Login(props) {
-  console.log(props.user);
-
   return (
     <Container>
       {props.user && <Redirect to="/home" />}

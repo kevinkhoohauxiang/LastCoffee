@@ -5,7 +5,6 @@ import db from "../../firebase";
 import firebase from "firebase/app";
 import { Dropdown } from "react-dropdown-now";
 import "react-dropdown-now/style.css";
-import { set } from "date-fns";
 
 function EditProfileForm(props) {
   const [DisplayName, setDisplayName] = useState("");

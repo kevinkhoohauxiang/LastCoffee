@@ -10,10 +10,6 @@ const Container = styled.div`
   background-color: black;
 `;
 
-const Content = styled.div`
-  margin: auto;
-`;
-
 const HomePage = styled.div`
   display: flex;
   flex-flow: column nowrap;
